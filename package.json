@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bulma": "^0.7.4",
     "mdbreact": "^4.11.0",
     "next": "^8.0.3",
     "react": "^16.8.4",
