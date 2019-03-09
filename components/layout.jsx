@@ -1,20 +1,17 @@
 import Head from 'next/head'
 
-import { MDBContainer } from 'mdbreact'
 
-import Header from './header-bulma'
+import Header from 'components/header'
 
 const Layout = (props) => (
-  <div>
+  <React.Fragment>
     <Head>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css" />
-      <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossOrigin="anonymous"></link>
     </Head>
-    <MDBContainer>
-      <Header></Header>
-      {props.children}
-    </MDBContainer>
-  </div>
+    <Header></Header>
+    {props.children}
+  </React.Fragment>
 )
 
 export default Layout
