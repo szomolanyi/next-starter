@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_PATH=. node server.js",
+    "dev": "cross-env NODE_PATH=. nodemon server.js",
     "debug": "cross-env NODE_PATH=. node server.js",
-    "build": "next build",
+    "build": "cross-env NODE_PATH=. next build",
     "start": "cross-env NODE_PATH=. NODE_ENV=production node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -27,6 +27,7 @@
     "react-dom": "^16.8.4"
   },
   "devDependencies": {
-    "cross-env": "^5.2.0"
+    "cross-env": "^5.2.0",
+    "nodemon": "^1.18.10"
   }
 }

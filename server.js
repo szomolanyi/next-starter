@@ -31,7 +31,7 @@ next_app.prepare()
     app.listen(3000, (err) => {
       if (err) throw err
       console.log('> Ready on http://localhost:3000')
-      console.log(`> Graphql is api ready on ${apollo_server.graphqlPath}`)
+      console.log(`> Graphql is api ready on http://localhost:3000${apollo_server.graphqlPath}`)
     })
   })
   /*.catch((ex) => {
