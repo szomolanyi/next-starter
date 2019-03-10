@@ -1,7 +1,7 @@
 import Head from 'next/head'
 
 
-import Header from 'components/header'
+import Header from '../components/header'
 
 const Layout = (props) => (
   <React.Fragment>
