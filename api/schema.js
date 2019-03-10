@@ -5,16 +5,16 @@ const merge = require('lodash').merge
 //schemas
 //import TodosSchema from './todos/Todos.graphql'
 //const TodosSchema = require('./todos/Todos.graphql')
-const typeDefs = require('./todos/Todos.js')
+const TodosSchema = require('./todos/Todos.js')
+const typeDefs = [
+  TodosSchema
+]
 
 //resolvers
 //import TodosResolvers from './todos/resolvers'
 const TodosResolvers = require('./todos/resolvers')
 
 
-/*const typeDefs = [
-  TodosSchema,
-]*/
 const resolvers = merge(
   TodosResolvers,
 )
