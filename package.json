@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_PATH=. nodemon server.js",
-    "debug": "cross-env NODE_PATH=. node server.js",
+    "dev": "cross-env NODE_PATH=. nodemon index.js",
+    "debug": "cross-env NODE_PATH=. node index.js",
     "build": "cross-env NODE_PATH=. next build",
-    "start": "cross-env NODE_PATH=. NODE_ENV=production node server.js",
+    "start": "cross-env NODE_PATH=. NODE_ENV=production node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
