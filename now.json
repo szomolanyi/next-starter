@@ -3,20 +3,17 @@
   "builds": [
     {
       "src": "server.js",
-      "use": "@now/node-server"
+      "use": "@now/node"
     },
     {
-      "src": "package.json",
+      "src": "next.config.js",
       "use": "@now/next"
     }
   ],
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/graphql",
       "dest": "server.js"
     }
-  ],
-  "env": {
-    "NODE_PATH": "."
-  }
+  ]
 }
