@@ -2,22 +2,25 @@ const mongodb = require('mongodb')
 
 const client = new mongodb.MongoClient(process.env.MONGODB_URI, { useNewUrlParser: true})
 
-const getDatabase = () => {
+const getDatabase = async () => {
   if (client.isConnected()) {
-    console.log('tt1')
-    return client.db()
+      return client.db()
   }
   else {
-    console.log('tt2')
-    return client.connect().then(() => {
-      console.log('tt3')
-      return client.db()
-    })
+    await client.connect()
+    return client.db()
   }
 }
 
-const getCollection = (name) => {
-  return getDatabase().then((db) => db.collection(name))
+const getCollection = async (name) => {
+  const db = await getDatabase()
+  return db.collection(name)
 }
 
-module.exports = { getDatabase, getCollection}
+const closeDatabase = async () => {
+  if (client.isConnected()) {
+    await client.close()
+  }
+}
+
+module.exports = { getDatabase, getCollection, closeDatabase}
