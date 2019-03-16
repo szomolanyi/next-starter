@@ -2,6 +2,8 @@ const mongodb = require('mongodb')
 
 const client = new mongodb.MongoClient(process.env.MONGODB_URI, { useNewUrlParser: true})
 
+console.log(process.env.MONGODB_URI)
+
 const getDatabase = async () => {
   if (client.isConnected()) {
       return client.db()

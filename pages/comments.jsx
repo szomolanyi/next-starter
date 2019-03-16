@@ -6,22 +6,27 @@ import gql from "graphql-tag"
 
 import Layout from '../components/layout'
 
-const Index = () => (
+const Comments = () => (
   <Layout>
     <Query query={gql`
       {
-        comments {
-          _id
+        todos {
+          id
           text
-          title
         }
       }
     `}>
-      { (loading, error, data) => {
+      { ({loading, error, data}) => {
+          console.log(loading)
+          console.log(data)
+          console.log(error)
           return (
           <section className="section">
             <div className="container">
               <h1 className="title">Comments</h1>
+              <ul>
+                {data && data.todos && data.todos.map(comment=>(<li key={comment.id}>{comment.text}</li>))}
+              </ul>
             </div>
           </section>)
         }
@@ -30,4 +35,4 @@ const Index = () => (
   </Layout>
 )
 
-export default Index
+export default Comments

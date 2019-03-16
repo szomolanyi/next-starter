@@ -1,5 +1,5 @@
 const express = require('express')
-const dotenv = require('dotenv').load({ path: ".env" })
+//const dotenv = require('dotenv').load({ path: ".env" })
 const { ApolloServer } = require('apollo-server-express')
 const schema = require('./api')
 
