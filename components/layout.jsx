@@ -10,7 +10,12 @@ const Layout = (props) => (
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossOrigin="anonymous"></link>
     </Head>
     <Header></Header>
-    {props.children}
+    <section className="section">
+      <div className="container">
+        <h1 className="title">{props.title}</h1>
+        {props.children}
+      </div>
+    </section>
   </React.Fragment>
 )
 

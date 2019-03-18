@@ -17,17 +17,12 @@ const TextInput = (props) => (
 )
 
 const Login = (props) => (
-  <Layout>
-    <section className="section">
-      <div className="container">
-        <h1 className="title">Sign up</h1>
+  <Layout title="Sign up">
         <form>
           <TextInput type="text" placeholder="Email" label="Email"/>
           <TextInput type="password" placeholder="Password" label="Password" />
           <TextInput type="password" placeholder="Confirm password" label="Confirm password" />
         </form>
-      </div>
-    </section>
   </Layout>
 )
 

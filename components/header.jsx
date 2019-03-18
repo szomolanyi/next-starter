@@ -24,7 +24,6 @@ const Header = (props) => (
         <div className="navbar-start">
           <Link href="/"><a className="navbar-item">Home</a></Link>
           <Link href="/comments"><a className="navbar-item">Comments</a></Link>
-          <Link href="/comment2"><a className="navbar-item">Comments2</a></Link>
 
           <Link href="/"><a className="navbar-item">Protected</a></Link>
 
