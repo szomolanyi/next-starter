@@ -6,7 +6,7 @@ import gql from "graphql-tag"
 const CommentsList = (props) => (
   <ul>
     {props.comments.map((comment)=>(
-      <li key={comment._id}>{comment.text}</li>
+      <li key={comment._id}>{comment.title}:{comment.text}</li>
     ))}
   </ul>
 )
