@@ -1,8 +1,6 @@
 const { PHASE_DEVELOPMENT_SERVER } = require('next/constants')
 
 module.exports = (phase, { defaultConfig }) => {
-  console.log(phase)
-  console.log(defaultConfig)
   if (phase === PHASE_DEVELOPMENT_SERVER) {
     return {
       /* development only config options here */
