@@ -1,6 +1,6 @@
 
 import {Query} from "react-apollo"
-import gql from "graphql-tag"
+import { GET_COMMENTS } from "../lib/queries"
 
 
 const CommentsList = (props) => (
@@ -11,21 +11,9 @@ const CommentsList = (props) => (
   </ul>
 )
 
-
 export default () => (
-  <Query query={gql`
-  {
-  comments {
-    _id
-    text
-    title
-  }
-}
-  `}>
+  <Query query={GET_COMMENTS}>
     {({ loading, error, data }) => {
-      console.log(`loading=${loading}`)
-      console.log(data)
-      console.log(error)
       if (loading) return null
       return (
         <CommentsList comments={data.comments}/>
