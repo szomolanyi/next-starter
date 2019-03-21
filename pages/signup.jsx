@@ -17,12 +17,15 @@ const TextInput = (props) => (
 )
 
 const Login = (props) => (
-  <Layout title="Sign up">
-        <form>
-          <TextInput type="text" placeholder="Email" label="Email"/>
-          <TextInput type="password" placeholder="Password" label="Password" />
-          <TextInput type="password" placeholder="Confirm password" label="Confirm password" />
-        </form>
+  <Layout>
+    <section className="section">
+      <h1 className="title">Sign up</h1>
+      <form>
+        <TextInput type="text" placeholder="Email" label="Email"/>
+        <TextInput type="password" placeholder="Password" label="Password" />
+        <TextInput type="password" placeholder="Confirm password" label="Confirm password" />
+      </form>
+    </section>
   </Layout>
 )
 

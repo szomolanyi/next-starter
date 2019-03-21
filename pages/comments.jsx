@@ -3,9 +3,14 @@ import CommentsList from '../components/CommentsList'
 import CommentForm from '../components/CommentForm'
 
 const Comments = () => (
-  <Layout title="Comments">
-    <CommentForm />
-    <CommentsList />
+  <Layout>
+    <section className="section">
+      <h1 className="title">Comments</h1>
+      <CommentForm />
+    </section>
+    <section className="section">
+      <CommentsList />
+    </section>
   </Layout>
 )
 
