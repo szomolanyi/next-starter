@@ -18,6 +18,7 @@ const CommentsList = (props) => (
           <div className="card" key={comment._id}>
             <div className="card-header">
               <div className="card-header-title">{comment.title}</div>
+              <button className="button" onClick={() => props.openEditModal(comment._id)}>Edit</button>
             </div>
             <div className="card-content">
               <div className="content">{comment.text}</div>
@@ -29,12 +30,12 @@ const CommentsList = (props) => (
   </div>
 )
 
-export default () => (
+export default (props) => (
   <Query query={GET_COMMENTS}>
     {({ loading, error, data }) => {
       if (loading) return null
       return (
-        <CommentsList comments={data.comments}/>
+        <CommentsList comments={data.comments} {...props}/>
       )
     }}
   </Query>
