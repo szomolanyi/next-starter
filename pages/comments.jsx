@@ -2,12 +2,10 @@ import Layout from '../components/layout'
 import CommentsList from '../components/CommentsList'
 import CommentForm from '../components/CommentForm'
 import CommentModal from '../components/CommentModal'
-import React, { useState } from 'react'
+import {useModal} from '../lib/hooks'
 
 const Comments = () => {
-  const [isOpen, setOpen] = useState(true)
-  const hide = () => setOpen(false);
-  const show = () => setOpen(true);
+  const { modalOpened, hideModal, openModal, modalData } = useModal(false)
   return (
     <Layout>
       <section className="section">
@@ -15,9 +13,9 @@ const Comments = () => {
         <CommentForm />
       </section>
       <section className="section">
-        <CommentsList openEditModal={show}/>
+        <CommentsList openEditModal={openModal}/>
       </section>
-      <CommentModal hide={hide} isOpen={isOpen}/>
+      <CommentModal hide={hideModal} isOpen={modalOpened} data={modalData}/>
     </Layout>
   )
 }

@@ -14,11 +14,11 @@ const CommentsList = (props) => (
   <div className="columns is-multiline">
     {
       props.comments.map((comment)=>(
-        <div className={columnSizer(comment.text)}>
-          <div className="card" key={comment._id}>
+        <div key={comment._id} className={columnSizer(comment.text)}>
+          <div className="card">
             <div className="card-header">
               <div className="card-header-title">{comment.title}</div>
-              <button className="button" onClick={() => props.openEditModal(comment._id)}>Edit</button>
+              <button className="button" onClick={() => props.openEditModal({_id:comment._id})}>Edit</button>
             </div>
             <div className="card-content">
               <div className="content">{comment.text}</div>
