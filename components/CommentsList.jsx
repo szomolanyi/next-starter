@@ -33,6 +33,10 @@ const CommentsList = (props) => (
 export default (props) => (
   <Query query={GET_COMMENTS}>
     {({ loading, error, data }) => {
+      if (error) {
+        console.log(error) //todo: handle errors
+        return null
+      }
       if (loading) return null
       return (
         <CommentsList comments={data.comments} {...props}/>
