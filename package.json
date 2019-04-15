@@ -10,7 +10,9 @@
     "start": "cross-env NODE_PATH=. NODE_ENV=production node index.js",
     "test": "cross-env MONGODB_URI=mongodb://localhost:27017/next-starter-test jest --detectOpenHandles",
     "standalone": "cross-env NODE_PATH=. nodemon standalone-server.js",
-    "next": "next"
+    "next": "next",
+    "mongo-up": "docker-compose up -d",
+    "mongo-down": "docker-compose stop"
   },
   "keywords": [],
   "author": "",
