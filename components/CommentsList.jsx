@@ -18,7 +18,7 @@ const CommentsList = (props) => (
           <div className="card">
             <div className="card-header">
               <div className="card-header-title">{comment.title}</div>
-              <button className="button" onClick={() => props.openEditModal({_id:comment._id})}>Edit</button>
+              <button className="button" onClick={() => props.openEditModal({comment})}>Edit</button>
             </div>
             <div className="card-content">
               <div className="content">{comment.text}</div>

@@ -13,8 +13,8 @@ type Comment {
 
 type Mutation {
   createComment(title: String!, text: String!): Comment
-  deleteComment(id: String!): Boolean
-  editComment(id: String!, title: String!, text: String!): Comment
+  deleteComment(_id: String!): Boolean
+  editComment(_id: String!, title: String!, text: String!): Comment
 }
 `
 module.exports = typeDefs

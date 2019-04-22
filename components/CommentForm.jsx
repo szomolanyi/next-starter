@@ -3,7 +3,7 @@ import {Mutation} from "react-apollo"
 import * as Yup from 'yup'
 import { Formik, Field, Form } from 'formik'
 
-import { GET_COMMENTS, ADD_COMMENT } from "../lib/queries"
+import { GET_COMMENTS, ADD_COMMENT, EDIT_COMMENT } from "../lib/queries"
 
 const CommentSchema = Yup.object().shape({
   title: Yup.string()
@@ -14,13 +14,14 @@ const CommentSchema = Yup.object().shape({
 
 const CommentForm = (props) => (
   <Formik
-    initialValues={{text:'', title:''}}
+    initialValues={props.initialValues}
     onSubmit={
       (values, fvals) => {
         const { setSubmitting } = fvals
-        props.addComment({ variables: values })
+        props.mutate({ variables: values })
           .then(() => {
-            setSubmitting(false);
+            setSubmitting(false)
+            if (props.postSubmit) props.postSubmit()
           }
         )
       }
@@ -43,8 +44,7 @@ const CommentForm = (props) => (
   </Formik>
 )
 
-
-export default () => (
+const CreateComment = () => (
   <Mutation 
     mutation={ADD_COMMENT}
     update={(cache, { data: { createComment } } ) => {
@@ -56,10 +56,31 @@ export default () => (
     }}
   >
     {
-      (addComment, {data}) => (
-        <CommentForm addComment={addComment} />
-      )
+      (create, {data}) => {
+        console.log({data})
+        return (
+        <CommentForm mutate={create} initialValues={{text:'', title:''}} />
+      )}
     }
-
   </Mutation>
 )
+
+const EditComment = (props) => (
+  <Mutation mutation={EDIT_COMMENT} key={props.initialValues._id}>
+    {
+      (update, {data}) => {
+        console.log({data})
+        const mutate = (mutateData) => {
+          mutateData.variables._id = props.initialValues._id
+          return update(mutateData)
+        }
+        return (
+        <CommentForm mutate={mutate} {...props} />
+      )}
+    }
+  </Mutation>
+)
+ 
+export default (props) => {
+  return props.initialValues?<EditComment {...props}/> : <CreateComment />
+}
