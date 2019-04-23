@@ -3,7 +3,6 @@ import CommentForm from './CommentForm'
 
 const CommentModal = (props) => {
   const {data}=props
-  console.log(props)
   return (
     <div className={`modal ${props.isOpen?"is-active":""}`}>
       <div className="modal-background"></div>

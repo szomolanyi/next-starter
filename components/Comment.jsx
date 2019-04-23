@@ -39,10 +39,7 @@ export default (props) => (
     }}
   >
     {
-      (mutate, {data}) => {
-        return (
-        <Comment deleteComment={mutate} {...props} />
-      )}
+      (mutate, {data}) => <Comment deleteComment={mutate} {...props} />
     }
   </Mutation>
 )
