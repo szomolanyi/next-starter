@@ -1,16 +1,27 @@
 const mongodb = require('mongodb')
 
 let client = null
-
-
+/*
 const getDatabase = async () => {
   if (!client) {
     console.log(`Creating mongo client`)
-    client = new mongodb.MongoClient(process.env.MONGODB_URI, { useNewUrlParser: true })
+    client = new mongodb.MongoClient(process.env.MONGODB_URI, { useNewUrlParser: true, autoReconnect: true })
   }
   if (!client.isConnected()) {
     console.log(`Connecting to mongo ${process.env.MONGODB_URI}`)
     await client.connect()
+  }
+  return client.db()
+}*/
+
+const getDatabase = () => {
+  if (!client) {
+    console.log(`Creating mongo client`)
+    client = new mongodb.MongoClient(process.env.MONGODB_URI, { useNewUrlParser: true, autoReconnect: true })
+  }
+  if (!client.isConnected()) {
+    console.log(`Connecting to mongo ${process.env.MONGODB_URI}`)
+    return client.connect().then(()=>client.db())
   }
   return client.db()
 }
