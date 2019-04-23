@@ -17,11 +17,12 @@ const CommentForm = (props) => (
     initialValues={props.initialValues}
     onSubmit={
       (values, fvals) => {
-        const { setSubmitting } = fvals
+        const { setSubmitting, resetForm } = fvals
         props.mutate({ variables: values })
           .then(() => {
             setSubmitting(false)
             if (props.postSubmit) props.postSubmit()
+            else resetForm()
           }
         )
       }

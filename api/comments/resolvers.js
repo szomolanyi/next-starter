@@ -12,8 +12,9 @@ module.exports = {
       const id = await comments.createComment(title, text)
       return { _id: id, title, text }
     },
-    deleteComment: (obj, { _id }) => {
-      return true
+    deleteComment: async (obj, { _id }) => {
+      const res = await comments.deleteComment(_id)
+      return res
     },
     editComment: async (Obj, { _id, title, text }) => {
       const res = await comments.editComment(_id, title, text)

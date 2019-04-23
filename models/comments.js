@@ -18,10 +18,17 @@ const createComment = async (title, text) => {
 const editComment = async (_id, title, text) => {
   const col = await getCollection(CollectionName)
   const result = await col.updateOne({_id:new ObjectID(_id)}, {$set: {title, text}})
-  console.log(result)
   if (result.modifiedCount === 1)
     return {_id, title, text}
   else throw new Error("Update failed") //TODO: error handling
 }
 
-module.exports = {CollectionName, getComments, createComment, editComment}
+const deleteComment = async (_id) => {
+  const col = await getCollection(CollectionName)
+  const result = await col.deleteOne({_id:new ObjectID(_id)})
+  if (result.deletedCount === 1)
+    return true
+  else throw new Error("Delete failed") //TODO: error handling
+}
+
+module.exports = {CollectionName, getComments, createComment, editComment, deleteComment}
