@@ -58,7 +58,6 @@ const CreateComment = () => (
   >
     {
       (create, {data}) => {
-        console.log({data})
         return (
         <CommentForm mutate={create} initialValues={{text:'', title:''}} />
       )}
@@ -70,7 +69,6 @@ const EditComment = (props) => (
   <Mutation mutation={EDIT_COMMENT} key={props.initialValues._id}>
     {
       (update, {data}) => {
-        console.log({data})
         const mutate = (mutateData) => {
           mutateData.variables._id = props.initialValues._id
           return update(mutateData)

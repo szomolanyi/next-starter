@@ -10,7 +10,7 @@ const columnSizer = (text) => {
 
 
 const Comment = ({comment, openEditModal, deleteComment}) => (
-  <div key={comment._id} className={columnSizer(comment.text)}>
+  <div className={columnSizer(comment.text)}>
     <div className="card">
       <div className="card-header">
         <div className="card-header-title">{comment.title}</div>
@@ -40,7 +40,6 @@ export default (props) => (
   >
     {
       (mutate, {data}) => {
-        console.log({data})
         return (
         <Comment deleteComment={mutate} {...props} />
       )}

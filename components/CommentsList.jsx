@@ -9,7 +9,7 @@ const CommentsList = (props) => (
   <div className="columns is-multiline">
     {
       props.comments.map((comment)=>(
-        <Comment comment={comment} openEditModal={props.openEditModal} />
+        <Comment key={comment._id} comment={comment} openEditModal={props.openEditModal} />
       ))
     }
   </div>
