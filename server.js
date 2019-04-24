@@ -8,6 +8,7 @@ if (!process.env.MONGODB_URI) {
 
 const express = require('express')
 const session = require('express-session')
+const passport = require('passport')
 const MongoStore = require('connect-mongo')(session)
 const { ApolloServer } = require('apollo-server-express')
 const schema = require('./api')
@@ -28,6 +29,10 @@ app.use(session({
     //autoReconnect: true,
   })
 }))
+
+//passport middleware
+app.use(passport.initialize())
+app.use(passport.session())
 
 //apollo server 
 const apollo_server = new ApolloServer({

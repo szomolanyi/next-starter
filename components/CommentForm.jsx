@@ -1,4 +1,3 @@
-import gql from "graphql-tag"
 import {Mutation} from "react-apollo"
 import * as Yup from 'yup'
 import { Formik, Field, Form } from 'formik'
