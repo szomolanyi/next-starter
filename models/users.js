@@ -9,4 +9,16 @@ const createUser = async (email, password) => {
   return result.insertedId
 }
 
-module.exports = {createUser}
+const findById = async (_id) => {
+  const col = await getCollection(CollectionName)
+  const result = await col.findOne({_id: new ObjectID(_id)})
+  return result
+}
+
+const findUser = async (find_obj) => {
+  const col = await getCollection(CollectionName)
+  const result = await col.findOne(find_obj)
+  return result
+}
+
+module.exports = {createUser, findUser, findById}

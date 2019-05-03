@@ -43,7 +43,7 @@ const Header = (props) => (
           <div className="navbar-item">
             <div className="buttons">
               <Link href="/signup"><a className="button is-primary"><strong>Sign up</strong></a></Link>
-              <Link href="/"><a className="button is-light">Log in</a></Link>
+              <Link href="/login"><a className="button is-light">Log in</a></Link>
             </div>
           </div>
         </div>

@@ -8,14 +8,31 @@ if (!process.env.MONGODB_URI) {
 
 const express = require('express')
 const session = require('express-session')
+const BodyParser = require("body-parser")
 const passport = require('passport')
 const MongoStore = require('connect-mongo')(session)
 const { ApolloServer } = require('apollo-server-express')
 const schema = require('./api')
+const mongoose = require("mongoose")
 const { getDatabase } = require('./models/mongo')
+require('./lib/passport')
+
+//mongoose connect
+mongoose.set('useFindAndModify', false)
+mongoose.set('useCreateIndex', true)
+mongoose.set('useNewUrlParser', true)
+mongoose.connect(process.env.MONGODB_URI)
+mongoose.connection.on('error', (err) => {
+  console.error(err);
+  console.log(`Failed to connect to MongoDB with URI ${process.env.MONGODB_URI}`)
+  process.exit();
+});
+
 
 //express app
 const app = express()
+
+app.use(BodyParser.urlencoded({ extended: true }))
 
 //express session
 app.use(session({
@@ -24,7 +41,8 @@ app.use(session({
   secret: process.env.SESSION_SECRET || 'unsafe secret',
   cookie: { maxAge: 1209600000 }, // two weeks in milliseconds
   store: new MongoStore({
-    dbPromise: getDatabase() //TODO : use same connection to mongo
+    mongooseConnection: mongoose.connection,
+    //dbPromise: getDatabase() //TODO : use same connection to mongo
     //url: process.env.MONGODB_URI,
     //autoReconnect: true,
   })
@@ -34,13 +52,35 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
+
 //apollo server 
 const apollo_server = new ApolloServer({
   schema,
   context: ({req}) => {
-    console.log(req.headers)
+    //console.log(req.headers)
+    ///console.log({txt:'context use',user:req.user})
+    return {
+      user: req.user
+    }
   }
 })
 apollo_server.applyMiddleware({ app }); // app is from an existing express app
+
+//routes
+app.post('/login', (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    console.log({msg:'postlogin', err, user})
+    if (err) { return next(err); }
+    if (!user) {
+      //req.flash('errors', info);
+      return res.redirect('/login');
+    }
+    req.logIn(user, (err) => {
+      if (err) { return next(err); }
+      //req.flash('success', { msg: 'Success! You are logged in.' });
+      res.redirect(req.session.returnTo || '/');
+    });
+  })(req, res, next);
+})
 
 module.exports = app
