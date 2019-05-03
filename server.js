@@ -14,7 +14,6 @@ const MongoStore = require('connect-mongo')(session)
 const { ApolloServer } = require('apollo-server-express')
 const schema = require('./api')
 const mongoose = require("mongoose")
-const { getDatabase } = require('./models/mongo')
 require('./lib/passport')
 
 //mongoose connect
@@ -42,9 +41,6 @@ app.use(session({
   cookie: { maxAge: 1209600000 }, // two weeks in milliseconds
   store: new MongoStore({
     mongooseConnection: mongoose.connection,
-    //dbPromise: getDatabase() //TODO : use same connection to mongo
-    //url: process.env.MONGODB_URI,
-    //autoReconnect: true,
   })
 }))
 
