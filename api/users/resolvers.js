@@ -1,23 +1,22 @@
-const users = require('../../models/users')
+const User = require('../../models/users')
 
 module.exports = {
   Query: {
     users: async () => {
-      const c = await users.getUsers()
-      return c
+      return await users.getUsers()
     }
   },
   Mutation: {
-    createUser: async (obj, { email, password }) => {
-      const id = await users.createUser(email, password)
-      return { _id: id, email, password }
+    createUser: async (obj, data) => {
+      const user = new User(data)
+      return await user.save()
     },
     deleteUser: async (obj, { _id }) => {
-      //const res = await users.deleteUser(_id)
+      await Comment.findByIdAndDelete(_id)
       return true
     },
     editUser: async (Obj, { _id, email, password }) => {
-      //const res = await users.editUser(_id, email, password)
+      await Comment.findByIdAndUpdate(_id, {title, text})
       return { _id, email, password }
     }
   }
