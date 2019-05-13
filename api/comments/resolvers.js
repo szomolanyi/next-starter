@@ -2,8 +2,8 @@ const Comment = require("../../models/comments")
 
 module.exports = {
   Query: {
-    comments: async () => {
-      return await Comment.find()
+    comments: () => {
+      return Comment.find()
     }
   },
   Mutation: {
