@@ -53,8 +53,6 @@ app.use(passport.session())
 const apollo_server = new ApolloServer({
   schema,
   context: ({req}) => {
-    //console.log(req.headers)
-    ///console.log({txt:'context use',user:req.user})
     return {
       user: req.user
     }
@@ -65,7 +63,6 @@ apollo_server.applyMiddleware({ app }); // app is from an existing express app
 //routes
 app.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
-    console.log({msg:'postlogin', err, user})
     if (err) { return next(err); }
     if (!user) {
       //req.flash('errors', info);

@@ -61,17 +61,3 @@ export default (props) => (
   </ManagedMutation>
 )
 
-/*
-export default (props) => (
-  <Mutation mutation={CREATE_USER}>
-    {
-      (mutate, {error}) => {
-        //console.log({error})
-        const ui = getUserInputError(error)
-        //console.log({ui})
-        return <SignUpForm mutate={mutate} userInputErrors={ui}/>
-      }
-    }
-  </Mutation>
-)
-*/
