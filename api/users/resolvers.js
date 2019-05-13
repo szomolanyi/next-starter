@@ -1,4 +1,6 @@
+const {UserInputError, ApolloError} = require('apollo-server-express')
 const User = require('../../models/users')
+
 
 module.exports = {
   Query: {
@@ -8,15 +10,19 @@ module.exports = {
   },
   Mutation: {
     createUser: async (obj, data) => {
-      const user = new User(data)
+      const user = User.findOne({email:data.email})
+      if (user) {
+        throw new ApolloError("User already exists", {email:"User already registered"})
+      }
+      user = new User(data)
       return await user.save()
     },
     deleteUser: async (obj, { _id }) => {
-      await Comment.findByIdAndDelete(_id)
+      await User.findByIdAndDelete(_id)
       return true
     },
     editUser: async (Obj, { _id, email, password }) => {
-      await Comment.findByIdAndUpdate(_id, {title, text})
+      await User.findByIdAndUpdate(_id, {title, text})
       return { _id, email, password }
     }
   }

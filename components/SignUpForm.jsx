@@ -1,8 +1,10 @@
 import {Mutation} from "react-apollo"
 import * as Yup from 'yup'
 import { Formik, Field, Form } from 'formik'
+import {ManagedMutation} from "../lib/hocs"
 import {CREATE_USER} from "../lib/queries"
 import TextInput from "./TextInput"
+import {getUserInputError} from "../lib/utils"
 
 const CommentSchema = Yup.object().shape({
   email: Yup.string()
@@ -13,19 +15,25 @@ const CommentSchema = Yup.object().shape({
     .required("Required"),
 })
 
-const SignUpForm = (props) => (
+
+
+const SignUpForm = (props) => {
+  return (
   <Formik
     initialValues={props.initialValues}
     onSubmit={
       (values, fvals) => {
-        const { setSubmitting, resetForm } = fvals
+        const { setSubmitting, resetForm, setErrors } = fvals
         props.mutate({ variables: values })
           .then(() => {
             setSubmitting(false)
             if (props.postSubmit) props.postSubmit()
             else resetForm()
-          }
-        )
+          })
+          .catch((error) => {
+            setErrors(getUserInputError(error))
+            setSubmitting(false)
+          })
       }
     }
     validationSchema={CommentSchema}
@@ -43,22 +51,27 @@ const SignUpForm = (props) => (
       }
     }
   </Formik>
-)
+)}
 
 export default (props) => (
-  <Mutation 
-    mutation={CREATE_USER}
-    /*
-    update={(cache, { data: { createComment } } ) => {
-      const { comments } = cache.readQuery({ query: GET_COMMENTS });
-      cache.writeQuery({
-        query: GET_COMMENTS,
-        data: { comments: comments.concat([createComment]) },
-      });
-    }}*/
-  >
+  <ManagedMutation mutation={CREATE_USER}>
     {
-      (mutate, {data}) => <SignUpForm mutate={mutate} />
+      (mutate) => {return <SignUpForm mutate={mutate}/>}
+    }
+  </ManagedMutation>
+)
+
+/*
+export default (props) => (
+  <Mutation mutation={CREATE_USER}>
+    {
+      (mutate, {error}) => {
+        //console.log({error})
+        const ui = getUserInputError(error)
+        //console.log({ui})
+        return <SignUpForm mutate={mutate} userInputErrors={ui}/>
+      }
     }
   </Mutation>
 )
+*/
