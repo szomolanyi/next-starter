@@ -69,7 +69,7 @@ apollo_server.applyMiddleware({ app }); // app is from an existing express app
 app.post('/login',  passport.authenticate('local', { 
   successRedirect: '/',
   failureRedirect: '/login' ,
-  failureFlash: 'Invalid username or password.'
+  failureFlash: true
 }))
 
 module.exports = app
