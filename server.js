@@ -8,13 +8,14 @@ if (!process.env.MONGODB_URI) {
 
 const express = require('express')
 const session = require('express-session')
+const flash = require('express-flash')
 const BodyParser = require("body-parser")
 const passport = require('passport')
 const MongoStore = require('connect-mongo')(session)
 const { ApolloServer } = require('apollo-server-express')
 const schema = require('./api')
 const mongoose = require("mongoose")
-require('./lib/passport')
+const {postLogin} = require('./lib/passport')
 
 //mongoose connect
 mongoose.set('useFindAndModify', false)
@@ -47,6 +48,8 @@ app.use(session({
 //passport middleware
 app.use(passport.initialize())
 app.use(passport.session())
+//flash
+app.use(flash())
 
 
 //apollo server 
@@ -54,26 +57,19 @@ const apollo_server = new ApolloServer({
   schema,
   context: ({req}) => {
     return {
-      user: req.user
+      user: req.user,
+      messages: req.flash()
     }
   }
 })
 apollo_server.applyMiddleware({ app }); // app is from an existing express app
 
 //routes
-app.post('/login', (req, res, next) => {
-  passport.authenticate('local', (err, user, info) => {
-    if (err) { return next(err); }
-    if (!user) {
-      //req.flash('errors', info);
-      return res.redirect('/login');
-    }
-    req.logIn(user, (err) => {
-      if (err) { return next(err); }
-      //req.flash('success', { msg: 'Success! You are logged in.' });
-      res.redirect(req.session.returnTo || '/');
-    });
-  })(req, res, next);
-})
+//app.post('/login', postLogin)
+app.post('/login',  passport.authenticate('local', { 
+  successRedirect: '/',
+  failureRedirect: '/login' ,
+  failureFlash: 'Invalid username or password.'
+}))
 
 module.exports = app

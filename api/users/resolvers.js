@@ -16,6 +16,7 @@ module.exports = {
         throw new UserInputError("User already exists", {email:"User already registered"})
       }
       user = new User(data)
+      console.log({user})
       return await user.save()
     },
     deleteUser: async (obj, { _id }) => {

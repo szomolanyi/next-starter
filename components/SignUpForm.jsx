@@ -1,4 +1,4 @@
-import {Mutation} from "react-apollo"
+import Router from 'next/router'
 import * as Yup from 'yup'
 import { Formik, Field, Form } from 'formik'
 import {ManagedMutation} from "../lib/hocs"
@@ -29,6 +29,7 @@ const SignUpForm = (props) => {
             setSubmitting(false)
             if (props.postSubmit) props.postSubmit()
             else resetForm()
+            Router.push('/')
           })
           .catch((error) => {
             setErrors(getUserInputError(error))
