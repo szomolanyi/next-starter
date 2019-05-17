@@ -8,11 +8,9 @@ class AppErrorModal extends React.Component {
     // Display fallback UI
     this.setState({ hasError: true, error, info })
     // You can also log the error to an error reporting service
-    console.log({error, info})
   }
 
   render() {
-    console.log({err:this.state.error, inf: this.state.info})
     return (
       <React.Fragment>
         <div className={`modal ${this.state.hasError?"is-active":""}`}>

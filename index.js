@@ -11,6 +11,7 @@ next_app.prepare()
     const app = require('server')
 
     app.get('*', (req, res) => {
+      //console.log({msg:"nexthadle", r:req.cookies, usr:req.user, })
       return handle(req, res)
     })
 

@@ -13,7 +13,6 @@ const Login = ({messages}) => (
 Login.getInitialProps = async ({req}) => {
   if (req) {
     const messages = req.flash()
-    console.log({messages:messages})
     return {messages}
   }
   else return {}

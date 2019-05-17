@@ -1,3 +1,6 @@
+
+const {AuthenticationError} = require("apollo-server-express")
+
 const Comment = require("../../models/comments")
 
 module.exports = {
@@ -7,7 +10,10 @@ module.exports = {
     }
   },
   Mutation: {
-    createComment: async (obj, data) => {
+    createComment: async (obj, data, context) => {
+      if (!context.user) {
+        throw new ApolloError("Not authenticted", "NOT_AUTHENTICATED", {})
+      }
       const comment = new Comment(data)
       return await comment.save()
     },

@@ -10,12 +10,14 @@ const express = require('express')
 const session = require('express-session')
 const flash = require('express-flash')
 const BodyParser = require("body-parser")
+const CookieParser = require("cookie-parser")
 const passport = require('passport')
 const MongoStore = require('connect-mongo')(session)
 const { ApolloServer } = require('apollo-server-express')
 const schema = require('./api')
 const mongoose = require("mongoose")
 const {postLogin} = require('./lib/passport')
+
 
 //mongoose connect
 mongoose.set('useFindAndModify', false)
@@ -33,6 +35,7 @@ mongoose.connection.on('error', (err) => {
 const app = express()
 
 app.use(BodyParser.urlencoded({ extended: true }))
+app.use(CookieParser())
 
 //express session
 app.use(session({
@@ -56,20 +59,26 @@ app.use(flash())
 const apollo_server = new ApolloServer({
   schema,
   context: ({req}) => {
+    /*console.log({
+      msg:"context", 
+      usr:req.user, 
+      r:req.rawHeaders,
+      cookies:req.cookies,
+      sess:req.session})*/
     return {
       user: req.user,
-      messages: req.flash()
     }
   }
 })
 apollo_server.applyMiddleware({ app }); // app is from an existing express app
 
 //routes
-//app.post('/login', postLogin)
 app.post('/login',  passport.authenticate('local', { 
   successRedirect: '/',
   failureRedirect: '/login' ,
   failureFlash: true
 }))
+
+//app.post('/login', postLogin)
 
 module.exports = app
