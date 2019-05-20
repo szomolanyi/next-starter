@@ -11,12 +11,10 @@ module.exports = {
   Mutation: {
     createUser: async (obj, data) => {
       let user = await User.findOne({email:data.email})
-      console.log({user})
       if (user) {
         throw new UserInputError("User already exists", {email:"User already registered"})
       }
       user = new User(data)
-      console.log({user})
       return await user.save()
     },
     deleteUser: async (obj, { _id }) => {

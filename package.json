@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_PATH=. nodemon index.js",
-    "debug": "cross-env NODE_PATH=. node index.js",
+    "debug": "cross-env NODE_PATH=. node --inspect index.js",
     "build": "cross-env NODE_PATH=. next build",
     "start": "cross-env NODE_PATH=. NODE_ENV=production node index.js",
     "test": "cross-env MONGODB_URI=mongodb://localhost:27017/next-starter-test jest --detectOpenHandles",
@@ -19,11 +19,13 @@
   "license": "ISC",
   "dependencies": {
     "apollo-boost": "^0.3.1",
+    "apollo-link-context": "^1.0.17",
     "apollo-server-express": "^2.4.8",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
     "bulma": "^0.7.4",
     "connect-mongo": "^2.0.3",
+    "cookie": "^0.4.0",
     "cookie-parser": "^1.4.4",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",

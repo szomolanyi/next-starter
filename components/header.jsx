@@ -44,6 +44,7 @@ const Header = (props) => (
             <div className="buttons">
               <Link href="/signup"><a className="button is-primary"><strong>Sign up</strong></a></Link>
               <Link href="/login"><a className="button is-light">Log in</a></Link>
+              <Link href="/logout"><a className="button is-light">Log out</a></Link>
             </div>
           </div>
         </div>
