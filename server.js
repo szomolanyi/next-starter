@@ -16,37 +16,7 @@ const MongoStore = require('connect-mongo')(session)
 const { ApolloServer } = require('apollo-server-express')
 const schema = require('./api')
 const mongoose = require("mongoose")
-//const {postLogin} = require('./lib/passport')
-
-const { Strategy: LocalStrategy } = require('passport-local');
-
-const User = require("models/users")
-
-passport.serializeUser(function(user, done) {
-  done(null, user._id);
-})
-
-passport.deserializeUser(function(_id, done) {
-  User.findById(_id).then( (user) => {
-    done(null, user)
-  })
-})
-
-passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
-  User.findOne({email}, (err, user) => {
-    if (err) return done(err)
-    if (!user) {
-      return done(null, false, { message: "Invalid email or password" })
-    }
-    user.comparePassword(password, (err, isMatch) => {
-      if (err) return done(err)
-      if (isMatch) {
-        return done(null, user)
-      } 
-      return done(null, false, { message: 'Invalid email or password' })
-    })
-  })
-}))
+require('./lib/passport')
 
 
 //mongoose connect
@@ -69,8 +39,8 @@ app.use(CookieParser())
 
 //express session
 app.use(session({
-  resave: true, 
-  saveUninitialized: false, //toto sposobuje, ze nefunguje login TODO: preskumat true,
+  resave: false, //true sposobuje, ze nefunguje logout
+  saveUninitialized: false, //true sposobuje, ze nefunguje login TODO: preskumat true,
   //key:'token',
   secret: process.env.SESSION_SECRET || 'unsafe secret',
   cookie: { maxAge: 1209600000 }, // two weeks in milliseconds
@@ -94,7 +64,7 @@ app.use(flash())
 const apollo_server = new ApolloServer({
   schema,
   context: ({req}) => {
-    console.log({msg:"context",user:req.user, cookies:req.cookies})
+    console.log(`context,user: ${req.user?req.user.email:null}`)
     return {
       user: req.user,
     }
@@ -125,11 +95,11 @@ const postLogin = (req, res, next) => {
 
 
 //routes
-/*app.post('/login',  passport.authenticate('local', { 
+app.post('/login',  passport.authenticate('local', { 
   successRedirect: '/',
   failureRedirect: '/login' ,
   failureFlash: true
-}))*/ 
+}))
 app.get('/logout', (req, res) => {
   req.logout()
   req.session.destroy((err) => {
@@ -138,6 +108,6 @@ app.get('/logout', (req, res) => {
     res.redirect('/')
   });
 })
-app.post('/login', postLogin)
+//app.post('/login', postLogin)
 
 module.exports = app
