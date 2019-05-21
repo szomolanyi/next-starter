@@ -12,7 +12,8 @@
     "standalone": "cross-env NODE_PATH=. nodemon standalone-server.js",
     "next": "next",
     "mongo-up": "docker-compose up -d",
-    "mongo-down": "docker-compose stop"
+    "mongo-down": "docker-compose stop",
+    "now": "now -e MONGODB_URI=@mongo"
   },
   "keywords": [],
   "author": "",
@@ -25,7 +26,6 @@
     "body-parser": "^1.18.3",
     "bulma": "^0.7.4",
     "connect-mongo": "^2.0.3",
-    "cookie": "^0.4.0",
     "cookie-parser": "^1.4.4",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
@@ -35,8 +35,8 @@
     "graphql": "^14.1.1",
     "graphql-tools": "^4.0.4",
     "isomorphic-unfetch": "^3.0.0",
-    "mongodb": "^3.1.13",
-    "mongoose": "^5.5.4",
+    "mongodb": "3.1.13",
+    "mongoose": "5.4.23",
     "next": "^8.0.3",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",

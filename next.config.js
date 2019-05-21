@@ -15,7 +15,7 @@ module.exports = (phase, { defaultConfig }) => {
     return {
       target: 'serverless',
         env: {
-          GRAPHQL_URI: "https://ns-fomo.now.sh/graphql"
+          GRAPHQL_URI: "https://next-starter.fomo1.now.sh/graphql"
       }
     }
   }

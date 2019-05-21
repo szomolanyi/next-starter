@@ -12,8 +12,8 @@ const Login = ({messages}) => (
 
 Login.getInitialProps = async ({req}) => {
   if (req) {
-    const messages = req.flash()
-    return {messages}
+    //const messages = req.flash() TODO: toto nefunguje na zeit lamba TODO: zisti preco
+    return {}
   }
   else return {}
 }

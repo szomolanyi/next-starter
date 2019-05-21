@@ -17,7 +17,7 @@ const TextInput = (props) => (
 )
 
 const LoginForm = ({messages}) => (
-  <form action="/login" method="post">
+  <form action="/server/login" method="post">
     <TextInput className="input" name="email" type="text" placeholder="Email" label="Email" />
     <TextInput className="input" name="password" type="password" placeholder="Password" label="Password" />
     <input className="button" type="submit" value="Submit" />

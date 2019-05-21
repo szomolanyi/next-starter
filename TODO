@@ -1,3 +1,5 @@
 * preco pri teste cez jest test neskonci a tvari sa, ze su neresolvnute promises
 * error hadnling pri apollo query
 * unable to expand menu on mobile mode
+* mongoose pinned to 5.4.23, because newer versions require node 10
+* flash is not working on lambda, need to solve login failures
