@@ -64,7 +64,7 @@ const EditComment = ({ initialValues, ...props }) => (
       (update) => {
         const mutate = (mutateData) => {
           const updateData = mutateData;
-          updateData.variables._id = props.initialValues._id;
+          updateData.variables._id = initialValues._id;
           return update(updateData);
         };
         return <CommentForm mutate={mutate} {...props} initialValues={initialValues} />;
