@@ -1,31 +1,31 @@
 
-import {Query} from "react-apollo"
-import { GET_COMMENTS } from "../lib/queries"
+import { Query } from 'react-apollo';
+import { GET_COMMENTS } from '../lib/queries';
 
-import Comment from "./Comment"
+import Comment from './Comment';
 
 
-const CommentsList = (props) => (
+const CommentsList = ({ comments, openEditModal }) => (
   <div className="columns is-multiline">
     {
-      props.comments.map((comment)=>(
-        <Comment key={comment._id} comment={comment} openEditModal={props.openEditModal} />
+      comments.map(comment => (
+        <Comment key={comment._id} comment={comment} openEditModal={openEditModal} />
       ))
     }
   </div>
-)
+);
 
-export default (props) => (
+export default props => (
   <Query query={GET_COMMENTS}>
     {({ loading, error, data }) => {
       if (error) {
-        console.log(error) //todo: handle errors
-        return null
+        console.log(error); // todo: handle errors
+        return null;
       }
-      if (loading) return null
+      if (loading) return null;
       return (
-        <CommentsList comments={data.comments} {...props}/>
-      )
+        <CommentsList comments={data.comments} {...props} />
+      );
     }}
   </Query>
-)
+);

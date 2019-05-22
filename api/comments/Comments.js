@@ -1,5 +1,3 @@
-const { gql } = require('apollo-server-express')
-
 const typeDefs = `
 type Query {
   comments: [Comment]
@@ -16,5 +14,5 @@ type Mutation {
   deleteComment(_id: String!): Boolean
   editComment(_id: String!, title: String!, text: String!): Comment
 }
-`
-module.exports = typeDefs
+`;
+module.exports = typeDefs;

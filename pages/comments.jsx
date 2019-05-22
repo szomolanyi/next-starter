@@ -1,11 +1,13 @@
-import Layout from '../components/layout'
-import CommentsList from '../components/CommentsList'
-import CommentForm from '../components/CommentForm'
-import CommentModal from '../components/CommentModal'
-import {useModal} from '../lib/hooks'
+import Layout from '../components/layout';
+import CommentsList from '../components/CommentsList';
+import CommentForm from '../components/CommentForm';
+import CommentModal from '../components/CommentModal';
+import { useModal } from '../lib/hooks';
 
 const Comments = () => {
-  const { modalOpened, hideModal, openModal, modalData } = useModal(false)
+  const {
+    modalOpened, hideModal, openModal, modalData,
+  } = useModal(false);
   return (
     <Layout>
       <section className="section">
@@ -13,11 +15,11 @@ const Comments = () => {
         <CommentForm />
       </section>
       <section className="section">
-        <CommentsList openEditModal={openModal}/>
+        <CommentsList openEditModal={openModal} />
       </section>
-      <CommentModal hide={hideModal} isOpen={modalOpened} data={modalData}/>
+      <CommentModal hide={hideModal} isOpen={modalOpened} data={modalData} />
     </Layout>
-  )
-}
+  );
+};
 
-export default Comments
+export default Comments;

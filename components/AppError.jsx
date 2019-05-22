@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-undef
 class AppError extends React.Component {
   constructor(props) {
     super(props);
@@ -8,15 +9,18 @@ class AppError extends React.Component {
     // Display fallback UI
     this.setState({ hasError: true });
     // You can also log the error to an error reporting service
+    console.log({ error, info });
   }
 
   render() {
-    if (this.state.hasError) {
+    const { hasError } = this.state;
+    const { children } = this.props;
+    if (hasError) {
       // You can render any custom fallback UI
       return <h1>Something went wrong.</h1>;
     }
-    return this.props.children;
+    return children;
   }
 }
 
-export default AppError
+export default AppError;
