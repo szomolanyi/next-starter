@@ -41,13 +41,9 @@ app.use(CookieParser());
 app.use(session({
   resave: false, // true sposobuje, ze nefunguje logout
   saveUninitialized: false, // true sposobuje, ze nefunguje login TODO: preskumat true,
-  // key:'token',
+  key: 'token',
   secret: process.env.SESSION_SECRET || 'unsafe secret',
   cookie: { maxAge: 1209600000 }, // two weeks in milliseconds
-  /* store: new MongoStore({
-    url: process.env.MONGODB_URI,
-    autoReconnect: true,
-  }) */
   store: new MongoStore({
     mongooseConnection: mongoose.connection,
   }),
@@ -64,39 +60,30 @@ app.use(flash());
 const apolloServer = new ApolloServer({
   schema,
   context: ({ req }) => {
-    console.log(`context,user: ${req.user ? req.user.email : null}`);
+    console.log(`context,user: ${req.user ? req.user.email : null}, cookie: ${req.cookie}`);
     return {
       user: req.user,
+      login: req.login.bind(req),
+      logout: req.logout.bind(req),
     };
   },
+  formatError: (err) => {
+    console.log(err);
+    return err;
+  }
 });
 apolloServer.applyMiddleware({ app }); // app is from an existing express app
 
-/* nepouziva sa
-const postLogin = (req, res, next) => {
 
-  passport.authenticate('local', (err, user, info) => {
-    if (err) { return next(err); }
-    if (!user) {
-      // req.flash('errors', info);
-      return res.redirect('/login');
-    }
-    req.logIn(user, (err) => {
-      console.log({ m: 'afterlogin', user, err });
-      if (err) { return next(err); }
-      // req.flash('success', { msg: 'Success! You are logged in.' });
-      res.redirect(req.session.returnTo || '/');
-    });
-  })(req, res, next);
-};
-*/
+/*
+Use if standard LocalStrategy is used:
 
-// routes
 app.post('/server/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/login',
   failureFlash: true,
 }));
+app.post('/login', postLogin) - alternative: custom login handler
 app.get('/server/logout', (req, res) => {
   req.logout();
   req.session.destroy((err) => {
@@ -105,6 +92,6 @@ app.get('/server/logout', (req, res) => {
     res.redirect('/');
   });
 });
-// app.post('/login', postLogin)
+*/
 
 module.exports = app;

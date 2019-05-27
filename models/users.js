@@ -1,13 +1,21 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const passportLocalMongoose = require('passport-local-mongoose');
 
 const userSchema = new mongoose.Schema({
   email: String,
-  password: String,
 }, {
   timestamps: true,
 });
 
+userSchema.plugin(passportLocalMongoose, {
+  usernameField: 'email',
+  errorMessages: {
+    UserExistsError: 'Email Already Exists',
+  },
+});
+
+/*
 userSchema.pre('save', function save(next) {
   const user = this;
   bcrypt.genSalt(10, (err, salt) => {
@@ -25,7 +33,7 @@ userSchema.methods.comparePassword = function comparePassword(candidatePassword,
     cb(err, isMatch);
   });
 };
-
+*/
 
 const User = mongoose.model('User', userSchema);
 

@@ -1,20 +1,20 @@
-import Layout from '../components/layout'
-import LoginForm from "../components/LoginForm"
+import Layout from '../components/layout';
+import LoginForm from '../components/LoginFormFormik';
 
-const Login = ({messages}) => (
+const Login = ({ messages }) => (
   <Layout>
     <section className="section">
       <h1 className="title">Login</h1>
-      <LoginForm messages={messages}/>
+      <LoginForm messages={messages} />
     </section>
   </Layout>
-)
+);
 
-Login.getInitialProps = async ({req}) => {
+Login.getInitialProps = async ({ req }) => {
   if (req) {
-    //const messages = req.flash() TODO: toto nefunguje na zeit lamba TODO: zisti preco
-    return {}
+    // const messages = req.flash() TODO: toto nefunguje na zeit lamba TODO: zisti preco
+    return {};
   }
-  else return {}
-}
-export default Login
+  return {};
+};
+export default Login;

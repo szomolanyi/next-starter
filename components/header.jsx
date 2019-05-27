@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import LogoutButton from './LogoutButton';
 
 
 
@@ -44,7 +45,7 @@ const Header = (props) => (
             <div className="buttons">
               <Link href="/signup"><a className="button is-primary"><strong>Sign up</strong></a></Link>
               <Link href="/login"><a className="button is-light">Log in</a></Link>
-              <Link href="/server/logout"><a className="button is-light">Log out</a></Link>
+              <LogoutButton />
             </div>
           </div>
         </div>

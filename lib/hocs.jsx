@@ -1,6 +1,14 @@
 import { Mutation } from 'react-apollo';
 
 
+const isKnownError = error => (
+  error.extensions.code === 'BAD_USER_INPUT' ||
+  [
+    'IncorrectPasswordError',
+    'IncorrectUsernameError',
+  ].indexOf(error.extensions.exception.name) !== -1
+);
+
 /* checks error,
 errors other than BAD_USER_INPUT are thrown */
 const checkError = (error) => {
@@ -8,7 +16,7 @@ const checkError = (error) => {
   if (error.networkError) throw error;
   if (error.graphQLErrors) {
     error.graphQLErrors.forEach((e) => {
-      if (e.extensions.code !== 'BAD_USER_INPUT') throw error;
+      if (!isKnownError(e)) throw error;
     });
   }
 };
