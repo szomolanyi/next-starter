@@ -14,7 +14,7 @@ const LoginSchema = Yup.object().shape({
 });
 
 const LoginForm = ({ initialValues, postSubmit, mutate }) => {
-  const [globalError, setGlobalError] = useState('');
+  const [globalError, setGlobalError] = useState(null);
   return (
     <Formik
       initialValues={initialValues}
@@ -24,7 +24,7 @@ const LoginForm = ({ initialValues, postSubmit, mutate }) => {
           mutate({ variables: values })
             .then(() => {
               setSubmitting(false);
-              setGlobalError('');
+              setGlobalError(null);
               if (postSubmit) postSubmit();
               else resetForm();
               Router.push('/');
@@ -45,7 +45,9 @@ const LoginForm = ({ initialValues, postSubmit, mutate }) => {
               <Field className="input" name="password" type="password" placeholder="Password" label="Password" component={TextInput} />
               <input className="button" disabled={isSubmitting} type="submit" value="Submit" />
             </Form>
-            <div className="has-text-danger has-text-centered">{globalError}</div>
+            { globalError
+              && <div className="has-text-danger has-text-centered">{globalError}</div>
+            }
           </React.Fragment>
         )
       }

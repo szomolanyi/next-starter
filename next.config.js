@@ -4,7 +4,7 @@ module.exports = (phase) => {
   if (phase === PHASE_DEVELOPMENT_SERVER) {
     return {
       /* development only config options here */
-      target: 'serverless',
+      // target: 'serverless',
       env: {
         GRAPHQL_URI: 'http://localhost:3000/graphql',
       },
