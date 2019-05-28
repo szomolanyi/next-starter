@@ -59,17 +59,15 @@ app.use(flash());
 // apollo server
 const apolloServer = new ApolloServer({
   schema,
-  context: ({ req }) => {
-    return {
-      user: req.user,
-      login: req.login.bind(req),
-      logout: req.logout.bind(req),
-    };
-  },
+  context: ({ req }) => ({
+    user: req.user,
+    login: req.login.bind(req),
+    logout: req.logout.bind(req),
+  }),
   formatError: (err) => {
     console.log(err);
     return err;
-  }
+  },
 });
 apolloServer.applyMiddleware({ app }); // app is from an existing express app
 
