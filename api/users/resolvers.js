@@ -33,7 +33,6 @@ module.exports = {
       }));
     },
     logout: (Obj, data, { logout }) => {
-      console.log('Logout');
       logout();
       return true;
     },

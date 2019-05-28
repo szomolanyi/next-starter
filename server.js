@@ -60,7 +60,6 @@ app.use(flash());
 const apolloServer = new ApolloServer({
   schema,
   context: ({ req }) => {
-    console.log(`context,user: ${req.user ? req.user.email : null}, cookie: ${req.cookie}`);
     return {
       user: req.user,
       login: req.login.bind(req),
