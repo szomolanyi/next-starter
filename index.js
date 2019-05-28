@@ -1,25 +1,22 @@
-const next = require('next')
+const next = require('next');
 
-//create next app
-const dev = process.env.NODE_ENV !== 'production'
-const next_app = next({ dev })
-const handle = next_app.getRequestHandler()
+// create next app
+const dev = process.env.NODE_ENV !== 'production';
+const nextApp = next({ dev });
+const handle = nextApp.getRequestHandler();
+const app = require('./server');
 
-next_app.prepare()
-  
+nextApp.prepare()
+
   .then(() => {
-    const app = require('server')
-
-    app.get('*', (req, res) => {
-      return handle(req, res)
-    })
+    app.get('*', (req, res) => handle(req, res));
 
     app.listen(3000, (err) => {
-      if (err) throw err
-      console.log('> Ready on http://localhost:3000')
-    })
+      if (err) throw err;
+      console.log('> Ready on http://localhost:3000');
+    });
   })
   .catch((ex) => {
-    console.error(ex.stack)
-    process.exit(1)
-  })
+    console.error(ex.stack);
+    process.exit(1);
+  });
