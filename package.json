@@ -4,13 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_PATH=. nodemon index.js",
-    "debug": "cross-env NODE_PATH=. node --inspect index.js",
-    "build": "cross-env NODE_PATH=. next build",
-    "start": "cross-env NODE_PATH=. NODE_ENV=production node index.js",
+    "dev": "cross-env nodemon index.js",
+    "debug": "cross-env node --inspect index.js",
+    "build": "cross-env next build",
     "test": "cross-env MONGODB_URI=mongodb://localhost:27017/next-starter-test jest --detectOpenHandles",
-    "standalone": "cross-env NODE_PATH=. nodemon standalone-server.js",
-    "next": "next",
     "mongo-up": "docker-compose up -d",
     "mongo-down": "docker-compose stop",
     "now": "now -e MONGODB_URI=@mongo"
@@ -49,7 +46,6 @@
     "yup": "^0.27.0"
   },
   "devDependencies": {
-    "cross-env": "^5.2.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.17.2",
