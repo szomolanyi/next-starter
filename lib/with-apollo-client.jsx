@@ -5,18 +5,6 @@ import { getDataFromTree } from 'react-apollo';
 import initApollo from './apollo-client';
 
 function parseCookies(req) {
-  console.log('parseCookies start');
-  if (!req) {
-    if (!document) {
-      console.trace('document and req is not defined');
-      return null;
-    }
-    console.log(`parseCokies client: ${document.cookie}`);
-  } else {
-    console.log(`parseCokies server: ${req.headers.cookie}`);
-  }
-
-  // return cookie.parse(req ? req.headers.cookie || '' : document.cookie, options)
   return req ? req.headers.cookie || '' : document.cookie;
 }
 
@@ -37,7 +25,6 @@ export default App => class Apollo extends React.Component {
 
       getToken: () => {
         const token = parseCookies(req);
-        console.log(`clnttoken :${token}`);
         return token;
       },
     });
@@ -88,7 +75,6 @@ export default App => class Apollo extends React.Component {
     this.apolloClient = initApollo(props.apolloState, {
       getToken: () => {
         const token = parseCookies();
-        console.log(`srvtoken: ${token}`);
         return token;
       },
     });
