@@ -8,7 +8,7 @@ const LogoutButton = ({ logout }) => (
 export default () => (
   <ManagedMutation mutation={LOGOUT_USER}>
     {
-      mutate => <LogoutButton logout={mutate} />
+      ({ mutate }) => <LogoutButton logout={mutate} />
     }
   </ManagedMutation>
 );

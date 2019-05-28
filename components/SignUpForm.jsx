@@ -53,7 +53,7 @@ const SignUpForm = ({ initialValues, postSubmit, mutate }) => (
 export default () => (
   <ManagedMutation mutation={CREATE_USER}>
     {
-      mutate => <SignUpForm mutate={mutate} />
+      ({ mutate }) => <SignUpForm mutate={mutate} />
     }
   </ManagedMutation>
 );

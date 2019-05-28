@@ -56,7 +56,7 @@ const LoginForm = ({ initialValues, postSubmit, mutate }) => {
 export default () => (
   <ManagedMutation mutation={LOGIN_USER}>
     {
-      mutate => <LoginForm mutate={mutate} />
+      ({ mutate }) => <LoginForm mutate={mutate} />
     }
   </ManagedMutation>
 );

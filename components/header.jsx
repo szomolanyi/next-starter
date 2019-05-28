@@ -1,23 +1,22 @@
-import Link from 'next/link'
+import Link from 'next/link';
 import LogoutButton from './LogoutButton';
 
 
-
-const Header = (props) => (
+const Header = () => (
   <nav className="navbar has-shadow is-spaced" role="navigation" aria-label="main navigation">
     <div className="container">
       <div className="navbar-brand is-size-4">
         <Link href="/">
-          <a className="navbar-item has-text-danger">
-            <i className="far fa-keyboard"></i>&nbsp;
-            <strong>Next starter</strong>
+          <a href="/" className="navbar-item has-text-danger">
+            <i className="far fa-keyboard" />
+            <strong>&nbsp;Next starter</strong>
           </a>
         </Link>
 
         <a role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
         </a>
       </div>
 
@@ -34,8 +33,8 @@ const Header = (props) => (
             <div className="navbar-dropdown">
               <Link href="/"><a className="navbar-item">About</a></Link>
               <Link href="/"><a className="navbar-item">Contact</a></Link>
-              <hr className="navbar-divider"/>
-                <Link href="/"><a className="navbar-item">Report an issue</a></Link>
+              <hr className="navbar-divider" />
+              <Link href="/"><a className="navbar-item">Report an issue</a></Link>
             </div>
           </div>
         </div>
@@ -52,7 +51,6 @@ const Header = (props) => (
       </div>
     </div>
   </nav>
-)
+);
 
-export default Header
-
+export default Header;

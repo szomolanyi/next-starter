@@ -1,9 +1,9 @@
-import { Mutation } from 'react-apollo';
+import { Mutation, Query } from 'react-apollo';
 
 
 const isKnownError = error => (
-  error.extensions.code === 'BAD_USER_INPUT' ||
-  [
+  error.extensions.code === 'BAD_USER_INPUT'
+  || [
     'IncorrectPasswordError',
     'IncorrectUsernameError',
   ].indexOf(error.extensions.exception.name) !== -1
@@ -28,10 +28,19 @@ export const ManagedMutation = ({ children, ...rest }) => (
     {
       (mutate, result) => {
         checkError(result.error);
-        return children(mutate, result);
+        return children({ mutate, result });
       }
     }
   </Mutation>
 );
 
-export const eslintFix = () => null;
+export const ManagedQuery = ({ children, ...rest }) => (
+  <Query {...rest}>
+    {
+      ({ loading, error, data }) => {
+        checkError(error);
+        return children({ loading, error, data });
+      }
+    }
+  </Query>
+);
