@@ -5,7 +5,7 @@ module.exports = {
   Query: {
     users: async () => User.find(),
     currentUser: (Obj, data, { user }) => {
-      if (user) return { email: user.email };
+      if (user) return user;
       return null;
     },
   },

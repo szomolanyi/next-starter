@@ -13,7 +13,9 @@ const LoginSchema = Yup.object().shape({
     .required('Required'),
 });
 
-const LoginForm = ({ initialValues, postSubmit, mutate }) => {
+const LoginForm = ({
+  initialValues, postSubmit, mutate,
+}) => {
   const [globalError, setGlobalError] = useState(null);
   return (
     <Formik
@@ -31,7 +33,11 @@ const LoginForm = ({ initialValues, postSubmit, mutate }) => {
             })
             .catch((error) => {
               setSubmitting(false);
-              setGlobalError(error.graphQLErrors[0].extensions.exception.message);
+              if (error.graphQLErrors) {
+                setGlobalError(error.graphQLErrors[0].extensions.exception.message);
+              } else {
+                throw error;
+              }
             });
         }
       }
@@ -58,7 +64,12 @@ const LoginForm = ({ initialValues, postSubmit, mutate }) => {
 export default () => (
   <ManagedMutation mutation={LOGIN_USER}>
     {
-      ({ mutate }) => <LoginForm mutate={mutate} />
+      ({ mutate, result }) => {
+        const enhancedMutation = data => mutate(data).then(() => {
+          result.client.resetStore();
+        });
+        return <LoginForm mutate={enhancedMutation} />;
+      }
     }
   </ManagedMutation>
 );

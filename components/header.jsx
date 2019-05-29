@@ -1,8 +1,11 @@
 import Link from 'next/link';
+import React from 'react';
 import LogoutButton from './LogoutButton';
+import { ManagedQuery } from '../lib/hocs';
+import { CURRENT_USER } from '../lib/queries';
 
 
-const Header = () => (
+const Header = ({ currentUser }) => (
   <nav className="navbar has-shadow is-spaced" role="navigation" aria-label="main navigation">
     <div className="container">
       <div className="navbar-brand is-size-4">
@@ -42,9 +45,12 @@ const Header = () => (
         <div className="navbar-end">
           <div className="navbar-item">
             <div className="buttons">
-              <Link href="/signup"><a className="button is-primary"><strong>Sign up</strong></a></Link>
-              <Link href="/login"><a className="button is-light">Log in</a></Link>
-              <LogoutButton />
+              { currentUser ? <LogoutButton /> : (
+                <React.Fragment>
+                  <Link href="/signup"><a className="button is-primary"><strong>Sign up</strong></a></Link>
+                  <Link href="/login"><a className="button is-light">Log in</a></Link>
+                </React.Fragment>
+              )}
             </div>
           </div>
         </div>
@@ -53,4 +59,17 @@ const Header = () => (
   </nav>
 );
 
-export default Header;
+export default () => (
+  <ManagedQuery query={CURRENT_USER}>
+    {({ loading, error, data }) => {
+      if (error) {
+        console.log(error); // todo: handle errors
+        return null;
+      }
+      if (loading) return null;
+      return (
+        <Header currentUser={data.currentUser} />
+      );
+    }}
+  </ManagedQuery>
+);
