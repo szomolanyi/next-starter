@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env nodemon index.js",
-    "debug": "cross-env node --inspect index.js",
-    "build": "cross-env next build",
-    "test": "cross-env MONGODB_URI=mongodb://localhost:27017/next-starter-test jest --detectOpenHandles",
+    "dev": "nodemon index.js",
+    "debug": "node --inspect index.js",
+    "build": "next build",
+    "test": "MONGODB_URI=mongodb://localhost:27017/next-starter-test jest --detectOpenHandles",
     "mongo-up": "docker-compose up -d",
     "mongo-down": "docker-compose stop",
     "now": "now -e MONGODB_URI=@mongo"

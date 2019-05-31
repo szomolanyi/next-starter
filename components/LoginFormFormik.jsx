@@ -14,62 +14,65 @@ const LoginSchema = Yup.object().shape({
 });
 
 const LoginForm = ({
-  initialValues, postSubmit, mutate,
-}) => {
-  const [globalError, setGlobalError] = useState(null);
-  return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={
-        (values, fvals) => {
-          const { setSubmitting, resetForm } = fvals;
-          mutate({ variables: values })
-            .then(() => {
-              setSubmitting(false);
-              setGlobalError(null);
-              if (postSubmit) postSubmit();
-              else resetForm();
-              Router.push('/');
-            })
-            .catch((error) => {
-              setSubmitting(false);
-              if (error.graphQLErrors) {
-                setGlobalError(error.graphQLErrors[0].extensions.exception.message);
-              } else {
-                throw error;
-              }
-            });
-        }
+  mutate, mutationError,
+}) => (
+  <Formik
+    initialValues={{
+      email: '',
+      password: '',
+    }}
+    onSubmit={
+      (values, fvals) => {
+        const { setSubmitting, resetForm } = fvals;
+        mutate({ variables: values })
+          .then(() => {
+            setSubmitting(false);
+            resetForm();
+          });
       }
-      validationSchema={LoginSchema}
-    >
-      {
-        ({ isSubmitting }) => (
-          <React.Fragment>
-            <Form>
-              <Field className="input" name="email" type="text" placeholder="Email" label="Email" component={TextInput} />
-              <Field className="input" name="password" type="password" placeholder="Password" label="Password" component={TextInput} />
-              <input className="button" disabled={isSubmitting} type="submit" value="Submit" />
-            </Form>
-            { globalError
-              && <div className="has-text-danger has-text-centered">{globalError}</div>
-            }
-          </React.Fragment>
-        )
+    }
+    validationSchema={LoginSchema}
+  >
+    {
+      ({ isSubmitting }) => (
+        <React.Fragment>
+          <Form>
+            <Field className="input" name="email" type="text" placeholder="Email" label="Email" component={TextInput} />
+            <Field className="input" name="password" type="password" placeholder="Password" label="Password" component={TextInput} />
+            <input className="button" disabled={isSubmitting} type="submit" value="Submit" />
+          </Form>
+          { mutationError
+            && <div className="has-text-danger has-text-centered">{mutationError}</div>
+          }
+        </React.Fragment>
+      )
+    }
+  </Formik>
+);
+
+const LoginController = ({ mutate, client }) => {
+  const [mutationError, setMutationError] = useState(null);
+  const enhancedMutation = data => mutate(data)
+    .then(() => {
+      client.resetStore();
+      setMutationError(null);
+      Router.push('/');
+    })
+    .catch((error) => {
+      if (error.graphQLErrors) {
+        setMutationError(error.graphQLErrors[0].extensions.exception.message);
+      } else {
+        throw error;
       }
-    </Formik>
-  );
+    });
+  return <LoginForm mutate={enhancedMutation} mutationError={mutationError} />;
 };
+
 
 export default () => (
   <ManagedMutation mutation={LOGIN_USER}>
     {
-      ({ mutate, result }) => {
-        const enhancedMutation = data => mutate(data).then(() => {
-          result.client.resetStore();
-        });
-        return <LoginForm mutate={enhancedMutation} />;
-      }
+      ({ mutate, result }) => <LoginController mutate={mutate} client={result.client} />
     }
   </ManagedMutation>
 );
