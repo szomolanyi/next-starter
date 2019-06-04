@@ -6,6 +6,7 @@ const isKnownError = error => (
   || [
     'IncorrectPasswordError',
     'IncorrectUsernameError',
+    'UserExistsError',
   ].indexOf(error.extensions.exception.name) !== -1
 );
 

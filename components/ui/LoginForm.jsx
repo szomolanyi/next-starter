@@ -1,10 +1,7 @@
 import * as Yup from 'yup';
+import React from 'react';
 import { Formik, Field, Form } from 'formik';
-import Router from 'next/router';
-import React, { useState } from 'react';
-import { ManagedMutation } from '../lib/hocs';
 import TextInput from './TextInput';
-import { LOGIN_USER } from '../lib/queries';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -12,6 +9,7 @@ const LoginSchema = Yup.object().shape({
   password: Yup.string()
     .required('Required'),
 });
+
 
 const LoginForm = ({
   mutate, mutationError,
@@ -50,29 +48,4 @@ const LoginForm = ({
   </Formik>
 );
 
-const LoginController = ({ mutate, client }) => {
-  const [mutationError, setMutationError] = useState(null);
-  const enhancedMutation = data => mutate(data)
-    .then(() => {
-      client.resetStore();
-      setMutationError(null);
-      Router.push('/');
-    })
-    .catch((error) => {
-      if (error.graphQLErrors) {
-        setMutationError(error.graphQLErrors[0].extensions.exception.message);
-      } else {
-        throw error;
-      }
-    });
-  return <LoginForm mutate={enhancedMutation} mutationError={mutationError} />;
-};
-
-
-export default () => (
-  <ManagedMutation mutation={LOGIN_USER}>
-    {
-      ({ mutate, result }) => <LoginController mutate={mutate} client={result.client} />
-    }
-  </ManagedMutation>
-);
+export default LoginForm;

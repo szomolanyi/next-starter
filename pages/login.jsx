@@ -1,7 +1,7 @@
 import Layout from '../components/layout';
-import LoginForm from '../components/LoginFormFormik';
+import LoginForm from '../components/Login';
 
-const Login = ({ messages }) => (
+const LoginPage = ({ messages }) => (
   <Layout>
     <section className="section">
       <h1 className="title">Login</h1>
@@ -10,11 +10,4 @@ const Login = ({ messages }) => (
   </Layout>
 );
 
-Login.getInitialProps = async ({ req }) => {
-  if (req) {
-    // const messages = req.flash() TODO: toto nefunguje na zeit lamba TODO: zisti preco
-    return {};
-  }
-  return {};
-};
-export default Login;
+export default LoginPage;
