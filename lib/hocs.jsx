@@ -1,4 +1,31 @@
 import { Mutation, Query } from 'react-apollo';
+import Router from 'next/router';
+
+const handleError = (error) => {
+  console.log({ error });
+  if (error.networkError) {
+    return Router.push('/_error');
+  }
+  const errors = [];
+  if (error.graphQLErrors) {
+    error.graphQLErrors.forEach((err) => {
+      if (err.extensions.code !== 'BAD_USER_INPUT') {
+        return Router.push('/_error');
+      }
+      errors.push(err);
+    });
+  } else return Router.push('/_error');
+  const err = { errors };
+  throw err;
+};
+
+export const errorHandler = mutate => async (params) => {
+  try {
+    await mutate(params);
+  } catch (error) {
+    handleError(error);
+  }
+};
 
 
 const isKnownError = error => (
