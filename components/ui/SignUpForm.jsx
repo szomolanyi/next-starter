@@ -2,6 +2,7 @@ import * as Yup from 'yup';
 import React from 'react';
 import { Formik, Field, Form } from 'formik';
 import TextInput from './TextInput';
+import { handleErrorUI } from '../../lib/hocs';
 
 const CommentSchema = Yup.object().shape({
   email: Yup.string()
@@ -13,26 +14,39 @@ const CommentSchema = Yup.object().shape({
 });
 
 
-const SignUpForm = ({ signUp, signUpError }) => (
+const SignUpForm = ({
+ signUp, postSubmit, signUpError 
+}) => (
   <Formik
     initialValues={{
       email: '',
       password: '',
       password2: '',
     }}
+    initialStatus={{
+      errors: [],
+    }}
     onSubmit={
       (values, fvals) => {
-        const { setSubmitting } = fvals;
+        const { setSubmitting, setStatus } = fvals;
         signUp({ variables: values })
           .then(() => {
             setSubmitting(false);
+            if (postSubmit) {
+              postSubmit();
+            }
+          })
+          .catch((error) => {
+            setSubmitting(false);
+            const errors = handleErrorUI(error);
+            setStatus({ errors });
           });
       }
     }
     validationSchema={CommentSchema}
   >
     {
-      ({ isSubmitting }) => (
+      ({ isSubmitting, status }) => (
         <React.Fragment>
           <Form>
             <Field className="input" name="email" type="text" placeholder="Email" label="Email" component={TextInput} />
@@ -40,8 +54,7 @@ const SignUpForm = ({ signUp, signUpError }) => (
             <Field className="input" name="password2" type="password" placeholder="Confirm password" label="Confirm Password" component={TextInput} />
             <input className="button" disabled={isSubmitting} type="submit" value="Submit" />
           </Form>
-          { signUpError
-            && <div className="has-text-danger has-text-centered">{signUpError}</div>
+          { status.errors.map(error => <div className="has-text-danger has-text-centered">{error.message}</div>)
           }
         </React.Fragment>
       )
