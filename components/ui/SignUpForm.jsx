@@ -6,10 +6,13 @@ import { handleErrorUI } from '../../lib/hocs';
 
 const CommentSchema = Yup.object().shape({
   email: Yup.string()
-    .required('Required'),
+    .required('Required')
+    .email(),
   password: Yup.string()
-    .required('Required'),
+    .required('Required')
+    .min(6),
   password2: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Passwords must match')
     .required('Required'),
 });
 
@@ -28,10 +31,11 @@ const SignUpForm = ({
     }}
     onSubmit={
       (values, fvals) => {
-        const { setSubmitting, setStatus } = fvals;
+        const { setSubmitting, setStatus, resetForm } = fvals;
         signUp({ variables: values })
           .then(() => {
             setSubmitting(false);
+            resetForm();
             if (postSubmit) {
               postSubmit();
             }
