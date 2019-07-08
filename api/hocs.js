@@ -1,5 +1,5 @@
 /*
-Not used for know 
+Not used for know
 */
 
 const { ApolloError, UserInputError } = require('apollo-server-express');
@@ -12,7 +12,7 @@ const errorHandler = func => async () => {
     if (error.code === 11000) {
       throw new UserInputError('Comment already defined', {
         errfields: {
-          title: 'Uz mam',
+          title: 'Uz mam', // TODO: remove this
         },
       });
     } else {

@@ -70,7 +70,9 @@ const checkError = (error) => {
 };
 
 /* manages Mutation errors,
-errors other than BAD_USER_INPUT are thrown and are catched in Error Boundary component */
+errors other than BAD_USER_INPUT are thrown and are catched in Error Boundary component 
+TODO: it is not used
+*/
 export const ManagedMutation = ({ children, ...rest }) => (
   <Mutation {...rest}>
     {

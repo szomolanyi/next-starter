@@ -1,25 +1,22 @@
-import { ManagedMutation } from '../lib/hocs';
+import { compose, graphql, withApollo } from 'react-apollo';
 import { LOGOUT_USER } from '../lib/queries';
 
-const LogoutButton = ({ logout }) => (
+const LogoutButton = ({ logout, client }) => (
   <button
     type="button"
     className="button is-light"
-    onClick={() => logout()}
+    onClick={() => logout().then(() => client.resetStore())}
   >
       Logout
   </button>
 );
 
-export default () => (
-  <ManagedMutation mutation={LOGOUT_USER}>
-    {
-      ({ mutate, result }) => {
-        const enhancedMutation = data => mutate(data).then(() => {
-          result.client.resetStore();
-        });
-        return <LogoutButton logout={enhancedMutation} />;
-      }
-    }
-  </ManagedMutation>
-);
+export default compose(
+  withApollo,
+  graphql(LOGOUT_USER, {
+    props: ({ mutate, ownProps }) => ({
+      logout: mutate,
+      ...ownProps,
+    }),
+  }),
+)(LogoutButton);
