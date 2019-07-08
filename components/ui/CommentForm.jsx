@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import { Formik, Field, Form } from 'formik';
+import { handleErrorUI } from '../../lib/hocs';
 
 const CommentSchema = Yup.object().shape({
   title: Yup.string()
@@ -25,9 +26,10 @@ const CommentForm = ({
               postSubmit();
             }
           })
-          .catch((errors) => {
+          .catch((error) => {
             setSubmitting(false);
-            setStatus(errors);
+            const errors = handleErrorUI(error);
+            setStatus({ errors });
           });
       }
     }
@@ -44,6 +46,7 @@ const CommentForm = ({
           {errors.text && touched.text && <p className="help is-danger">{errors.text}</p>}
           <input className="button" disabled={isSubmitting} type="submit" value="Submit" />
           { status.errors
+            // eslint-disable-next-line react/no-array-index-key
             && status.errors.map((error, i) => <p className="help is-danger" key={i}>{ error.message }</p>)
           }
         </Form>

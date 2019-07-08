@@ -54,7 +54,9 @@ const SignUpForm = ({
             <Field className="input" name="password2" type="password" placeholder="Confirm password" label="Confirm Password" component={TextInput} />
             <input className="button" disabled={isSubmitting} type="submit" value="Submit" />
           </Form>
-          { status.errors.map((error, i) => <div key={i} className="has-text-danger has-text-centered">{error.message}</div>)
+          {
+            // eslint-disable-next-line react/no-array-index-key
+            status.errors.map((error, i) => <div key={i} className="has-text-danger has-text-centered">{error.message}</div>)
           }
         </React.Fragment>
       )

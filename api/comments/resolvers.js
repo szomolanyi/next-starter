@@ -14,8 +14,7 @@ module.exports = {
       const comment = new Comment(data);
       try {
         return await comment.save();
-      }
-      catch (error) {
+      } catch (error) {
         console.log({ error });
         if (error.code === 11000) {
           throw new UserInputError('Comment already defined', { pokus: 'potomzmaz' });

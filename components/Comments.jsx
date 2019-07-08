@@ -7,7 +7,6 @@ import {
 import CommentsList from './ui/CommentsList';
 import CommentForm from './ui/CommentForm';
 import EditModal from './ui/EditModal';
-import { errorHandler } from '../lib/hocs';
 import { useModal } from '../lib/hooks';
 
 const Comments = ({
@@ -69,7 +68,7 @@ export default compose(
   }),
   graphql(ADD_COMMENT, {
     props: ({ mutate, ownProps }) => ({
-      create: errorHandler(mutate),
+      create: mutate,
       initialValues: {
         _id: '',
         text: '',
@@ -89,7 +88,7 @@ export default compose(
   }),
   graphql(EDIT_COMMENT, {
     props: ({ mutate, ownProps }) => ({
-      edit: errorHandler(mutate),
+      edit: mutate,
       ...ownProps,
     }),
   }),

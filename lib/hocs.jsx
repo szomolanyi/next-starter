@@ -10,20 +10,23 @@ const isKnownError = error => (
   ].indexOf(error.extensions.exception.name) !== -1
 );
 
+/*
+Not used know
+*/
 const handleError = (error) => {
   console.log({ error });
   if (error.networkError) {
-    return Router.push('/_error');
+    Router.push('/_error');
   }
   const errors = [];
   if (error.graphQLErrors) {
     error.graphQLErrors.forEach((err) => {
       if (!isKnownError(err)) {
-        return Router.push('/_error');
+        Router.push('/_error');
       }
       errors.push(err);
     });
-  } else return Router.push('/_error');
+  } else Router.push('/_error');
   if (errors.length > 0) {
     throw errors;
   } else {
@@ -34,17 +37,17 @@ const handleError = (error) => {
 export const handleErrorUI = (error) => {
   console.log({ error });
   if (error.networkError) {
-    return Router.push('/_error');
+    Router.push('/_error');
   }
   const errors = [];
   if (error.graphQLErrors) {
     error.graphQLErrors.forEach((err) => {
       if (!isKnownError(err)) {
-        return Router.push('/_error');
+        Router.push('/_error');
       }
       errors.push(err);
     });
-  } else return Router.push('/_error');
+  } else Router.push('/_error');
   return errors;
 }
 
