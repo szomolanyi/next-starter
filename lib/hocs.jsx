@@ -1,18 +1,8 @@
 import { Mutation, Query } from 'react-apollo';
-import Router from 'next/router';
-
-const isKnownError = error => (
-  error.extensions.code === 'BAD_USER_INPUT'
-  || [
-    'IncorrectPasswordError',
-    'IncorrectUsernameError',
-    'UserExistsError',
-  ].indexOf(error.extensions.exception.name) !== -1
-);
+import { isKnownError } from './utils';
 
 /*
 Not used know
-*/
 const handleError = (error) => {
   console.log({ error });
   if (error.networkError) {
@@ -34,28 +24,11 @@ const handleError = (error) => {
   }
 };
 
-export const handleErrorUI = (error) => {
-  console.log({ error });
-  if (error.networkError) {
-    Router.push('/_error');
-  }
-  const errors = [];
-  if (error.graphQLErrors) {
-    error.graphQLErrors.forEach((err) => {
-      if (!isKnownError(err)) {
-        Router.push('/_error');
-      }
-      errors.push(err);
-    });
-  } else Router.push('/_error');
-  return errors;
-}
-
 export const errorHandler = mutate => params => mutate(params)
   .catch((error) => {
     handleError(error);
   });
-
+*/
 
 /* checks error,
 errors other than BAD_USER_INPUT are thrown */

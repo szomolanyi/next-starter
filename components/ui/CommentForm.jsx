@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import { Formik, Field, Form } from 'formik';
-import { handleErrorUI } from '../../lib/hocs';
+import { handleErrorUI } from '../../lib/utils';
 
 const CommentSchema = Yup.object().shape({
   title: Yup.string()

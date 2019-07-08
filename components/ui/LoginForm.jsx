@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 import React from 'react';
 import { Formik, Field, Form } from 'formik';
 import TextInput from './TextInput';
-import { handleErrorUI } from '../../lib/hocs';
+import { handleErrorUI } from '../../lib/utils';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
