@@ -1,4 +1,7 @@
+const crypto = require('crypto');
+const { UserInputError } = require('apollo-server-express');
 const User = require('../../models/users');
+const Token = require('../../models/token');
 
 
 module.exports = {
@@ -12,6 +15,8 @@ module.exports = {
   Mutation: {
     createUser: async (obj, { email, password }) => {
       const user = await User.register(new User({ email }), password);
+      const token = new Token({ _userId: user._id, token: crypto.randomBytes(16).toString('hex') });
+      await token.save();
       return user;
     },
     deleteUser: async (obj, { _id }) => {

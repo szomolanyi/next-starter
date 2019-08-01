@@ -12,12 +12,14 @@ const flash = require('express-flash');
 const BodyParser = require('body-parser');
 const CookieParser = require('cookie-parser');
 const passport = require('passport');
+const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
 const { ApolloServer } = require('apollo-server-express');
-const mongoose = require('mongoose');
 const schema = require('./api');
 require('./lib/passport');
 
+const User = require('./models/users');
+const Token = require('./models/token');
 
 // mongoose connect
 mongoose.set('useFindAndModify', false);
@@ -55,6 +57,8 @@ app.use(passport.session());
 // flash
 app.use(flash());
 
+// pug is used to render special pages, confirmemail, ...
+app.set('view engine', 'pug');
 
 // apollo server
 const apolloServer = new ApolloServer({
@@ -71,6 +75,36 @@ const apolloServer = new ApolloServer({
 });
 apolloServer.applyMiddleware({ app }); // app is from an existing express app
 
+app.get('/server/confirmemail1', (req, res) => {
+  Token.findOne({ token: req.query.token }, (err, token) => {
+    if (err) {
+      console.log(err);
+    }
+    if (!token) {
+      return res.render('confirmemail', { message: 'Token was not found or it is timed out', canlog: false });
+    }
+    return User.findOne({ _id: token._userId }, (err1, user) => {
+      if (err1) {
+        console.log(err1);
+      }
+      if (!user) {
+        return res.render('confirmemail', { message: 'We were unable to find a user for this token.', canlog: false });
+      }
+      if (user.isVerified) {
+        return res.render('confirmemail', { message: 'This user has already been verified.', canlog: true });
+      }
+      // Verify and save the user
+      user.isVerified = true;
+      return user.save((err2) => {
+        if (err2) {
+          console.log(err2);
+          res.render('confirmemail', { message: 'Internal error', canlog: false });
+        }
+        return res.render('confirmemail', { message: 'Great your account was verified.', canlog: true });
+      });
+    });
+  });
+});
 
 /*
 Use if standard LocalStrategy is used:

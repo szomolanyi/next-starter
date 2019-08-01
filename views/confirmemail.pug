@@ -1,0 +1,14 @@
+html
+  head
+    title= 'Email confirm'
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css')
+  body
+    section.hero.is-large
+      div.hero-body
+        div.columns.is-centered
+          div.column.is-centered.is-half
+            p= message
+            if canlog == true
+              p Now you can 
+                a(href='/login') login
+                | .
