@@ -4,6 +4,7 @@ import Head from 'next/head';
 // import AppError from '../components/AppError';
 import AppErrorModal from './AppErrorModal';
 import Header from './header';
+import AppMessage from './ui/AppMessage';
 
 const Layout = ({ children }) => (
   <React.Fragment>
@@ -13,6 +14,7 @@ const Layout = ({ children }) => (
     </Head>
     <AppErrorModal>
       <Header />
+      <AppMessage />
       <div className="container">
         {children}
       </div>

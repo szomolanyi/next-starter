@@ -1,5 +1,5 @@
 const typeDefs = `
-type Query {
+extend type Query {
   comments: [Comment]
 }
 
@@ -9,7 +9,7 @@ type Comment {
   text: String
 }
 
-type Mutation {
+extend type Mutation {
   createComment(title: String!, text: String!): Comment
   deleteComment(_id: String!): String
   editComment(_id: String!, title: String!, text: String!): Comment

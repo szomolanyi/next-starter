@@ -100,7 +100,7 @@ app.get('/server/confirmemail1', (req, res) => {
           console.log(err2);
           res.render('confirmemail', { message: 'Internal error', canlog: false });
         }
-        return res.render('confirmemail', { message: 'Great your account was verified.', canlog: true });
+        return res.render('confirmemail', { message: 'Great, your account has been activated !', canlog: true });
       });
     });
   });
