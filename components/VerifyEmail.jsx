@@ -1,4 +1,3 @@
-//import { compose, graphql, withApollo } from 'react-apollo';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { SEND_VERIFY_EMAIL, SET_APP_MESSAGE } from '../lib/queries';
 

@@ -36,8 +36,6 @@ const Comments = () => {
     modalOpened, hideModal, openModal, modalData,
   } = useModal(false);
   const { loading, error, data } = useQuery(GET_COMMENTS);
-  if (loading) return null;
-  if (error) console.log(error); // TODO osetrit !!!
   const [deleteComment] = useMutation(DELETE_COMMENT, {
     // update: updateCacheAfterDelete,
     refetchQueries: ['Comments'], // TODO, ktory sposob je lepsi, napr. v suvislosti sa pageing ?
@@ -46,6 +44,8 @@ const Comments = () => {
     update: updateCacheAfterCreate,
   });
   const [edit] = useMutation(EDIT_COMMENT);
+  if (loading) return null;
+  if (error) console.log(error); // TODO osetrit !!!
   return (
     <>
       <section className="section">

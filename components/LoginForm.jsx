@@ -67,15 +67,3 @@ const LoginForm = () => {
 
 export default LoginForm;
 
-/*
-export default compose(
-  withApollo,
-  graphql(LOGIN_USER, {
-    props: ({ mutate, ownProps }) => ({
-      login: mutate,
-      ...ownProps,
-      postSubmit: () => Router.push('/'),
-    }),
-  }),
-)(LoginForm);
-*/

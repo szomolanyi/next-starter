@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { compose, graphql } from 'react-apollo';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import Link from 'next/link';
 import Layout from '../components/layout';
 import { VERIFY_EMAIL, CURRENT_USER } from '../lib/queries';
@@ -36,7 +36,14 @@ const VerifyResult = ({ result, currentUser }) => {
   return <p>{result.message}</p>;
 };
 
-const EmailVerify = ({ token, mutate, data: { currentUser, loading } }) => {
+const EmailVerify = ({ token }) => {
+  const { loading, error, data: { currentUser }} = useQuery(CURRENT_USER);
+  const [verifyEmailFunc] = useMutation(VERIFY_EMAIL, {
+    refetchQueries: [
+      'CurrentUser',
+    ],
+  });
+  // TODO osetri error
   if (loading) return null; // TODO: vyries lepsie
   const [result, setResult] = useState(null);
   useEffect(() => {
@@ -45,7 +52,7 @@ const EmailVerify = ({ token, mutate, data: { currentUser, loading } }) => {
       return;
     }
     console.log('verify: sending token');
-    mutate({ variables: { token } })
+    verifyEmailFunc({ variables: { token } })
       .then(({ data: { verifyEmail } }) => {
         console.log({ m: 'verfify called', verifyEmail });
         setResult(verifyEmail);
@@ -75,13 +82,5 @@ EmailVerify.getInitialProps = async ({ req }) => {
   };
 };
 
-export default compose(
-  graphql(VERIFY_EMAIL, {
-    options: {
-      refetchQueries: [
-        'CurrentUser',
-      ],
-    },
-  }),
-  graphql(CURRENT_USER),
-)(EmailVerify);
+export default EmailVerify;
+

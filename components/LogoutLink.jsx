@@ -1,4 +1,3 @@
-// import { compose, graphql, withApollo } from 'react-apollo';
 import { useMutation, useApolloClient } from '@apollo/react-hooks';
 import { LOGOUT_USER } from '../lib/queries';
 

@@ -1,22 +1,18 @@
-import { compose, graphql, withApollo } from 'react-apollo';
+import { useMutation, useApolloClient } from '@apollo/react-hooks';
 import { LOGOUT_USER } from '../lib/queries';
 
-const LogoutButton = ({ logout, client }) => (
-  <button
-    type="button"
-    className="button is-light"
-    onClick={() => logout().then(() => client.resetStore())}
-  >
-      Logout
-  </button>
-);
+const LogoutButton = () => {
+  const [logout] = useMutation(LOGOUT_USER);
+  const client = useApolloClient();
+  return (
+    <button
+      type="button"
+      className="button is-light"
+      onClick={() => logout().then(() => client.resetStore())}
+    >
+        Logout
+    </button>
+  );
+};
 
-export default compose(
-  withApollo,
-  graphql(LOGOUT_USER, {
-    props: ({ mutate, ownProps }) => ({
-      logout: mutate,
-      ...ownProps,
-    }),
-  }),
-)(LogoutButton);
+export default LogoutButton;
