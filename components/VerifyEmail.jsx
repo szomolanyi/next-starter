@@ -1,9 +1,12 @@
-import { compose, graphql, withApollo } from 'react-apollo';
+//import { compose, graphql, withApollo } from 'react-apollo';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import { SEND_VERIFY_EMAIL, SET_APP_MESSAGE } from '../lib/queries';
 
-const VerifyEmail = ({ mutate, setAppMessage }) => {
-  const sendVerifyEmail = () => {
-    mutate()
+const VerifyEmail = () => {
+  const [setAppMessage] = useMutation(SET_APP_MESSAGE);
+  const [sendVerifyEmail] = useQuery(SEND_VERIFY_EMAIL);
+  const sendVerifyEmail2 = () => {
+    sendVerifyEmail()
       .then(() => {
         setAppMessage({ variables: { id: 'SEND_VERIFY_EMAIL_OK' } });
       });
@@ -11,8 +14,8 @@ const VerifyEmail = ({ mutate, setAppMessage }) => {
   return (
     <a
       className="navbar-item"
-      onClick={() => sendVerifyEmail()}
-      onKeyPress={() => sendVerifyEmail()}
+      onClick={() => sendVerifyEmail2()}
+      onKeyPress={() => sendVerifyEmail2()}
       role="link"
       tabIndex={0}
     >
@@ -21,13 +24,5 @@ const VerifyEmail = ({ mutate, setAppMessage }) => {
   );
 };
 
-export default compose(
-  withApollo,
-  graphql(SEND_VERIFY_EMAIL),
-  graphql(SET_APP_MESSAGE, {
-    props: ({ mutate, ownProps }) => ({
-      setAppMessage: mutate,
-      ...ownProps,
-    }),
-  }),
-)(VerifyEmail);
+export default VerifyEmail;
+

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 //import { useQuery } from '@apollo/react-hooks';
-import { compose, graphql } from 'react-apollo';
+//import { compose, graphql } from 'react-apollo';
 import { APP_MESSAGE, SET_APP_MESSAGE } from '../../lib/queries';
 
 const MessageSendVerifyEmailOk = () => (
@@ -14,7 +14,8 @@ const Message = ({ id }) => {
   }
 };
 
-const AppMessage = ({ data: { appMessage, loading }, mutate }) => {
+const AppMessage = () => {
+  return null;
   if (loading) return null;
   if (!appMessage) {
     // appMessage cache value is not initialized
@@ -33,10 +34,13 @@ const AppMessage = ({ data: { appMessage, loading }, mutate }) => {
         <Message id={appMessage.messageId} />
       </div>
     </article>
-  )
+  );
 };
 
+export default AppMessage;
+/*
 export default compose(
   graphql(APP_MESSAGE),
   graphql(SET_APP_MESSAGE),
 )(AppMessage);
+*/

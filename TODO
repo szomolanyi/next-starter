@@ -4,3 +4,4 @@
 * mongoose pinned to 5.4.23, because newer versions require node 10
 * flash is not working on lambda, need to solve login failures
 * viacnasobny login, ak je user prihlaseny pokus o druhy login zamerzne
+* eslint do dev dependencies

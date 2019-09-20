@@ -1,7 +1,10 @@
 // load and check required env variables
 const dotenv = require('dotenv');
 
-if (process.env.NODE_ENV !== 'production') { dotenv.load({ path: '.env-dev' }); }
+if (process.env.NODE_ENV !== 'production') { 
+  //dotenv.load({ path: '.env-dev' });
+  dotenv.config();
+}
 if (!process.env.MONGODB_URI) {
   throw new Error('Required env variable process.env.MONGODB_URI not defined');
 }

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
+import { useQuery } from '@apollo/react-hooks';
 import LogoutLink from './LogoutLink';
 import VerifyEmail from './VerifyEmail';
 import { ManagedQuery } from '../lib/hocs';
@@ -30,8 +31,17 @@ const Logged = ({ currentUser }) => {
   );
 };
 
-const Header = ({ currentUser }) => {
+const Header = () => {
   const [active, setActive] = useState('');
+  const { loading, error, data: { currentUser } } = useQuery(CURRENT_USER);
+  if (loading) {
+    return null;
+  }
+  if (error) {
+    // TODO osetri poriadne
+    console.log(error);
+    return null;
+  }
   return (
     <nav className="navbar has-shadow is-spaced" role="navigation" aria-label="main navigation">
       <div className="container">
@@ -89,17 +99,4 @@ const Header = ({ currentUser }) => {
   );
 };
 
-export default () => (
-  <ManagedQuery query={CURRENT_USER}>
-    {({ loading, error, data }) => {
-      if (error) {
-        console.log(error); // todo: handle errors
-        return null;
-      }
-      if (loading) return null;
-      return (
-        <Header currentUser={data.currentUser} />
-      );
-    }}
-  </ManagedQuery>
-);
+export default Header;
