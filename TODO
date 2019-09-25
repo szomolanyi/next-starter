@@ -5,3 +5,4 @@
 * flash is not working on lambda, need to solve login failures
 * viacnasobny login, ak je user prihlaseny pokus o druhy login zamerzne
 * eslint do dev dependencies
+* ako zistit msg pre invariant v produkcii :  grep -r InvariantError node_modules/**/bundle.cjs.js

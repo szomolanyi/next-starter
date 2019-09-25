@@ -27,7 +27,7 @@ const AppMessage = () => {
     <article className="message">
       <div className="message-header">
         <p>Hello World</p>
-        <button type="button" className="delete" aria-label="delete" onClick={() => mutate({ variables: { id: null } })} />
+        <button type="button" className="delete" aria-label="delete" onClick={() => setAppMessage({ variables: { id: null } })} />
       </div>
       <div className="message-body">
         <Message id={appMessage.messageId} />
