@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 import { SEND_VERIFY_EMAIL, SET_APP_MESSAGE } from '../lib/queries';
 
 const VerifyEmail = () => {

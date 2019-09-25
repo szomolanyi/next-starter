@@ -1,5 +1,9 @@
 # Next.js + React + Apollo graphql starter
 
+## Devopment
+Rename .env.template to .env and edit variables
+now dev
+
 ## Error handling
 There are 2 kind of errors :
 * User errors which are propagated to UI. Most of them are thrown from GraphQL resolvers as UserInputError [graphQLErrors](https://www.apollographql.com/docs/apollo-server/features/errors/).
@@ -12,4 +16,5 @@ Some errors are passed to component hierarchy, to allow user errors handling. Cu
 
 ## Zeit deploy 
 now secret add mongo https://...
-now -e MONGODB_URI=@mongo
+now secret add sendgrid ...
+now -e MONGODB_URI=@mongo SENDGRID_API_KEY=@sendgrid
