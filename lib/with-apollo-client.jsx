@@ -5,7 +5,14 @@ import { getDataFromTree } from 'react-apollo';
 import initApollo from './apollo-client';
 
 function parseCookies(req) {
+  if (req) {
+    return req.headers.cookie || '';
+  }
+  /*
   return req ? req.headers.cookie || '' : document.cookie;
+  TODO: toto hadzalo chybu na serveri niekedy, ze document doesn't exists
+  zistit, ci na clientovi potrebujem document.cookie, resp. preco to hadza chybu 
+  */
 }
 
 export default App => class Apollo extends React.Component {
