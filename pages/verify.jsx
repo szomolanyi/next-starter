@@ -71,10 +71,11 @@ const EmailVerify = ({ token }) => {
   );
 };
 
-EmailVerify.getInitialProps = async ({ req }) => {
-  if (req) {
+EmailVerify.getInitialProps = async ({ query: { token } }) => {
+  console.log({ m: 'EmailV', token });
+  if (token) {
     return {
-      token: req.query.token,
+      token,
     };
   }
   return {
