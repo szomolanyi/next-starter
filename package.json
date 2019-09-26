@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
+    "nowdev": "now dev",
     "debug": "node --inspect index.js",
     "build": "next build",
     "test": "MONGODB_URI=mongodb://localhost:27017/next-starter-test jest --detectOpenHandles",
