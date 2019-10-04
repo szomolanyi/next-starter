@@ -4,7 +4,6 @@ import Link from 'next/link';
 import Layout from '../components/layout';
 import { VERIFY_EMAIL, CURRENT_USER } from '../lib/queries';
 import createResult from '../lib/result-codes';
-import { handleErrorUI } from '../lib/utils';
 
 /* possible states:
 - logged in:

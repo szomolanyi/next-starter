@@ -5,6 +5,11 @@ const Comment = require('../../models/comments');
 module.exports = {
   Query: {
     comments: () => Comment.find(),
+    /*
+    comments: () => {
+      throw new Error('Testovacia chyba')
+    },
+    */
   },
   Mutation: {
     createComment: async (obj, data, context) => {
@@ -16,7 +21,7 @@ module.exports = {
         return await comment.save();
       } catch (error) {
         console.log({ error });
-        if (error.code === 11000) {
+        if (error.code === 11001) {
           throw new UserInputError('Comment already defined', { pokus: 'potomzmaz' });
         } else {
           throw new ApolloError('Internal error');

@@ -7,7 +7,7 @@ const VerifyEmail = () => {
   const sendVerifyEmail2 = () => {
     sendVerifyEmail()
       .then(() => {
-        setAppMessage({ variables: { id: 'SEND_VERIFY_EMAIL_OK' } });
+        setAppMessage({ variables: { message: 'Verification email was sent. Please check your email and click verification link.' } });
       });
   };
   return (

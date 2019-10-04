@@ -1,6 +1,19 @@
 import { Mutation, Query } from 'react-apollo';
 import { isKnownError } from './utils';
 
+import CustomAppMessage from '../components/ui/CustomAppMessage';
+
+export const RegisteredComponent = ({ componentName, ...rest }) => {
+  let Component;
+  switch (componentName) {
+    case 'CustomAppMessage':
+      Component = CustomAppMessage;
+      break;
+    default:
+      throw Error(`Unknown registered component ${componentName}`);
+  }
+  return <Component {...rest} />;
+};
 
 /*
 Not used know
