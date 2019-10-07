@@ -1,5 +1,6 @@
 # Application state
-TODO: client-schema.js
+
+Application state is managed in [Apollo local state](https://www.apollographql.com/docs/react/data/local-state/). Local state schema is defined in [client-schema.js](../blob/master/lib/client-schema.js).
 
 # Registered components
 
