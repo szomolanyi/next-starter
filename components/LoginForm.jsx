@@ -4,7 +4,7 @@ import { Formik, Field, Form } from 'formik';
 import React from 'react';
 import Router from 'next/router';
 import { LOGIN_USER } from '../lib/queries';
-import { handleErrorUI } from '../lib/utils';
+import { useErrorHandler } from '../lib/hooks';
 import TextInput from './ui/TextInput';
 
 const LoginSchema = Yup.object().shape({
@@ -18,6 +18,7 @@ const LoginSchema = Yup.object().shape({
 const LoginForm = () => {
   const [login] = useMutation(LOGIN_USER);
   const client = useApolloClient();
+  const handleErrors = useErrorHandler();
   return (
     <Formik
       initialValues={{
@@ -39,7 +40,7 @@ const LoginForm = () => {
             })
             .catch((error) => {
               setSubmitting(false);
-              const errors = handleErrorUI(error);
+              const errors = handleErrors(error);
               setStatus({ errors });
             });
         }

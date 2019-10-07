@@ -1,6 +1,5 @@
 import * as Yup from 'yup';
 import { Formik, Field, Form } from 'formik';
-import { handleErrorUI } from '../../lib/utils';
 import { useErrorHandler } from '../../lib/hooks';
 
 const CommentSchema = Yup.object().shape({
