@@ -2,6 +2,9 @@
 
 Application state is managed in [Apollo local state](https://www.apollographql.com/docs/react/data/local-state/). Local state schema is defined in [client-schema.js](../blob/master/lib/client-schema.js).
 
+Out of the box, local state consists of:
+* AppMessage type - holds application message displayed with [AppMessageModal](../blob/master/components/AppMessageModal.jsx) component.
+
 # Registered components
 
 Components, which are displayed dynamicaly depending on application state are defined and rendered by [RegisteredComponent](../blob/master/lib/hocs.js).
