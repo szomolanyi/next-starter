@@ -4,17 +4,17 @@ import { SET_APP_MESSAGE } from '../../lib/queries';
 
 const MutateButton = ({ variables, mutateFunc, title }) => {
   const [setAppMessage] = useMutation(SET_APP_MESSAGE);
-  const [isLoading, setLoading] = useState('');
+  const [isLoading, setLoading] = useState(false);
   return (
     <button
       type="button"
-      className={`button ${isLoading}`}
+      className={`button ${isLoading ? 'is-loading' : ''}`}
       onClick={() => {
-        setLoading('is-loading');
+        setLoading(true);
         mutateFunc({ variables })
-          .then(() => setLoading(''))
+          .then(() => setLoading(false))
           .catch(() => {
-            setLoading('');
+            setLoading(false);
             setAppMessage({
               variables:
               {
@@ -24,6 +24,7 @@ const MutateButton = ({ variables, mutateFunc, title }) => {
             });
           });
       }}
+      disabled={isLoading}
     >
       {title}
     </button>

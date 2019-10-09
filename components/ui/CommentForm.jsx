@@ -22,7 +22,6 @@ const CommentForm = ({
           const { setSubmitting, resetForm, setStatus } = fvals;
           mutate({ variables: values })
             .then(() => {
-              setSubmitting(false);
               resetForm(initialValues);
               if (postSubmit) {
                 postSubmit();
@@ -46,7 +45,9 @@ const CommentForm = ({
             {errors.title && touched.title && <p className="help is-danger">{errors.title}</p>}
             <Field className="textarea" name="text" component="textarea" placeholder="Write your comment" />
             {errors.text && touched.text && <p className="help is-danger">{errors.text}</p>}
-            <input className="button" disabled={isSubmitting} type="submit" value="Submit" />
+            <button className={`button ${isSubmitting ? 'is-loading' : ''}`} disabled={isSubmitting} type="submit" value="Submit">
+              Submit
+            </button>
             { status.errors
               // eslint-disable-next-line react/no-array-index-key
               && status.errors.map((error, i) => <p className="help is-danger" key={i}>{ error.message }</p>)
