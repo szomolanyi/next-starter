@@ -14,14 +14,14 @@ module.exports = {
   Mutation: {
     createComment: async (obj, data, context) => {
       if (!context.user) {
-        throw new ApolloError('Not authenticted', 'NOT_AUTHENTICATED', {});
+        throw new ApolloError('Not authenthicated', 'NOT_AUTHENTICATED', {});
       }
       const comment = new Comment(data);
       try {
         return await comment.save();
       } catch (error) {
         console.log({ error });
-        if (error.code === 11001) {
+        if (error.code === 11000) {
           throw new UserInputError('Comment already defined', { pokus: 'potomzmaz' });
         } else {
           throw new ApolloError('Internal error');
