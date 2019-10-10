@@ -1,13 +1,4 @@
-import { graphQlErrorFilter } from '../../lib/utils';
-
-const handleErrors = (error) => {
-  console.log({ m: 'handleError', error });
-  const filtered = graphQlErrorFilter(error);
-  if (filtered.unknownError) {
-    filtered.knownErrors.push(filtered.unknownError);
-  }
-  return filtered.knownErrors;
-};
+import { graphQlErrors } from '../../lib/utils';
 
 const AppError = ({ error }) => (
   <div className="section">
@@ -17,7 +8,7 @@ const AppError = ({ error }) => (
       </div>
       <div className="message-body">
         {
-          handleErrors(error).map((err, i) => <p key={i}>{err.message}</p>)
+          graphQlErrors(error).map((err, i) => <p key={i}>{err.message}</p>)
         }
       </div>
     </div>

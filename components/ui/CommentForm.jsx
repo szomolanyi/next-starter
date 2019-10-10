@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import { Formik, Field, Form } from 'formik';
-import { useErrorHandler } from '../../lib/hooks';
+import { graphQlErrors } from '../../lib/utils';
 
 const CommentSchema = Yup.object().shape({
   title: Yup.string()
@@ -12,7 +12,6 @@ const CommentSchema = Yup.object().shape({
 const CommentForm = ({
   initialValues, mutate, postSubmit,
 }) => {
-  const handleErrors = useErrorHandler();
   return (
     <Formik
       initialValues={initialValues}
@@ -29,7 +28,7 @@ const CommentForm = ({
             })
             .catch((error) => {
               setSubmitting(false);
-              const errors = handleErrors(error);
+              const errors = graphQlErrors(error);
               setStatus({ errors });
             });
         }
