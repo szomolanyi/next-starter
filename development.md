@@ -1,3 +1,8 @@
+# GraphQL
+
+## Response type
+TODO popis Response typu (code, message), sluzi ako navratova hodnota operacii, verify apod
+
 # Application state
 
 Application state is managed in [Apollo local state](https://www.apollographql.com/docs/react/data/local-state/). Local state schema is defined in [client-schema.js](../blob/master/lib/client-schema.js).

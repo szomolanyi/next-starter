@@ -5,6 +5,7 @@ import LogoutLink from './LogoutLink';
 import VerifyEmail from './VerifyEmail';
 import { ManagedQuery } from '../lib/hocs';
 import { CURRENT_USER } from '../lib/queries';
+import { useErrorHandler } from '../lib/hooks';
 
 
 const NotLogged = () => (
@@ -33,15 +34,15 @@ const Logged = ({ currentUser }) => {
 
 const Header = () => {
   const [active, setActive] = useState('');
-  const { loading, error, data: { currentUser } } = useQuery(CURRENT_USER);
+  const { loading, error, data } = useQuery(CURRENT_USER);
+  const handleErrors = useErrorHandler();
   if (loading) {
     return null;
   }
   if (error) {
-    // TODO osetri poriadne
-    console.log(error);
-    return null;
+    handleErrors(error);
   }
+  const currentUser = data ? data.currentUser : null;
   return (
     <nav className="navbar has-shadow is-spaced" role="navigation" aria-label="main navigation">
       <div className="container">
