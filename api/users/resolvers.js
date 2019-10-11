@@ -76,7 +76,6 @@ module.exports = {
       login_(user, login);
     },
     logout: (Obj, data, { logout }) => {
-      throw new Error('test chyba');
       logout();
       return true;
     },
