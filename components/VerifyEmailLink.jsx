@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/react-hooks';
 import { SEND_VERIFY_EMAIL, SET_APP_MESSAGE } from '../lib/queries';
 
-const VerifyEmail = () => {
+const VerifyEmailLink = () => {
   const [setAppMessage] = useMutation(SET_APP_MESSAGE);
   const [sendVerifyEmail] = useMutation(SEND_VERIFY_EMAIL);
   const sendVerifyEmail2 = () => {
@@ -23,5 +23,4 @@ const VerifyEmail = () => {
   );
 };
 
-export default VerifyEmail;
-
+export default VerifyEmailLink;

@@ -20,7 +20,7 @@ const SignUp = ({ postSubmit }) => {
   if (currentUser) {
     return (
       <p>
-        Welcome. We have sent you email, please click confirmation link to confirm your account.
+        Welcome. We have sent you email to confirm your identity. Please click on link to confirm your account.
       </p>
     );
   }

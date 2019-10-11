@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import LogoutLink from './LogoutLink';
-import VerifyEmail from './VerifyEmail';
+import VerifyEmailLink from './VerifyEmailLink';
 import { ManagedQuery } from '../lib/hocs';
 import { CURRENT_USER } from '../lib/queries';
 import { useErrorHandler } from '../lib/hooks';
@@ -25,7 +25,7 @@ const Logged = ({ currentUser }) => {
       <div className="navbar-dropdown">
         <LogoutLink />
         {
-          currentUser.isVerified === false && <VerifyEmail />
+          currentUser.isVerified === false && <VerifyEmailLink />
         }
       </div>
     </div>
