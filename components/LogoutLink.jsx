@@ -1,14 +1,19 @@
 import { useMutation, useApolloClient } from '@apollo/react-hooks';
+import { useErrorHandler } from '../lib/hooks';
 import { LOGOUT_USER } from '../lib/queries';
 
 const LogoutLink = () => {
   const client = useApolloClient();
+  const handleErrors = useErrorHandler();
   const [logout] = useMutation(LOGOUT_USER);
+  const logoutFunc = () => {
+    logout().then(() => client.resetStore()).catch(error => handleErrors(error));
+  };
   return (
     <a
       className="navbar-item"
-      onClick={() => logout().then(() => client.resetStore())}
-      onKeyPress={() => logout().then(() => client.resetStore())}
+      onClick={logoutFunc}
+      onKeyPress={logoutFunc}
       role="link"
       tabIndex={0}
     >
@@ -18,4 +23,3 @@ const LogoutLink = () => {
 };
 
 export default LogoutLink;
-
