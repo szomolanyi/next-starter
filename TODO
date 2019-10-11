@@ -1,4 +1,4 @@
-* handle all graphql errors
+* volitelna mnozina znamych chyb error handler ? 
 * test whole on-board process (signup, login, logout, verify)
 * preco pri teste cez jest test neskonci a tvari sa, ze su neresolvnute promises
 * mongoose pinned to 5.4.23, because newer versions require node 10

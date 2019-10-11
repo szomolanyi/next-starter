@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import Link from 'next/link';
 import { VERIFY_EMAIL, CURRENT_USER } from '../lib/queries';
+import { useErrorHandler } from '../lib/hooks';
 import createResult from '../lib/result-codes';
-import Loading from '../components/ui/Loading';
+import Loading from './ui/Loading';
 
 /* possible states:
 - logged in:
@@ -24,7 +25,6 @@ const YouCanLogIn = () => (
 );
 
 const VerifyResult = ({ result, currentUser }) => {
-  console.log({ m: 'VerifyResult', result, currentUser });
   if (!result) return null;
   if (result.code === 'OK') {
     if (currentUser) {
@@ -36,26 +36,24 @@ const VerifyResult = ({ result, currentUser }) => {
 };
 
 const EmailVerify2 = ({ token, currentUser }) => {
+  const handleErrors = useErrorHandler();
   const [verifyEmailFunc] = useMutation(VERIFY_EMAIL, {
     refetchQueries: [
       'CurrentUser',
     ],
   });
-  // TODO osetri error
   const [result, setResult] = useState(null);
   useEffect(() => {
     if (currentUser && currentUser.isVerified) {
       setResult(createResult('ALREADY_VERIFIED'));
       return;
     }
-    console.log('verify: sending token');
     verifyEmailFunc({ variables: { token } })
       .then(({ data: { verifyEmail } }) => {
-        console.log({ m: 'verfify called', verifyEmail });
         setResult(verifyEmail);
       })
       .catch((err) => {
-        console.log({ m: 'verfify error', err });
+        handleErrors(err);
       });
   }, []);
   return <VerifyResult result={result} currentUser={currentUser} />;
