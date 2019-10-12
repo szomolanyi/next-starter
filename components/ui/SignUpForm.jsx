@@ -2,7 +2,8 @@ import * as Yup from 'yup';
 import React from 'react';
 import { Formik, Field, Form } from 'formik';
 import TextInput from './TextInput';
-import { useErrorHandler } from '../../lib/hooks';
+import { graphQlErrorFilter2 } from '../../lib/utils';
+
 
 const CommentSchema = Yup.object().shape({
   email: Yup.string()
@@ -20,7 +21,6 @@ const CommentSchema = Yup.object().shape({
 const SignUpForm = ({
   signUp, postSubmit,
 }) => {
-  const handleErrors = useErrorHandler();
   return (
     <Formik
       initialValues={{
@@ -44,7 +44,7 @@ const SignUpForm = ({
             })
             .catch((error) => {
               setSubmitting(false);
-              const errors = handleErrors(error);
+              const errors = graphQlErrorFilter2(error);
               setStatus({ errors });
             });
         }

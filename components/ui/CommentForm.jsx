@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import { Formik, Field, Form } from 'formik';
-import { graphQlErrors } from '../../lib/utils';
+import { graphQlErrorFilter2 } from '../../lib/utils';
 
 const CommentSchema = Yup.object().shape({
   title: Yup.string()
@@ -28,7 +28,7 @@ const CommentForm = ({
             })
             .catch((error) => {
               setSubmitting(false);
-              const errors = graphQlErrors(error);
+              const errors = graphQlErrorFilter2(error);
               setStatus({ errors });
             });
         }

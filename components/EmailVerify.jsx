@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import Link from 'next/link';
 import { VERIFY_EMAIL, CURRENT_USER } from '../lib/queries';
-import { useErrorHandler } from '../lib/hooks';
+import { useErrorHandler2 } from '../lib/hooks';
 import createResult from '../lib/result-codes';
 import Loading from './ui/Loading';
 
@@ -36,7 +36,7 @@ const VerifyResult = ({ result, currentUser }) => {
 };
 
 const EmailVerify2 = ({ token, currentUser }) => {
-  const handleErrors = useErrorHandler();
+  const handleErrors = useErrorHandler2();
   const [verifyEmailFunc] = useMutation(VERIFY_EMAIL, {
     refetchQueries: [
       'CurrentUser',

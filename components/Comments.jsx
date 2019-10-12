@@ -9,7 +9,7 @@ import CommentForm from './ui/CommentForm';
 import EditModal from './ui/EditModal';
 import AppError from './ui/AppError';
 import Loading from './ui/Loading';
-import { useModal, useErrorHandler } from '../lib/hooks';
+import { useModal } from '../lib/hooks';
 
 const updateCacheAfterDelete = (cache, { data }) => {
   console.log(data);

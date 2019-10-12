@@ -18,7 +18,7 @@ const MutateButton = ({ variables, mutateFunc, title }) => {
             setAppMessage({
               variables:
               {
-                message: 'Unexpected error has occured. Try to refresh page and retry operation',
+                messages: ['Unexpected error has occured. Try to refresh page and retry operation'],
                 severity: 'error',
               },
             });

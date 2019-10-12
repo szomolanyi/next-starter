@@ -1,4 +1,6 @@
-* volitelna mnozina znamych chyb error handler ? 
+* volitelna mnozina znamych chyb error handler ? (teraz sa moze stat, ze sa nezobrazi nejaka known error)
+  alebo 1. ak chyby nespracuvaju lokalne rovno zavolat setAppMessage
+      2. ak sa spracuvaju lokalne vratit cely zoznam aj s chybami, ktore su unknown a zobrazit ich v komponente
 * test whole on-board process (signup, login, logout, verify)
 * preco pri teste cez jest test neskonci a tvari sa, ze su neresolvnute promises
 * mongoose pinned to 5.4.23, because newer versions require node 10
