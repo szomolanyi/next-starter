@@ -10,7 +10,6 @@ const createResult = require('../../lib/result-codes');
 const sendVerificationEmail = async (_userId) => {
   const token = new Token({ _userId, token: crypto.randomBytes(16).toString('hex') });
   await token.save();
-  console.log(process.env.SENDGRID_API_KEY);
   const transport = nodemailer.createTransport(
     nodemailerSendgrid({
       apiKey: process.env.SENDGRID_API_KEY,

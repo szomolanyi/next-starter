@@ -26,7 +26,6 @@ const updateCacheAfterDelete = (cache, { data }) => {
 */
 
 const updateCacheAfterCreate = (cache, { data }) => {
-  console.log(data);
   const { createComment } = data;
   const { comments } = cache.readQuery({ query: GET_COMMENTS });
   cache.writeQuery({
