@@ -3,9 +3,8 @@ import React, { useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import LogoutLink from './LogoutLink';
 import VerifyEmailLink from './VerifyEmailLink';
-import { ManagedQuery } from '../lib/hocs';
 import { CURRENT_USER } from '../lib/queries';
-import { useErrorHandler2 } from '../lib/hooks';
+import { useErrorHandler } from '../lib/hooks';
 
 
 const NotLogged = () => (
@@ -35,7 +34,7 @@ const Logged = ({ currentUser }) => {
 const Header = () => {
   const [active, setActive] = useState('');
   const { loading, error, data } = useQuery(CURRENT_USER);
-  const handleErrors = useErrorHandler2();
+  const handleErrors = useErrorHandler();
   if (loading) {
     return null;
   }

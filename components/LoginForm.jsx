@@ -4,7 +4,7 @@ import { Formik, Field, Form } from 'formik';
 import React from 'react';
 import Router from 'next/router';
 import { LOGIN_USER } from '../lib/queries';
-import { graphQlErrorFilter2 } from '../lib/utils';
+import { graphQlErrorFilter } from '../lib/utils';
 import TextInput from './ui/TextInput';
 
 const LoginSchema = Yup.object().shape({
@@ -39,7 +39,7 @@ const LoginForm = () => {
             })
             .catch((error) => {
               setSubmitting(false);
-              const errors = graphQlErrorFilter2(error);
+              const errors = graphQlErrorFilter(error);
               setStatus({ errors });
             });
         }

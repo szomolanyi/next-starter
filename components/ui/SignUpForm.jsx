@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 import React from 'react';
 import { Formik, Field, Form } from 'formik';
 import TextInput from './TextInput';
-import { graphQlErrorFilter2 } from '../../lib/utils';
+import { graphQlErrorFilter } from '../../lib/utils';
 
 
 const CommentSchema = Yup.object().shape({
@@ -44,7 +44,7 @@ const SignUpForm = ({
             })
             .catch((error) => {
               setSubmitting(false);
-              const errors = graphQlErrorFilter2(error);
+              const errors = graphQlErrorFilter(error);
               setStatus({ errors });
             });
         }

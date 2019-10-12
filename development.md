@@ -19,9 +19,19 @@ For example custom messages displayed on AppMessageModal can be defined as regis
 # Error handling
 
 ## GraphQL errors
-All graphql errors can be handled with [useErrorHandler](../blob/master/lib/hooks.js) hook. Hook recognizes two kind of erros: 
-* Known errors, defined in [isKnownError](../blob/master/lib/utils.js) function. Known errors are returned to calling component and error processing is handled by component: component can display error in own way or simply pass it to [AppMessageModal](../blob/master/components/AppMessageModal.jsx) component.
-* Unknown erors, which includes also network errors and other global errors are automatically passed to [AppMessageModal](../blob/master/components/AppMessageModal.jsx) component. AppMessageModal is component which can be used to show application errors, notifications or all other messages.
+
+App recognises two kind of errors:
+1. Errors which are known and expected and obviously they are result of wrong user input.
+2. Errors which are unexpected, for example result of network failures or application bugs.
+
+Utility function [graphQlErrorFilter](../blob/master/lib/tools.js) takes GraphQL error object, filters unexpected errors and returns flat array of errors.
+
+Graphql errors can be handled in following ways :
+1. Call [graphQlErrorFilter](../blob/master/lib/tools.js) directly and display errors directly in component. 
+2. Use hook [useErrorHandler](../blob/master/lib/hooks.js) to display errors in [AppMessageModal](../blob/master/components/AppMessageModal.jsx) component.
+3. Display [AppError](../blob/master/components/ui/AppError.jsx).
+ 
+## TODO: implement react boundary or not
 
 ## Other errors
 React render errors are not handled.

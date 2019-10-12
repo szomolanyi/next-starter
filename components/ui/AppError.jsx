@@ -1,4 +1,4 @@
-import { graphQlErrors } from '../../lib/utils';
+import { graphQlErrorFilter } from '../../lib/utils';
 
 const AppError = ({ error }) => (
   <div className="section">
@@ -8,7 +8,7 @@ const AppError = ({ error }) => (
       </div>
       <div className="message-body">
         {
-          graphQlErrors(error).map((err, i) => <p key={i}>{err.message}</p>)
+          graphQlErrorFilter(error).map((err, i) => <p key={i}>{err.message}</p>)
         }
       </div>
     </div>
