@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/react-hooks';
-import { useErrorHandler } from '../lib/hooks';
-import { SEND_VERIFY_EMAIL, SET_APP_MESSAGE } from '../lib/queries';
+import { useErrorHandler } from '../../lib/hooks';
+import { SEND_VERIFY_EMAIL, SET_APP_MESSAGE } from '../../lib/queries';
 
 const VerifyEmailLink = () => {
   const [setAppMessage] = useMutation(SET_APP_MESSAGE);

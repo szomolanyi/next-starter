@@ -1,5 +1,5 @@
-import Layout from '../components/layout';
-import EmailVerify from '../components/EmailVerify';
+import Layout from '../components/ui/layout';
+import EmailVerify from '../components/users/EmailVerify';
 
 const EmailVerifyPage = ({ token }) => (
   <Layout>

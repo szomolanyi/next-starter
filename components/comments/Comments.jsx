@@ -3,14 +3,15 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 
 import {
   GET_COMMENTS, DELETE_COMMENT, ADD_COMMENT, EDIT_COMMENT,
-} from '../lib/queries';
-import CommentsList from './ui/CommentsList';
-import CommentForm from './ui/CommentForm';
-import EditModal from './ui/EditModal';
-import AppError from './ui/AppError';
-import Loading from './ui/Loading';
-import { useModal } from '../lib/hooks';
+} from '../../lib/queries';
+import CommentsList from './CommentsList';
+import CommentForm from './CommentForm';
+import EditModal from '../ui/EditModal';
+import AppError from '../ui/AppError';
+import Loading from '../ui/Loading';
+import { useModal } from '../../lib/hooks';
 
+/*
 const updateCacheAfterDelete = (cache, { data }) => {
   console.log(data);
   const { deleteComment } = data;
@@ -18,10 +19,12 @@ const updateCacheAfterDelete = (cache, { data }) => {
     const { comments } = cache.readQuery({ query: GET_COMMENTS });
     cache.writeQuery({
       query: GET_COMMENTS,
-      data: { comments: comments.filter((comment) => comment._id !== deleteComment) },
+      data: { comments: comments.filter(comment => comment._id !== deleteComment) },
     });
   }
 };
+*/
+
 const updateCacheAfterCreate = (cache, { data }) => {
   console.log(data);
   const { createComment } = data;
@@ -66,7 +69,11 @@ const Comments = () => {
         />
       </section>
       <section className="section">
-        <CommentsList editComment={openModal} comments={data.comments} deleteComment={deleteComment} />
+        <CommentsList
+          editComment={openModal}
+          comments={data.comments}
+          deleteComment={deleteComment}
+        />
       </section>
       <EditModal isOpen={modalOpened} close={hideModal}>
         {

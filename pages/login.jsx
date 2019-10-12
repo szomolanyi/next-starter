@@ -1,5 +1,5 @@
-import Layout from '../components/layout';
-import LoginForm from '../components/LoginForm';
+import Layout from '../components/ui/layout';
+import LoginForm from '../components/users/LoginForm';
 
 const LoginPage = ({ messages }) => (
   <Layout>

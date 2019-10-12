@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 import React from 'react';
 import { Formik, Field, Form } from 'formik';
-import TextInput from './TextInput';
+import TextInput from '../ui/TextInput';
 import { graphQlErrorFilter } from '../../lib/utils';
 
 
@@ -20,18 +20,17 @@ const CommentSchema = Yup.object().shape({
 
 const SignUpForm = ({
   signUp, postSubmit,
-}) => {
-  return (
-    <Formik
-      initialValues={{
-        email: '',
-        password: '',
-        password2: '',
-      }}
-      initialStatus={{
-        errors: [],
-      }}
-      onSubmit={
+}) => (
+  <Formik
+    initialValues={{
+      email: '',
+      password: '',
+      password2: '',
+    }}
+    initialStatus={{
+      errors: [],
+    }}
+    onSubmit={
         (values, fvals) => {
           const { setSubmitting, setStatus, resetForm } = fvals;
           signUp({ variables: values })
@@ -49,9 +48,9 @@ const SignUpForm = ({
             });
         }
       }
-      validationSchema={CommentSchema}
-    >
-      {
+    validationSchema={CommentSchema}
+  >
+    {
         ({ isSubmitting, status }) => (
           <React.Fragment>
             <Form>
@@ -67,8 +66,7 @@ const SignUpForm = ({
           </React.Fragment>
         )
       }
-    </Formik>
-  );
-};
+  </Formik>
+);
 
 export default SignUpForm;

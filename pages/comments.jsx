@@ -1,5 +1,5 @@
-import Layout from '../components/layout';
-import Comments from '../components/Comments';
+import Layout from '../components/ui/layout';
+import Comments from '../components/comments/Comments';
 
 const CommentsPage = () => (
   <Layout>

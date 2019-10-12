@@ -2,9 +2,8 @@ import React from 'react';
 import Head from 'next/head';
 
 // import AppError from '../components/AppError';
-import AppErrorModal from './AppErrorModal';
 import Header from './header';
-import AppMessageModal from './ui/AppMessageModal';
+import AppMessageModal from './AppMessageModal';
 
 const Layout = ({ children }) => (
   <React.Fragment>

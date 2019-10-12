@@ -3,7 +3,7 @@ import CommentDetail from './CommentDetail';
 const CommentsList = ({ comments, editComment, deleteComment }) => (
   <div className="columns is-multiline">
     {
-      comments.map((comment) => (
+      comments.map(comment => (
         <CommentDetail
           key={comment._id}
           comment={comment}

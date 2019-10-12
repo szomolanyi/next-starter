@@ -3,9 +3,9 @@ import { useMutation, useApolloClient } from '@apollo/react-hooks';
 import { Formik, Field, Form } from 'formik';
 import React from 'react';
 import Router from 'next/router';
-import { LOGIN_USER } from '../lib/queries';
-import { graphQlErrorFilter } from '../lib/utils';
-import TextInput from './ui/TextInput';
+import { LOGIN_USER } from '../../lib/queries';
+import { graphQlErrorFilter } from '../../lib/utils';
+import TextInput from '../ui/TextInput';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -66,4 +66,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-

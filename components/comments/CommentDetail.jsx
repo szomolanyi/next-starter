@@ -1,4 +1,4 @@
-import MutateButton from './MutateButton';
+import MutateButton from '../ui/MutateButton';
 
 const columnSizer = (text) => {
   if (text.length > 200) return 'column is-6';

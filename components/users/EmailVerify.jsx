@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import Link from 'next/link';
-import { VERIFY_EMAIL, CURRENT_USER } from '../lib/queries';
-import { useErrorHandler } from '../lib/hooks';
-import createResult from '../lib/result-codes';
-import Loading from './ui/Loading';
+import { VERIFY_EMAIL, CURRENT_USER } from '../../lib/queries';
+import { useErrorHandler } from '../../lib/hooks';
+import createResult from '../../lib/result-codes';
+import Loading from '../ui/Loading';
 
 /* possible states:
 - logged in:

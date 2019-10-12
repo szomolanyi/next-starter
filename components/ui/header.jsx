@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import LogoutLink from './LogoutLink';
-import VerifyEmailLink from './VerifyEmailLink';
-import { CURRENT_USER } from '../lib/queries';
-import { useErrorHandler } from '../lib/hooks';
+import LogoutLink from '../users/LogoutLink';
+import VerifyEmailLink from '../users/VerifyEmailLink';
+import { CURRENT_USER } from '../../lib/queries';
+import { useErrorHandler } from '../../lib/hooks';
 
 
 const NotLogged = () => (

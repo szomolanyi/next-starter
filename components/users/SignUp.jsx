@@ -1,7 +1,7 @@
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { CREATE_USER, CURRENT_USER } from '../lib/queries';
-import SignUpForm from './ui/SignUpForm';
-import Loading from './ui/Loading';
+import { CREATE_USER, CURRENT_USER } from '../../lib/queries';
+import SignUpForm from './SignUpForm';
+import Loading from '../ui/Loading';
 
 const SignUp = ({ postSubmit }) => {
   const [signUp] = useMutation(CREATE_USER, {
@@ -20,7 +20,8 @@ const SignUp = ({ postSubmit }) => {
   if (currentUser) {
     return (
       <p>
-        Welcome. We have sent you email to confirm your identity. Please click on link to confirm your account.
+        Welcome. We have sent you email to confirm your identity.
+        Please click on link to confirm your account.
       </p>
     );
   }

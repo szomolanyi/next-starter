@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const { UserInputError, ApolloError } = require('apollo-server-express');
+const { UserInputError } = require('apollo-server-express');
 const nodemailer = require('nodemailer');
 const nodemailerSendgrid = require('nodemailer-sendgrid');
 const Email = require('email-templates');
@@ -38,14 +38,12 @@ const sendVerificationEmail = async (_userId) => {
   }
 };
 
-const login_ = async (user, login) => {
-  return new Promise((resolve, reject) => login(user, (err) => {
-    if (err) {
-      reject(err);
-    }
-    resolve(user);
-  }));
-};
+const login_ = async (user, login) => new Promise((resolve, reject) => login(user, (err) => {
+  if (err) {
+    reject(err);
+  }
+  resolve(user);
+}));
 
 module.exports = {
   Query: {
@@ -85,25 +83,19 @@ module.exports = {
     },
     verifyEmail: async (Obj, { token }) => {
       try {
-        console.log({ m: 'verifyuEmail start' });
         const tokenInstance = await Token.findOne({ token });
-        console.log({ m: 'verifyuEmail 2' });
         if (!tokenInstance) {
           return createResult('TOKEN_NOT_FOUND');
         }
-        console.log({ m: 'verifyuEmail 3' });
         const user = await User.findOne({ _id: tokenInstance._userId });
         if (!user) {
           return createResult('USER_NOT_FOUND');
         }
-        console.log({ m: 'verifyuEmail 4' });
         if (user.isVerified) {
           return createResult('ALREADY_VERIFIED');
         }
-        console.log({ m: 'verifyuEmail 5' });
         user.isVerified = true;
         await user.save();
-        console.log({ m: 'verifyuEmail 6' });
         return createResult('OK');
       } catch (error) {
         console.log(error);

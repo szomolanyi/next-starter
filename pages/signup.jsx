@@ -1,5 +1,5 @@
-import Layout from '../components/layout';
-import SignUp from '../components/SignUp';
+import Layout from '../components/ui/layout';
+import SignUp from '../components/users/SignUp';
 
 const SignUpPage = () => (
   <Layout>
