@@ -22,7 +22,7 @@ const AppMessage = ({ appMessage, closeAppMessage }) => (
 );
 
 const AppMessageModal = () => {
-  const { loading, error, data: { appMessage } } = useQuery(APP_MESSAGE);
+  const { loading, data: { appMessage } } = useQuery(APP_MESSAGE);
   const [closeAppMessage] = useMutation(CLOSE_APP_MESSAGE);
   if (loading) return null;
   if (!appMessage) {
