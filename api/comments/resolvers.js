@@ -1,10 +1,26 @@
 const { ApolloError, UserInputError } = require('apollo-server-express');
+const { Types: { ObjectId } } = require('mongoose');
 
 const Comment = require('../../models/comments');
 
 module.exports = {
   Query: {
-    comments: () => Comment.find(),
+    comments: async (obj, data) => {
+      let comments;
+      let cursor;
+      const limit = data.limit ? data.limit : 5;
+      if (data.cursor) {
+        comments = await Comment.find({ _id: { $lt: new ObjectId(data.cursor) } }).sort('-_id').limit(limit);
+        cursor = comments.length > 0 ? comments[comments.length - 1]._id : data.cursor;
+      } else {
+        comments = await Comment.find().sort('-_id').limit(limit);
+        cursor = comments.length > 0 ? comments[comments.length - 1]._id : null;
+      }
+      return {
+        cursor,
+        comments,
+      };
+    },
     /*
     comments: () => {
       throw new Error('Testovacia chyba')

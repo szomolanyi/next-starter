@@ -1,6 +1,4 @@
-* volitelna mnozina znamych chyb error handler ? (teraz sa moze stat, ze sa nezobrazi nejaka known error)
-  alebo 1. ak chyby nespracuvaju lokalne rovno zavolat setAppMessage
-      2. ak sa spracuvaju lokalne vratit cely zoznam aj s chybami, ktore su unknown a zobrazit ich v komponente
+* Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
 * test whole on-board process (signup, login, logout, verify)
 * preco pri teste cez jest test neskonci a tvari sa, ze su neresolvnute promises
 * mongoose pinned to 5.4.23, because newer versions require node 10
@@ -8,3 +6,4 @@
 * viacnasobny login, ak je user prihlaseny pokus o druhy login zamerzne
 * eslint do dev dependencies
 * ako zistit msg pre invariant v produkcii :  grep -r InvariantError node_modules/**/bundle.cjs.js
+

@@ -1,12 +1,17 @@
 const typeDefs = `
 extend type Query {
-  comments: [Comment]
+  comments(cursor: String, limit: Int): CommentsFeed
 }
 
 type Comment {
   _id: String
   title: String
   text: String
+}
+
+type CommentsFeed {
+  cursor: String
+  comments: [Comment]!
 }
 
 extend type Mutation {
