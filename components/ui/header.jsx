@@ -21,7 +21,12 @@ const Logged = ({ currentUser }) => {
   return (
     <div className="navbar-item has-dropdown is-hoverable">
       <a className="navbar-link"><i className={`fas ${userIcon}`} /></a>
-      <div className="navbar-dropdown">
+      <div className="navbar-dropdown is-right">
+        <div className="navbar-item is-block">
+          <p className="is-size-7">Signed in as:</p>
+          <p className="has-text-weight-bold">{currentUser.email}</p>
+        </div>
+        <hr className="navbar-divider" />
         <LogoutLink />
         {
           currentUser.isVerified === false && <VerifyEmailLink />
