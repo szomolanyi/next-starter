@@ -36,3 +36,20 @@ Graphql errors can be handled in following ways :
 ## Other errors
 React render errors are not handled.
 
+# Example - social application
+
+## Graphql schema
+
+1. Posts schema api/posts/Posts.js
+```code js
+TODO
+```
+
+2. Posts Mongoose model models/posts.js
+
+3. Posts resolvers api/posts/resolvers.js
+
+4. Prepare UI
+4.1 Prepare queries : lib/queries.js
+4.2 Posts page : pages/posts.jsx
+4.3 Posts component : components/posts/Posts.jsx

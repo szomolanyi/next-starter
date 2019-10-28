@@ -3,6 +3,7 @@ const typeDefs = `
 extend type Query {
   users: [User]
   currentUser: User
+  user(_id: ID!): User
 }
 
 type User {

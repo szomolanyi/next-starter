@@ -51,6 +51,7 @@ module.exports = {
       if (user) return user;
       return null;
     },
+    user: async (obj, { _id }) => User.find({ _id }),
   },
   Mutation: {
     createUser: async (obj, { email, password }, { login }) => {
