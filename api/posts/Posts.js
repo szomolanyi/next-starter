@@ -7,7 +7,7 @@ type Post {
   _id: ID!
   text: String!
   author: User!
-  likes: Int
+  likes: [User]!
   edited: Boolean
   reactions: [Post]!
   createdAt: String!
@@ -22,6 +22,7 @@ extend type Mutation {
   createPost(text: String!): Post
   deletePost(_id: ID!): String
   editPost(_id: ID!, text: String!): Post
+  likePost(_id: ID!, userId: ID!): Post
 }
 `;
 

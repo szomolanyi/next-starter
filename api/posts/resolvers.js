@@ -31,6 +31,10 @@ module.exports = {
       };
     },
     createdAt: ({ createdAt }) => createdAt.toISOString(),
+    likes: async ({ likes }) => {
+      const promises = likes.map(liker => Users.findById(liker));
+      return Promise.all(promises);
+    },
   },
   Mutation: {
     createPost: async (obj, data, context) => {
@@ -40,7 +44,7 @@ module.exports = {
       const post = new Post({
         ...data,
         author: context.user._id,
-        likes: 0,
+        likes: [],
         edited: false,
         reactions: [],
       });
@@ -53,6 +57,17 @@ module.exports = {
     editPost: async (Obj, { _id, text }) => {
       await Post.findByIdAndUpdate(_id, { text });
       return { _id, text };
+    },
+    likePost: async (Obj, { _id, userId }) => {
+      const post = await Post.findById(new ObjectId(_id));
+      const isIn = post.likes.reduce((prev, val) => prev || val.toString() === userId, false);
+      if (isIn) {
+        const newLikes = post.likes.filter(val => val.toString() !== userId);
+        post.likes = newLikes;
+      } else {
+        post.likes.push(new ObjectId(userId));
+      }
+      return post.save();
     },
   },
 };

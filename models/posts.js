@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 _id: ID!
 text: String
 author: String!
-likes: Int
+likes: [User]!
 edited: Boolean
 reactions: [Post]!
 */
@@ -21,7 +21,7 @@ postSchema.add({
     required: true,
   },
   likes: {
-    type: mongoose.Schema.Types.Number,
+    type: [mongoose.Schema.Types.ObjectId],
     required: true,
   },
   edited: {
