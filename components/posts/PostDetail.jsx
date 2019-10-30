@@ -4,7 +4,6 @@ import moment from 'moment';
 import { LIKE_POST, CURRENT_USER } from '../../lib/queries';
 
 
-
 const PostDetail = ({ post }) => {
   const [likePost] = useMutation(LIKE_POST);
   const client = useApolloClient();
@@ -17,6 +16,7 @@ const PostDetail = ({ post }) => {
     },
   });
   const likedByMe = post.likes.reduce((prev, like) => prev || like._id === currentUser._id, false);
+  const likes = post.likes.reduce((prev, like, i) => (i === 0 ? like.email : `${prev}\n${like.email}`), '');
   return (
     <div className="box">
       <article className="media">
@@ -49,7 +49,7 @@ const PostDetail = ({ post }) => {
               </span>
             </a>
             <div className="level-item">
-              <a aria-label="like" onClick={likePostFunc} onKeyPress={likePostFunc} role="button" tabIndex={0}>
+              <a aria-label="like" onClick={likePostFunc} onKeyPress={likePostFunc} role="button" tabIndex={0} data-tooltip={likes}>
                 <span className={`icon is-small ${likedByMe ? 'has-text-danger' : 'has-text-info'}`}>
                   <i className="fas fa-heart" aria-hidden="true" />
                 </span>
