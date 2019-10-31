@@ -2,32 +2,32 @@ import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 import { useMutation } from '@apollo/react-hooks';
 
-import { GET_POSTS, ADD_POST } from '../../lib/queries';
+import { GET_TWEETS, ADD_TWEET } from '../../lib/queries';
 
 import { graphQlErrorFilter } from '../../lib/utils';
 
-const PostsSchema = Yup.object().shape({
+const TweetsSchema = Yup.object().shape({
   text: Yup.string()
     .required('Required'),
 });
 
 const updateCacheAfterCreate = (cache, { data }) => {
-  const { createPost } = data;
-  const { postsFeed } = cache.readQuery({ query: GET_POSTS });
+  const { createTweet } = data;
+  const { tweetsFeed } = cache.readQuery({ query: GET_TWEETS });
   cache.writeQuery({
-    query: GET_POSTS,
+    query: GET_TWEETS,
     data: {
-      postsFeed: {
-        cursor: postsFeed.cursor,
-        posts: [createPost, ...postsFeed.posts],
-        __typename: 'PostsFeed',
+      tweetsFeed: {
+        cursor: tweetsFeed.cursor,
+        tweets: [createTweet, ...tweetsFeed.tweets],
+        __typename: 'TweetsFeed',
       },
     },
   });
 };
 
-const PostForm = ({ initialValues, postSubmit }) => {
-  const [create] = useMutation(ADD_POST, {
+const TweetForm = ({ initialValues, postSubmit }) => {
+  const [create] = useMutation(ADD_TWEET, {
     update: updateCacheAfterCreate,
   });
   return (
@@ -51,7 +51,7 @@ const PostForm = ({ initialValues, postSubmit }) => {
             });
         }
       }
-      validationSchema={PostsSchema}
+      validationSchema={TweetsSchema}
     >
       {
         ({
@@ -74,4 +74,4 @@ const PostForm = ({ initialValues, postSubmit }) => {
   );
 };
 
-export default PostForm;
+export default TweetForm;

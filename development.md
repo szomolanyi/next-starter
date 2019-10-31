@@ -40,16 +40,16 @@ React render errors are not handled.
 
 ## Graphql schema
 
-1. Posts schema api/posts/Posts.js
+1. Tweets schema api/tweets/Tweets.js
 ```code js
 TODO
 ```
 
-2. Posts Mongoose model models/posts.js
+2. Tweets Mongoose model models/tweets.js
 
-3. Posts resolvers api/posts/resolvers.js
+3. Tweets resolvers api/tweets/resolvers.js
 
 4. Prepare UI
 4.1 Prepare queries : lib/queries.js
-4.2 Posts page : pages/posts.jsx
-4.3 Posts component : components/posts/Posts.jsx
+4.2 Tweets page : pages/tweets.jsx
+4.3 Tweets component : components/tweets/Tweets.jsx

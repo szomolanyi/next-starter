@@ -6,12 +6,12 @@ text: String
 author: String!
 likes: [User]!
 edited: Boolean
-reactions: [Post]!
+reactions: [Tweet]!
 */
 
 
-const postSchema = new mongoose.Schema();
-postSchema.add({
+const tweetSchema = new mongoose.Schema();
+tweetSchema.add({
   text: {
     type: String,
     required: true,
@@ -29,13 +29,13 @@ postSchema.add({
     required: true,
   },
   reactions: {
-    type: [postSchema],
+    type: [tweetSchema],
     required: true,
   },
 });
 
-postSchema.set('timestamps', true);
+tweetSchema.set('timestamps', true);
 
-const Post = mongoose.model('Post', postSchema);
+const Tweet = mongoose.model('Tweet', tweetSchema);
 
-module.exports = Post;
+module.exports = Tweet;

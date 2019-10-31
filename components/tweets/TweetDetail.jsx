@@ -1,22 +1,22 @@
 import { useMutation, useApolloClient } from '@apollo/react-hooks';
 import moment from 'moment';
 
-import { LIKE_POST, CURRENT_USER } from '../../lib/queries';
+import { LIKE_TWEET, CURRENT_USER } from '../../lib/queries';
 
 
-const PostDetail = ({ post }) => {
-  const [likePost] = useMutation(LIKE_POST);
+const TweetDetail = ({ tweet }) => {
+  const [likeTweet] = useMutation(LIKE_TWEET);
   const client = useApolloClient();
   const { currentUser } = client.readQuery({ query: CURRENT_USER });
   console.log(currentUser);
-  const likePostFunc = () => likePost({
+  const likeTweetFunc = () => likeTweet({
     variables: {
-      _id: post._id,
+      _id: tweet._id,
       userId: currentUser._id,
     },
   });
-  const likedByMe = post.likes.reduce((prev, like) => prev || like._id === currentUser._id, false);
-  const likes = post.likes.reduce((prev, like, i) => (i === 0 ? like.email : `${prev}\n${like.email}`), '');
+  const likedByMe = tweet.likes.reduce((prev, like) => prev || like._id === currentUser._id, false);
+  const likes = tweet.likes.reduce((prev, like, i) => (i === 0 ? like.email : `${prev}\n${like.email}`), '');
   return (
     <div className="box">
       <article className="media">
@@ -28,13 +28,13 @@ const PostDetail = ({ post }) => {
         <div className="media-content">
           <div className="content">
             <p>
-              <strong>{post.author.email}</strong>
+              <strong>{tweet.author.email}</strong>
               &nbsp;
               <small>@johnsmith</small>
               &nbsp;
-              <small>{moment(post.createdAt).fromNow()}</small>
+              <small>{moment(tweet.createdAt).fromNow()}</small>
               <br />
-              {post.text}
+              {tweet.text}
             </p>
           </div>
           <nav className="level is-mobile">
@@ -49,13 +49,13 @@ const PostDetail = ({ post }) => {
               </span>
             </a>
             <div className="level-item">
-              <a aria-label="like" onClick={likePostFunc} onKeyPress={likePostFunc} role="button" tabIndex={0} data-tooltip={likes}>
+              <a aria-label="like" onClick={likeTweetFunc} onKeyPress={likeTweetFunc} role="button" tabIndex={0} data-tooltip={likes}>
                 <span className={`icon is-small ${likedByMe ? 'has-text-danger' : 'has-text-info'}`}>
                   <i className="fas fa-heart" aria-hidden="true" />
                 </span>
               </a>
               &nbsp;
-              <span>{post.likes.length}</span>
+              <span>{tweet.likes.length}</span>
             </div>
           </nav>
         </div>
@@ -64,4 +64,4 @@ const PostDetail = ({ post }) => {
   );
 };
 
-export default PostDetail;
+export default TweetDetail;

@@ -3,18 +3,18 @@ import { useQuery } from '@apollo/react-hooks';
 import Loading from '../ui/Loading';
 import AppError from '../ui/AppError';
 
-import { GET_POSTS } from '../../lib/queries';
+import { GET_TWEETS } from '../../lib/queries';
 
-import PostForm from './PostForm';
-import PostDetail from './PostDetail';
+import TweetForm from './TweetForm';
+import TweetDetail from './TweetDetail';
 
-const Posts = () => {
+const Tweets = () => {
   const {
     loading,
     error,
     data,
     fetchMore,
-  } = useQuery(GET_POSTS, {
+  } = useQuery(GET_TWEETS, {
     variables: {
       limit: 10,
     },
@@ -26,15 +26,19 @@ const Posts = () => {
       <div className="columns is-centered">
         <div className="column is-half">
           <div className="box">
-            <PostForm />
+            <TweetForm
+              initialValues={{
+                text: '',
+              }}
+            />
           </div>
         </div>
       </div>
       {
-        data.postsFeed.posts.map(post => (
-          <div className="columns is-centered" key={post._id}>
+        data.tweetsFeed.tweets.map(tweet => (
+          <div className="columns is-centered" key={tweet._id}>
             <div className="column is-half">
-              <PostDetail post={post} />
+              <TweetDetail tweet={tweet} />
             </div>
           </div>
         ))
@@ -43,4 +47,4 @@ const Posts = () => {
   );
 };
 
-export default Posts;
+export default Tweets;

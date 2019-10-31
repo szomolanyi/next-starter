@@ -1,9 +1,9 @@
 import Layout from '../components/ui/layout';
-import Posts from '../components/posts/Posts';
+import Tweets from '../components/tweets/Tweets';
 
 const PostsPage = () => (
   <Layout>
-    <Posts />
+    <Tweets />
   </Layout>
 );
 

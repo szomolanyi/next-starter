@@ -112,12 +112,12 @@ app.get('/server/confirmemail1', (req, res) => {
 /*
 Use if standard LocalStrategy is used:
 
-app.post('/server/login', passport.authenticate('local', {
+app.tweet('/server/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/login',
   failureFlash: true,
 }));
-app.post('/login', postLogin) - alternative: custom login handler
+app.tweet('/login', postLogin) - alternative: custom login handler
 app.get('/server/logout', (req, res) => {
   req.logout();
   req.session.destroy((err) => {
