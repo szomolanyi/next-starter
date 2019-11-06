@@ -11,7 +11,8 @@
     "test": "MONGODB_URI=mongodb://localhost:27017/next-starter-test jest --detectOpenHandles",
     "mongo-up": "docker-compose up -d",
     "mongo-down": "docker-compose stop",
-    "now": "now -e MONGODB_URI=@mongo"
+    "now": "now -e MONGODB_URI=@mongo",
+    "server": "nodemon standalone-server.js"
   },
   "keywords": [],
   "author": "",

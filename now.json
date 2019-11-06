@@ -1,31 +1,9 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "server.js",
-      "use": "@now/node",
-      "config": {
-        "includeFiles": [
-          "emails/**"
-        ]
-      }
-    },
-    {
-      "src": "package.json",
-      "use": "@now/next"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/graphql",
-      "dest": "server.js"
-    },
-    {
-      "src": "/server/.*",
-      "dest": "server.js"
-    }
-  ],
   "alias": [
     "ns-fomo.now.sh"
-  ]
+  ],
+  "env": {
+    "GRAPHQL_URI": "http://localhost:4000/graphql"
+  }
 }
