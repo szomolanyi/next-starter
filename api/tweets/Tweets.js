@@ -8,6 +8,7 @@ type Tweet {
   text: String!
   author: User!
   likes: [User]!
+  retweeted: User
   edited: Boolean
   reactions: [Tweet]!
   createdAt: String!
@@ -23,6 +24,7 @@ extend type Mutation {
   deleteTweet(_id: ID!): String
   editTweet(_id: ID!, text: String!): Tweet
   likeTweet(_id: ID!, userId: ID!): Tweet
+  retweet(_id: ID!): Tweet
 }
 `;
 

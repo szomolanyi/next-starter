@@ -24,6 +24,10 @@ tweetSchema.add({
     type: [mongoose.Schema.Types.ObjectId],
     required: true,
   },
+  retweets: {
+    type: [mongoose.Schema.Types.ObjectId],
+    required: true,
+  },
   edited: {
     type: mongoose.Schema.Types.Boolean,
     required: true,

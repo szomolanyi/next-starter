@@ -1,4 +1,4 @@
-const { ApolloError } = require('apollo-server-express');
+const { ApolloError, UserInputError } = require('apollo-server-express');
 const { Types: { ObjectId } } = require('mongoose');
 
 const Tweet = require('../../models/tweets');
@@ -35,6 +35,10 @@ module.exports = {
       const promises = likes.map(liker => Users.findById(liker));
       return Promise.all(promises);
     },
+    retweeted: ({ retweets }) => {
+      console.log(retweets);
+      return null;
+    },
   },
   Mutation: {
     createTweet: async (obj, data, context) => {
@@ -45,6 +49,7 @@ module.exports = {
         ...data,
         author: context.user._id,
         likes: [],
+        retweets: [],
         edited: false,
         reactions: [],
       });
@@ -67,6 +72,28 @@ module.exports = {
       } else {
         tweet.likes.push(new ObjectId(userId));
       }
+      return tweet.save();
+    },
+    retweet: async (Obj, { _id }, context) => {
+      // TODO use transactions
+      const tweet = await Tweet.findById(new ObjectId(_id));
+      if (!context.user) {
+        throw new ApolloError('Not authenthicated', 'NOT_AUTHENTICATED', {});
+      }
+      if (tweet.author.toString() === context.user._id.toString()) {
+        throw new UserInputError('Unable to retweet own tweet');
+      }
+      const alreadyRetweeted = tweet.retweets.reduce(
+        (prev, u) => prev || u.toString() === context.user._id.toString(),
+        false,
+      );
+      if (alreadyRetweeted === true) {
+        throw new UserInputError('Already retweeted');
+      }
+      console.log('========== retweet');
+      console.log(tweet);
+      tweet.retweets.push(context.user._id);
+      console.log('========== retweet end');
       return tweet.save();
     },
   },
