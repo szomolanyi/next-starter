@@ -109,23 +109,4 @@ app.get('/server/confirmemail1', (req, res) => {
   });
 });
 
-/*
-Use if standard LocalStrategy is used:
-
-app.tweet('/server/login', passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/login',
-  failureFlash: true,
-}));
-app.tweet('/login', postLogin) - alternative: custom login handler
-app.get('/server/logout', (req, res) => {
-  req.logout();
-  req.session.destroy((err) => {
-    if (err) console.log('Error : Failed to destroy the session during logout.', err);
-    req.user = null;
-    res.redirect('/');
-  });
-});
-*/
-
 module.exports = app;
