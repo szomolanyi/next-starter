@@ -20,7 +20,7 @@ const Logged = ({ currentUser }) => {
   const userIcon = currentUser && currentUser.isVerified === false ? 'fa-user-lock has-text-danger' : 'fa-user';
   return (
     <div className="navbar-item has-dropdown is-hoverable">
-      <a className="navbar-link"><i className={`fas ${userIcon}`} /></a>
+      <a className="navbar-link is-arrowless"><i className={`fas ${userIcon}`} /></a>
       <div className="navbar-dropdown is-right">
         <div className="navbar-item is-block">
           <p className="is-size-7">Signed in as:</p>
