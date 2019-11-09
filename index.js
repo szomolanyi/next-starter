@@ -1,8 +1,17 @@
 const next = require('next');
+const withSass = require('@zeit/next-sass');
 
 // create next app
 const dev = process.env.NODE_ENV !== 'production';
-const nextApp = next({ dev });
+const nextApp = next({
+  dev,
+  conf: withSass({
+    env: {
+      GRAPHQL_URI: 'http://localhost:3000/graphql',
+      STANDALONE_GRAPHQL: process.env.STANDALONE_GRAPHQL ? process.env.STANDALONE_GRAPHQL : 'NO',
+    },
+  }),
+});
 const handle = nextApp.getRequestHandler();
 const app = require('./server');
 

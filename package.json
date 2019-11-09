@@ -4,15 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
+    "dev": "concurrently npm:server npm:nowdev-app",
+    "dev-standalone": "nodemon index.js",
     "nowdev": "now dev",
+    "nowdev-app": "now dev --local-config=now.dev.json",
+    "now": "now -e MONGODB_URI=@mongo -e STANDALONE_GRAPHQL=NO",
+    "server": "nodemon standalone-server.js",
     "debug": "node --inspect index.js",
-    "build": "next build",
-    "test": "MONGODB_URI=mongodb://localhost:27017/next-starter-test jest --detectOpenHandles",
     "mongo-up": "docker-compose up -d",
     "mongo-down": "docker-compose stop",
-    "now": "now -e MONGODB_URI=@mongo",
-    "server": "nodemon standalone-server.js"
+    "build": "next build",
+    "test": "MONGODB_URI=mongodb://localhost:27017/next-starter-test jest --detectOpenHandles"
   },
   "keywords": [],
   "author": "",
@@ -29,6 +31,7 @@
     "bulma": "^0.7.5",
     "connect-mongo": "^3.0.0",
     "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dotenv": "^8.1.0",
     "email-templates": "^6.0.0",
@@ -61,6 +64,7 @@
     "yup": "^0.27.0"
   },
   "devDependencies": {
+    "concurrently": "^5.0.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.3",
