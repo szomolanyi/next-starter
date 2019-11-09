@@ -1,10 +1,6 @@
 import * as Yup from 'yup';
 import { Formik, Field, Form } from 'formik';
-import { useMutation } from '@apollo/react-hooks';
 import { graphQlErrorFilter } from '../../lib/utils';
-import {
-  GET_COMMENTS, ADD_COMMENT,
-} from '../../lib/queries';
 
 const CommentSchema = Yup.object().shape({
   title: Yup.string()
@@ -13,27 +9,9 @@ const CommentSchema = Yup.object().shape({
     .required('Required'),
 });
 
-const updateCacheAfterCreate = (cache, { data }) => {
-  const { createComment } = data;
-  const { comments } = cache.readQuery({ query: GET_COMMENTS });
-  cache.writeQuery({
-    query: GET_COMMENTS,
-    data: {
-      comments: {
-        cursor: comments.cursor,
-        comments: [createComment, ...comments.comments],
-        __typename: 'CommentsFeed',
-      },
-    },
-  });
-};
-
 const CommentForm = ({
-  initialValues, postSubmit,
+  initialValues, postSubmit, mutate,
 }) => {
-  const [create] = useMutation(ADD_COMMENT, {
-    update: updateCacheAfterCreate,
-  });
   return (
     <Formik
       initialValues={initialValues}
@@ -41,7 +19,7 @@ const CommentForm = ({
       onSubmit={
         (values, fvals) => {
           const { setSubmitting, resetForm, setStatus } = fvals;
-          create({ variables: values })
+          mutate({ variables: values })
             .then(() => {
               resetForm(initialValues);
               if (postSubmit) {
