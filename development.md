@@ -39,6 +39,26 @@ GRAPHQL_URI=http://localhost:3000/graphql
 STANDALONE_GRAPHQL=NO
 ```
 
+# Deployment
+## Deployment to Zeit.co
+```code sh
+npm run now
+```
+### Required secrets
+```code sh
+now secrets add mongo "mongodb://xxx"
+now secrets add sendgrid "xxx"
+```
+
+### Environment variables
+```
+"SENDGRID_API_KEY": "@sendgrid",
+"MONGODB_URI": "@mongo",
+"STANDALONE_GRAPHQL": "NO",
+"GRAPHQL_URI": "https://next-starter.fomo1.now.sh/graphql",
+"APP_EMAIL": "nextstarter@nextstarter.sk"
+```
+
 # GraphQL
 
 ## Response type
