@@ -11,12 +11,11 @@ const CommentSchema = Yup.object().shape({
 
 const CommentForm = ({
   initialValues, postSubmit, mutate,
-}) => {
-  return (
-    <Formik
-      initialValues={initialValues}
-      initialStatus={{}}
-      onSubmit={
+}) => (
+  <Formik
+    initialValues={initialValues}
+    initialStatus={{}}
+    onSubmit={
         (values, fvals) => {
           const { setSubmitting, resetForm, setStatus } = fvals;
           mutate({ variables: values })
@@ -33,9 +32,9 @@ const CommentForm = ({
             });
         }
       }
-      validationSchema={CommentSchema}
-    >
-      {
+    validationSchema={CommentSchema}
+  >
+    {
         ({
           errors, touched, isSubmitting, status,
         }) => (
@@ -54,8 +53,7 @@ const CommentForm = ({
           </Form>
         )
       }
-    </Formik>
-  );
-};
+  </Formik>
+);
 
 export default CommentForm;
