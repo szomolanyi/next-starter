@@ -21,5 +21,11 @@
       "dest": "server.js"
     }
   ],
-  "alias": ["ns-fomo.now.sh"]
+  "alias": ["ns-fomo.now.sh"],
+  "build": {
+    "env": {
+      "GRAPHQL_URI": "http://localhost:3000/graphql",
+      "STANDALONE_GRAPHQL": "NO"
+    }
+  }
 }

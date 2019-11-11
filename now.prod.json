@@ -30,5 +30,11 @@
      "STANDALONE_GRAPHQL": "NO",
      "GRAPHQL_URI": "https://next-starter.fomo1.now.sh/graphql",
      "APP_EMAIL": "nextstarter@nextstarter.sk"
+  },
+  "build": {
+    "env": {
+      "GRAPHQL_URI": "https://next-starter.fomo1.now.sh/graphql",
+      "STANDALONE_GRAPHQL": "NO"
+    }
   }
 }

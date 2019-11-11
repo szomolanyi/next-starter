@@ -51,6 +51,7 @@ now secrets add sendgrid "xxx"
 ```
 
 ### Environment variables
+TODO: where environment is defined (now*json, next.config.js)
 ```
 "SENDGRID_API_KEY": "@sendgrid",
 "MONGODB_URI": "@mongo",
