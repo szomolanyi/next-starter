@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { VERIFY_EMAIL, CURRENT_USER } from '../../lib/queries';
 import { useErrorHandler } from '../../lib/hooks';
 import createResult from '../../lib/result-codes';
-import Loading from '../ui/Loading';
+import LoadingSection from '../ui/LoadingSection';
 
 /* possible states:
 - logged in:
@@ -61,7 +61,7 @@ const EmailVerify2 = ({ token, currentUser }) => {
 
 const EmailVerify = (props) => {
   const { loading, error, data } = useQuery(CURRENT_USER);
-  if (loading) return <Loading size="large" />;
+  if (loading) return <LoadingSection size="large" />;
   if (error) return null; /* error handled is header */
   const currentUser = data ? data.currentUser : null;
   return <EmailVerify2 {...props} currentUser={currentUser} />;

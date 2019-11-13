@@ -1,7 +1,7 @@
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import CommentDetail from './CommentDetail';
 import AppError from '../ui/AppError';
-import Loading from '../ui/Loading';
+import LoadingSection from '../ui/LoadingSection';
 import {
   GET_COMMENTS, DELETE_COMMENT,
 } from '../../lib/queries';
@@ -41,7 +41,7 @@ const CommentsList = ({ editComment }) => {
     // refetchQueries: ['Comments'], // TODO, ktory sposob je lepsi, napr. v suvislosti sa pageing ?
   });
   if (loading) {
-    return <Loading size="large" />;
+    return <LoadingSection size="large" />;
   }
   if (error) {
     return <AppError error={error} />;
