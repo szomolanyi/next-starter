@@ -3,27 +3,9 @@ import moment from 'moment';
 
 import { LIKE_TWEET, CURRENT_USER, RETWEET, GET_TWEETS } from '../../lib/queries';
 
-const updateCacheAfterCreate = (cache, { data }) => {
-  const { retweet } = data;
-  const { tweetsFeed } = cache.readQuery({ query: GET_TWEETS });
-  cache.writeQuery({
-    query: GET_TWEETS,
-    data: {
-      tweetsFeed: {
-        cursor: tweetsFeed.cursor,
-        tweets: [retweet, ...tweetsFeed.tweets],
-        __typename: 'TweetsFeed',
-      },
-    },
-  });
-};
-
-
 const TweetDetail = ({ tweet }) => {
   const [likeTweet] = useMutation(LIKE_TWEET);
-  const [retweet] = useMutation(RETWEET, {
-    update: updateCacheAfterCreate,
-  });
+  const [retweet] = useMutation(RETWEET);
   const client = useApolloClient();
   const { currentUser } = client.readQuery({ query: CURRENT_USER });
   const likeTweetFunc = () => likeTweet({
