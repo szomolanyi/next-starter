@@ -21,10 +21,19 @@
       "dest": "server.js"
     }
   ],
-  "alias": ["ns-fomo.now.sh"],
+  "alias": [
+    "ns-fomo.now.sh"
+  ],
+  "env": {
+    "SENDGRID_API_KEY": "@sendgrid",
+     "MONGODB_URI": "@mongo",
+     "STANDALONE_GRAPHQL": "NO",
+     "GRAPHQL_URI": "https://next-starter.fomo1.now.sh/graphql",
+     "APP_EMAIL": "nextstarter@nextstarter.sk"
+  },
   "build": {
     "env": {
-      "GRAPHQL_URI": "http://localhost:3000/graphql",
+      "GRAPHQL_URI": "https://next-starter.fomo1.now.sh/graphql",
       "STANDALONE_GRAPHQL": "NO"
     }
   }

@@ -1,8 +1,7 @@
 // load and check required env variables
 const dotenv = require('dotenv');
 
-if (process.env.NODE_ENV !== 'production') { 
-  //dotenv.load({ path: '.env-dev' });
+if (process.env.NODE_ENV !== 'production') {
   dotenv.config();
 }
 if (!process.env.MONGODB_URI) {
@@ -18,6 +17,7 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
 const { ApolloServer } = require('apollo-server-express');
+const cors = require('cors');
 const schema = require('./api');
 require('./lib/passport');
 
@@ -59,6 +59,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 // flash
 app.use(flash());
+console.log(`process.env.STANDALONE_GRAPHQL2=${process.env.STANDALONE_GRAPHQL}`);
+if (process.env.STANDALONE_GRAPHQL === 'YES') {
+  app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+  }));
+}
 
 // pug is used to render special pages, confirmemail, ...
 app.set('view engine', 'pug');
@@ -76,7 +83,7 @@ const apolloServer = new ApolloServer({
     return err;
   },
 });
-apolloServer.applyMiddleware({ app }); // app is from an existing express app
+apolloServer.applyMiddleware({ app, cors: false }); // app is from an existing express app
 
 app.get('/server/confirmemail1', (req, res) => {
   Token.findOne({ token: req.query.token }, (err, token) => {

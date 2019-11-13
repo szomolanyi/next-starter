@@ -7,7 +7,7 @@ const User = require('../../models/users');
 const Token = require('../../models/token');
 const createResult = require('../../lib/result-codes');
 
-const sendVerificationEmail = async (_userId) => {
+const sendVerificationEmail = async (_userId, email) => {
   const token = new Token({ _userId, token: crypto.randomBytes(16).toString('hex') });
   await token.save();
   const transport = nodemailer.createTransport(
@@ -24,8 +24,8 @@ const sendVerificationEmail = async (_userId) => {
     await emailTemplate.send({
       template: 'email-verify',
       message: {
-        from: 'sender@example.com',
-        to: 'szomolanyi@gmail.com',
+        from: process.env.APP_EMAIL,
+        to: process.env.DEV_EMAIL ? process.env.DEV_EMAIL : email,
       },
       locals: {
         token: token.token,
@@ -56,7 +56,7 @@ module.exports = {
   Mutation: {
     createUser: async (obj, { email, password }, { login }) => {
       const user = await User.register(new User({ email }), password);
-      await sendVerificationEmail(user._id);
+      await sendVerificationEmail(user._id, user.email);
       await login_(user, login);
       return user;
     },
@@ -78,7 +78,8 @@ module.exports = {
       return true;
     },
     sendVerifyEmail: async (Obj, data, { user }) => {
-      await sendVerificationEmail(user._id);
+      console.log(`sendVerifyEmail user.email=${user.email}`);
+      await sendVerificationEmail(user._id, user.email);
       return true;
     },
     verifyEmail: async (Obj, { token }) => {

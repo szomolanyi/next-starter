@@ -21,11 +21,6 @@ module.exports = {
         comments,
       };
     },
-    /*
-    comments: () => {
-      throw new Error('Testovacia chyba')
-    },
-    */
   },
   Mutation: {
     createComment: async (obj, data, context) => {
