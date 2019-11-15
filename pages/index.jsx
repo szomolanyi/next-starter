@@ -1,5 +1,6 @@
 import Link from 'next/link';
-
+// eslint-disable-next-line
+import { withApollo } from '../lib/apollo';
 import Layout from '../components/ui/layout';
 
 const Index = () => (
@@ -12,4 +13,4 @@ const Index = () => (
   </Layout>
 );
 
-export default Index;
+export default withApollo(Index);

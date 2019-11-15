@@ -1,3 +1,5 @@
+// eslint-disable-next-line
+import { withApollo } from '../lib/apollo';
 import Layout from '../components/ui/layout';
 import Comments from '../components/comments/Comments';
 
@@ -7,4 +9,4 @@ const CommentsPage = () => (
   </Layout>
 );
 
-export default CommentsPage;
+export default withApollo(CommentsPage);

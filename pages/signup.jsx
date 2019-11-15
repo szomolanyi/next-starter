@@ -1,3 +1,5 @@
+// eslint-disable-next-line
+import { withApollo } from '../lib/apollo';
 import Layout from '../components/ui/layout';
 import SignUp from '../components/users/SignUp';
 
@@ -10,4 +12,4 @@ const SignUpPage = () => (
   </Layout>
 );
 
-export default SignUpPage;
+export default withApollo(SignUpPage);
