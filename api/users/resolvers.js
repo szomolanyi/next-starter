@@ -3,6 +3,9 @@ const { UserInputError } = require('apollo-server-express');
 const nodemailer = require('nodemailer');
 const nodemailerSendgrid = require('nodemailer-sendgrid');
 const Email = require('email-templates');
+
+const { ApolloError } = require('apollo-server-express');
+
 const User = require('../../models/users');
 const Token = require('../../models/token');
 const createResult = require('../../lib/result-codes');
@@ -101,6 +104,15 @@ module.exports = {
         console.log(error);
         throw error;
       }
+    },
+    editUserProfile: async (Obj, { firstName, lastName }, context) => {
+      if (!context.user) {
+        throw new ApolloError('Not authenthicated', 'NOT_AUTHENTICATED', {});
+      }
+      const user = await User.findById(context.user._id);
+      user.firstName = firstName;
+      user.lastName = lastName;
+      return user.save;
     },
   },
 };
