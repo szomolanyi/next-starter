@@ -1,30 +1,32 @@
 import * as Yup from 'yup';
 import { Formik, Field, Form } from 'formik';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation, useApolloClient } from '@apollo/react-hooks';
 import { graphQlErrorFilter } from '../../lib/utils';
-import { EDIT_USER_PROFILE } from '../../lib/queries';
+import { EDIT_USER_PROFILE, CURRENT_USER } from '../../lib/queries';
 
-const CommentSchema = Yup.object().shape({
-  firstName: Yup.string()
-    .required('Required'),
-  lastName: Yup.string()
-    .required('Required'),
+const ProfileSchema = Yup.object().shape({
+  firstName: Yup.string(),
+  lastName: Yup.string(),
 });
 
-const CommentForm = ({
-  initialValues, postSubmit, mutate,
+const UserProfileForm = ({
+  postSubmit,
 }) => {
+  const client = useApolloClient();
+  const { currentUser } = client.readQuery({ query: CURRENT_USER });
   const [updateProfile] = useMutation(EDIT_USER_PROFILE);
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={{
+        firstName: currentUser.firstName,
+        lastName: currentUser.lastName,
+      }}
       initialStatus={{}}
       onSubmit={
           (values, fvals) => {
-            const { setSubmitting, resetForm, setStatus } = fvals;
-            mutate({ variables: values })
+            const { setSubmitting, setStatus } = fvals;
+            updateProfile({ variables: values })
               .then(() => {
-                resetForm(initialValues);
                 if (postSubmit) {
                   postSubmit();
                 }
@@ -36,16 +38,16 @@ const CommentForm = ({
               });
           }
         }
-      validationSchema={CommentSchema}
+      validationSchema={ProfileSchema}
     >
       {
           ({
             errors, touched, isSubmitting, status,
           }) => (
             <Form>
-              <Field className="input" name="firstName" type="lastName" placeholder="firstName" />
+              <Field className="input" name="firstName" type="test" placeholder="firstName" />
               {errors.firstName && touched.firstName && <p className="help is-danger">{errors.firstName}</p>}
-              <Field className="lastNamearea" name="lastName" component="lastNamearea" placeholder="Write your comment" />
+              <Field className="input" name="lastName" type="text" placeholder="lastName" />
               {errors.lastName && touched.lastName && <p className="help is-danger">{errors.lastName}</p>}
               <button className={`button ${isSubmitting ? 'is-loading' : ''}`} disabled={isSubmitting} type="submit" value="Submit">
                 Submit
@@ -61,4 +63,4 @@ const CommentForm = ({
   );
 };
 
-export default CommentForm;
+export default UserProfileForm;
