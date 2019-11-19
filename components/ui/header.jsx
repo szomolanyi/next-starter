@@ -27,6 +27,7 @@ const Logged = ({ currentUser }) => {
           <p className="has-text-weight-bold">{currentUser.email}</p>
         </div>
         <hr className="navbar-divider" />
+        <Link href="/profile"><a className="navbar-item">Profile</a></Link>
         <LogoutLink />
         {
           currentUser.isVerified === false && <VerifyEmailLink />

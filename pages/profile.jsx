@@ -6,7 +6,7 @@ import UserProfileForm from '../components/users/UserProfileForm';
 const UserProfilePage = () => (
   <Layout>
     <section className="section">
-      <h1 className="title">Login</h1>
+      <h1 className="title">User profile</h1>
       <UserProfileForm />
     </section>
   </Layout>

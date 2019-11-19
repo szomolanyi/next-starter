@@ -112,7 +112,8 @@ module.exports = {
       const user = await User.findById(context.user._id);
       user.firstName = firstName;
       user.lastName = lastName;
-      return user.save;
+      await user.save();
+      return user;
     },
   },
 };

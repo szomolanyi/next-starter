@@ -3,6 +3,7 @@ import { Formik, Field, Form } from 'formik';
 import { useMutation, useApolloClient } from '@apollo/react-hooks';
 import { graphQlErrorFilter } from '../../lib/utils';
 import { EDIT_USER_PROFILE, CURRENT_USER } from '../../lib/queries';
+import TextInput from '../ui/TextInput';
 
 const ProfileSchema = Yup.object().shape({
   firstName: Yup.string(),
@@ -27,6 +28,7 @@ const UserProfileForm = ({
             const { setSubmitting, setStatus } = fvals;
             updateProfile({ variables: values })
               .then(() => {
+                setSubmitting(false);
                 if (postSubmit) {
                   postSubmit();
                 }
@@ -45,9 +47,9 @@ const UserProfileForm = ({
             errors, touched, isSubmitting, status,
           }) => (
             <Form>
-              <Field className="input" name="firstName" type="test" placeholder="firstName" />
+              <Field className="input" name="firstName" type="test" placeholder="First name" label="First name" component={TextInput} />
               {errors.firstName && touched.firstName && <p className="help is-danger">{errors.firstName}</p>}
-              <Field className="input" name="lastName" type="text" placeholder="lastName" />
+              <Field className="input" name="lastName" type="text" placeholder="Last name" label="Last name" component={TextInput} />
               {errors.lastName && touched.lastName && <p className="help is-danger">{errors.lastName}</p>}
               <button className={`button ${isSubmitting ? 'is-loading' : ''}`} disabled={isSubmitting} type="submit" value="Submit">
                 Submit
