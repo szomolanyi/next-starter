@@ -22,9 +22,11 @@ const AppMessage = ({ appMessage, closeAppMessage }) => (
 );
 
 const AppMessageModal = () => {
-  const { loading, data: { appMessage } } = useQuery(APP_MESSAGE);
+  const { loading, data } = useQuery(APP_MESSAGE);
   const [closeAppMessage] = useMutation(CLOSE_APP_MESSAGE);
   if (loading) return null;
+  if (!data) return null; // data is undefined during SSR
+  const appMessage = data.appMessage;
   if (!appMessage) {
     // appMessage cache value is not initialized
     // it can happen if store is reset
