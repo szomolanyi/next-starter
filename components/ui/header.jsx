@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/react-hooks';
 import LogoutLink from '../users/LogoutLink';
 import VerifyEmailLink from '../users/VerifyEmailLink';
 import { CURRENT_USER } from '../../lib/queries';
-import { useErrorHandler } from '../../lib/hooks';
+import { useErrorHandler, useUser } from '../../lib/hooks';
 
 
 const NotLogged = () => (
@@ -39,15 +39,7 @@ const Logged = ({ currentUser }) => {
 
 const Header = () => {
   const [active, setActive] = useState('');
-  const { loading, error, data } = useQuery(CURRENT_USER);
-  const handleErrors = useErrorHandler();
-  if (loading) {
-    return null;
-  }
-  if (error) {
-    handleErrors(error);
-  }
-  const currentUser = data ? data.currentUser : null;
+  const { currentUser } = useUser();
   return (
     <nav className="navbar has-shadow is-spaced" role="navigation" aria-label="main navigation">
       <div className="container">

@@ -1,9 +1,10 @@
 import * as Yup from 'yup';
 import { Formik, Field, Form } from 'formik';
-import { useMutation, useApolloClient, useQuery } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 import { graphQlErrorFilter } from '../../lib/utils';
-import { EDIT_USER_PROFILE, CURRENT_USER } from '../../lib/queries';
+import { EDIT_USER_PROFILE } from '../../lib/queries';
 import TextInput from '../ui/TextInput';
+import { useUser } from '../../lib/hooks';
 
 const ProfileSchema = Yup.object().shape({
   firstName: Yup.string(),
@@ -13,13 +14,9 @@ const ProfileSchema = Yup.object().shape({
 const UserProfileForm = ({
   postSubmit,
 }) => {
-  const client = useApolloClient();
-  const { loading, error, data } = useQuery(CURRENT_USER);
-  // TODO: check error
-  if (loading) return null;
-  const { currentUser } = data;
-  // const { currentUser } = client.readQuery({ query: CURRENT_USER });
+  const { currentUser } = useUser();
   const [updateProfile] = useMutation(EDIT_USER_PROFILE);
+  if (!currentUser) return null;
   return (
     <Formik
       initialValues={{
