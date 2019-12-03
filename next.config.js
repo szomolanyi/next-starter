@@ -3,12 +3,13 @@ const { PHASE_DEVELOPMENT_SERVER } = require('next/constants')
 
 module.exports = (phase) => {
   console.log(`phase: ${phase}`);
-  console.log(`process.env.GRAPHQL_URI: ${process.env.GRAPHQL_URI}`);
+  console.log(`process.env.SERVER_URL: ${process.env.SERVER_URL}`);
   console.log( `process.env.STANDALONE_GRAPHQL3: ${process.env.STANDALONE_GRAPHQL}`);
   if (phase === PHASE_DEVELOPMENT_SERVER) {
     return withSass({
       env: {
-        GRAPHQL_URI: process.env.GRAPHQL_URI,
+        SERVER_URL: process.env.SERVER_URL,
+        APP_URL: process.env.APP_URL,
         STANDALONE_GRAPHQL: process.env.STANDALONE_GRAPHQL ? process.env.STANDALONE_GRAPHQL : 'NO',
       },
     });

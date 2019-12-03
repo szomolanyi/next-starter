@@ -7,7 +7,8 @@ const nextApp = next({
   dev,
   conf: withSass({
     env: {
-      GRAPHQL_URI: 'http://localhost:3000/graphql',
+      SERVER_URL: 'http://localhost:3000',
+      APP_URL: 'http://localhost:3000',
       STANDALONE_GRAPHQL: process.env.STANDALONE_GRAPHQL ? process.env.STANDALONE_GRAPHQL : 'NO',
     },
   }),
