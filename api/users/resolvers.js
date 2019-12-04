@@ -71,6 +71,10 @@ module.exports = {
       return { _id, email };
     },
     login: async (Obj, { email, password }, { login }) => {
+      const user_tmp = await User.findOne({ email });
+      if (!user_tmp.hasLocalPassword) {
+        throw new UserInputError('Local password is not created, only social authentication is possible');
+      }
       const { user, error } = await User.authenticate()(email, password);
       if (error) throw error;
       login_(user, login);
