@@ -57,7 +57,7 @@ module.exports = {
   },
   Mutation: {
     createUser: async (obj, { email, password }, { login }) => {
-      const user = await User.register(new User({ email }), password);
+      const user = await User.register(new User({ email, hasLocalPassword: true }), password);
       await sendVerificationEmail(user._id, user.email);
       await login_(user, login);
       return user;

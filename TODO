@@ -1,5 +1,5 @@
 * otestuj google login vo vsetkych dev modoch a tiez aj prod
-* dorobit hasLocalPassword: pri local authentifikacii preverit ci ma user vobec zalozene heslo
+* vyhod credetntials z google passport use, daj do environmentu
 * dorobit generovanie chybovyh hlasok pri google auth cez pug
 * social login presunut do samostatnej komponenty a pouzit zo signup a login
 * Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
@@ -13,3 +13,4 @@
 
 DONE:
 * preverit ako s cookie: ci posielat cookie ako Bearer header (vid apollo.js) : posielat cookie, je to bezpecnejsie, lebo sa da nastavit httpOnly a tym padonm nie je cookie dostupna cez javascript
+* dorobit hasLocalPassword: pri local authentifikacii preverit ci ma user vobec zalozene heslo
