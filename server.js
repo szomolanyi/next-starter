@@ -77,7 +77,7 @@ const apolloServer = new ApolloServer({
     user: req.user,
     login: req.login.bind(req),
     logout: req.logout.bind(req),
-    }),
+  }),
   formatError: (err) => {
     console.log(err);
     return err;
@@ -91,16 +91,20 @@ app.get('/auth/google',
     scope: [
       'https://www.googleapis.com/auth/userinfo.profile',
       'https://www.googleapis.com/auth/userinfo.email',
-    ]
-  })
+    ],
+  }),
 );
 
 app.get('/auth/google/callback', (req, res, next) => {
   passport.authenticate('google', (err, user) => {
-    if (err) return res.redirect(`${process.env.APP_URL}/login`); // TODO: add PUG error page
+    if (err) {
+      console.log({ m: 'Google auth error', err });
+      return res.render('social_auth_err');
+    }
     return req.login(user, (err1) => {
       if (err1) {
-        return res.redirect(`${process.env.APP_URL}/login`); // TODO: add PUG error page
+        console.log({ m: 'Google auth login error', err1 });
+        return res.render('social_auth_err');
       }
       return res.redirect(`${process.env.APP_URL}`);
     });
