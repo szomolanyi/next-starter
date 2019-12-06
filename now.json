@@ -19,6 +19,10 @@
     {
       "src": "/graphql",
       "dest": "server.js"
+    },
+    {
+      "src": "/auth.*",
+      "dest": "server.js"
     }
   ],
   "alias": ["ns-fomo.now.sh"],
