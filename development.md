@@ -52,6 +52,8 @@ npm run now
 ```code sh
 now secrets add mongo "mongodb://xxx"
 now secrets add sendgrid "xxx"
+now secrets add google_app_clientid "xxx"
+now secrets add google_app_secret "xxx"
 ```
 
 ### Environment variables
