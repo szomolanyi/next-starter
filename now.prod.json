@@ -19,6 +19,10 @@
     {
       "src": "/graphql",
       "dest": "server.js"
+    },
+    {
+      "src": "/auth.*",
+      "dest": "server.js"
     }
   ],
   "alias": [
@@ -26,14 +30,18 @@
   ],
   "env": {
     "SENDGRID_API_KEY": "@sendgrid",
-     "MONGODB_URI": "@mongo",
-     "STANDALONE_GRAPHQL": "NO",
-     "GRAPHQL_URI": "https://next-starter.fomo1.now.sh/graphql",
-     "APP_EMAIL": "nextstarter@nextstarter.sk"
+    "MONGODB_URI": "@mongo",
+    "STANDALONE_GRAPHQL": "NO",
+    "SERVER_URL": "https://next-starter.fomo1.now.sh",
+    "APP_URL": "https://next-starter.fomo1.now.sh",
+    "APP_EMAIL": "nextstarter@nextstarter.sk",
+    "GOOGLE_APP_CLIENT_ID": "@google_app_clientid",
+    "GOOGLE_APP_SECRET": "@google_app_secret"
   },
   "build": {
     "env": {
-      "GRAPHQL_URI": "https://next-starter.fomo1.now.sh/graphql",
+      "SERVER_URL": "https://next-starter.fomo1.now.sh",
+      "APP_URL": "https://next-starter.fomo1.now.sh",
       "STANDALONE_GRAPHQL": "NO"
     }
   }

@@ -1,7 +1,8 @@
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 import { CREATE_USER, CURRENT_USER } from '../../lib/queries';
 import SignUpForm from './SignUpForm';
 import Loading from '../ui/Loading';
+import { useUser } from '../../lib/hooks';
 
 const SignUp = ({ postSubmit }) => {
   const [signUp] = useMutation(CREATE_USER, {
@@ -9,14 +10,10 @@ const SignUp = ({ postSubmit }) => {
       'CurrentUser',
     ],
   });
-  const { loading, error, data } = useQuery(CURRENT_USER);
-  if (error) {
-    return null; /* error is handled and show in header component already */
-  }
+  const { loading, currentUser } = useUser();
   if (loading) {
     return <Loading size="large" />;
   }
-  const { currentUser } = data;
   if (currentUser) {
     return (
       <p>

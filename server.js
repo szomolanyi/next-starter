@@ -62,7 +62,7 @@ app.use(flash());
 console.log(`process.env.STANDALONE_GRAPHQL2=${process.env.STANDALONE_GRAPHQL}`);
 if (process.env.STANDALONE_GRAPHQL === 'YES') {
   app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: process.env.APP_URL,
     credentials: true,
   }));
 }
@@ -84,6 +84,32 @@ const apolloServer = new ApolloServer({
   },
 });
 apolloServer.applyMiddleware({ app, cors: false }); // app is from an existing express app
+
+/* google auth endpoint */
+app.get('/auth/google',
+  passport.authenticate('google', {
+    scope: [
+      'https://www.googleapis.com/auth/userinfo.profile',
+      'https://www.googleapis.com/auth/userinfo.email',
+    ],
+  }),
+);
+
+app.get('/auth/google/callback', (req, res, next) => {
+  passport.authenticate('google', (err, user) => {
+    if (err) {
+      console.log({ m: 'Google auth error', err });
+      return res.render('social_auth_err');
+    }
+    return req.login(user, (err1) => {
+      if (err1) {
+        console.log({ m: 'Google auth login error', err1 });
+        return res.render('social_auth_err');
+      }
+      return res.redirect(`${process.env.APP_URL}`);
+    });
+  })(req, res, next);
+});
 
 app.get('/server/confirmemail1', (req, res) => {
   Token.findOne({ token: req.query.token }, (err, token) => {

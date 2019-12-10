@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 import Link from 'next/link';
-import { VERIFY_EMAIL, CURRENT_USER } from '../../lib/queries';
-import { useErrorHandler } from '../../lib/hooks';
+import { VERIFY_EMAIL } from '../../lib/queries';
+import { useErrorHandler, useUser } from '../../lib/hooks';
 import createResult from '../../lib/result-codes';
 import LoadingSection from '../ui/LoadingSection';
 
@@ -60,10 +60,8 @@ const EmailVerify2 = ({ token, currentUser }) => {
 };
 
 const EmailVerify = (props) => {
-  const { loading, error, data } = useQuery(CURRENT_USER);
+  const { loading, currentUser } = useUser();
   if (loading) return <LoadingSection size="large" />;
-  if (error) return null; /* error handled is header */
-  const currentUser = data ? data.currentUser : null;
   return <EmailVerify2 {...props} currentUser={currentUser} />;
 };
 

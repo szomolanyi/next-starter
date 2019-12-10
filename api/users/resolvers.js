@@ -3,6 +3,9 @@ const { UserInputError } = require('apollo-server-express');
 const nodemailer = require('nodemailer');
 const nodemailerSendgrid = require('nodemailer-sendgrid');
 const Email = require('email-templates');
+
+const { ApolloError } = require('apollo-server-express');
+
 const User = require('../../models/users');
 const Token = require('../../models/token');
 const createResult = require('../../lib/result-codes');
@@ -55,7 +58,7 @@ module.exports = {
   },
   Mutation: {
     createUser: async (obj, { email, password }, { login }) => {
-      const user = await User.register(new User({ email }), password);
+      const user = await User.register(new User({ email, hasLocalPassword: true }), password);
       await sendVerificationEmail(user._id, user.email);
       await login_(user, login);
       return user;
@@ -69,6 +72,10 @@ module.exports = {
       return { _id, email };
     },
     login: async (Obj, { email, password }, { login }) => {
+      const user_tmp = await User.findOne({ email });
+      if (!user_tmp.hasLocalPassword) {
+        throw new UserInputError('Local password is not created, only social authentication is possible');
+      }
       const { user, error } = await User.authenticate()(email, password);
       if (error) throw error;
       login_(user, login);
@@ -102,6 +109,16 @@ module.exports = {
         console.log(error);
         throw error;
       }
+    },
+    editUserProfile: async (Obj, { firstName, lastName }, context) => {
+      if (!context.user) {
+        throw new ApolloError('Not authenthicated', 'NOT_AUTHENTICATED', {});
+      }
+      const user = await User.findById(context.user._id);
+      user.firstName = firstName;
+      user.lastName = lastName;
+      await user.save();
+      return user;
     },
   },
 };

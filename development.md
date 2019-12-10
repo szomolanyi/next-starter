@@ -1,8 +1,9 @@
 # Development modes
 There are 3 dev mode available. Currently "Standalone GraphQL server and serverless Nexp App" is recomended mode, because Next build for GraphQL has poor performance.
 
-There are 2 important environment settings in .env and .env.build files :
-* GRAPHQL_URI: GraphQL server URI
+There are 3 important environment settings in .env and .env.build files :
+* SERVER_URL: URL of server where Graphql and some others endpoints are running
+* APP_URL: URL where Next app is running
 * STANDALONE_GRAPHQL: should be YES if Standalone GraphQL server is used to setup [cors](https://www.npmjs.com/package/cors) appropriately.
 
 ## Standalone GraphQL server and serverless Next app
@@ -13,7 +14,8 @@ Use [concurently](https://www.npmjs.com/package/concurrently) to start separate 
 
 Environment :
 ```code sh
-GRAPHQL_URI=http://localhost:4000/graphql
+SERVER_URL=http://localhost:4000
+APP_URL=http://localhost:3000
 STANDALONE_GRAPHQL=YES
 ```
 ## Now serverless on localhost mode
@@ -24,7 +26,8 @@ Starts serverless application in localhost, GraphQL server is run as serverless 
 
 Environment :
 ```code sh
-GRAPHQL_URI=http://localhost:3000/graphql
+SERVER_URL=http://localhost:3000
+APP_URL=http://localhost:3000
 STANDALONE_GRAPHQL=NO
 ```
 ## Programmatically start server
@@ -35,7 +38,8 @@ Starts index.js, which programmaticaly creates [custom next app](https://nextjs.
 
 Environment :
 ```code sh
-GRAPHQL_URI=http://localhost:3000/graphql
+SERVER_URL=http://localhost:3000
+APP_URL=http://localhost:3000
 STANDALONE_GRAPHQL=NO
 ```
 
@@ -48,6 +52,8 @@ npm run now
 ```code sh
 now secrets add mongo "mongodb://xxx"
 now secrets add sendgrid "xxx"
+now secrets add google_app_clientid "xxx"
+now secrets add google_app_secret "xxx"
 ```
 
 ### Environment variables
@@ -56,7 +62,8 @@ TODO: where environment is defined (now*json, next.config.js)
 "SENDGRID_API_KEY": "@sendgrid",
 "MONGODB_URI": "@mongo",
 "STANDALONE_GRAPHQL": "NO",
-"GRAPHQL_URI": "https://next-starter.fomo1.now.sh/graphql",
+"SERVER_URL": "https://next-starter.fomo1.now.sh",
+"APP_URL": "https://next-starter.fomo1.now.sh",
 "APP_EMAIL": "nextstarter@nextstarter.sk"
 ```
 
