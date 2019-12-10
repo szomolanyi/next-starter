@@ -72,7 +72,7 @@ const Header = () => {
             <Link href="/"><a className="navbar-item">Home</a></Link>
             <Link href="/comments"><a className="navbar-item">Comments</a></Link>
 
-            <Link href="/"><a className="navbar-item">Protected</a></Link>
+            <Link href="/explore"><a className="navbar-item">Explore</a></Link>
 
             <div className="navbar-item has-dropdown is-hoverable">
               <a className="navbar-link">More</a>
