@@ -15,7 +15,11 @@ const Layout = ({ children }) => (
     <Header />
     <AppMessageModal />
     <div className="container">
-      {children}
+      <div className="columns is-centered">
+        <div className="column is-half">
+          {children}
+        </div>
+      </div>
     </div>
   </React.Fragment>
 );

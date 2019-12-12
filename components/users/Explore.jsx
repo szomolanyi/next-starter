@@ -2,10 +2,12 @@ import { useQuery } from '@apollo/react-hooks';
 import Link from 'next/link';
 import { USERS } from '../../lib/queries';
 import Loading from '../ui/Loading';
+import AppError from '../ui/AppError';
 
 const Explore = () => {
   const { loading, data, error } = useQuery(USERS);
   if (loading) return <Loading />;
+  if (error) return <AppError error={error} />;
   return (
     <div>
       {

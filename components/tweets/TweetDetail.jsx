@@ -2,12 +2,13 @@ import { useMutation, useApolloClient } from '@apollo/react-hooks';
 import moment from 'moment';
 
 import { LIKE_TWEET, CURRENT_USER, RETWEET, GET_TWEETS } from '../../lib/queries';
+import { useUser } from '../../lib/hooks';
 
 const TweetDetail = ({ tweet }) => {
   const [likeTweet] = useMutation(LIKE_TWEET);
   const [retweet] = useMutation(RETWEET);
   const client = useApolloClient();
-  const { currentUser } = client.readQuery({ query: CURRENT_USER });
+  const { currentUser } = useUser();
   const likeTweetFunc = () => likeTweet({
     variables: {
       _id: tweet._id,

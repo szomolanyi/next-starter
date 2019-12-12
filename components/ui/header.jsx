@@ -70,7 +70,7 @@ const Header = () => {
         <div id="navbarBasicExample" className={`navbar-menu ${active}`}>
           <div className="navbar-start">
             <Link href="/"><a className="navbar-item">Home</a></Link>
-            <Link href="/comments"><a className="navbar-item">Comments</a></Link>
+            <Link href="/tweets"><a className="navbar-item">Tweets</a></Link>
 
             <Link href="/explore"><a className="navbar-item">Explore</a></Link>
 

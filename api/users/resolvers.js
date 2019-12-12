@@ -49,12 +49,18 @@ const login_ = async (user, login) => new Promise((resolve, reject) => login(use
 
 module.exports = {
   Query: {
-    users: async () => User.find(),
+    users: async () => {
+      const users = await User.find();
+      return users;
+    },
     currentUser: (Obj, data, { user }) => {
       if (user) return user;
       return null;
     },
-    user: async (obj, { _id }) => User.find({ _id }),
+    user: async (obj, { _id }) => {
+      const user = await User.findById({ _id });
+      return user;
+    },
   },
   Mutation: {
     createUser: async (obj, { email, password }, { login }) => {

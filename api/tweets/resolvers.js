@@ -8,17 +8,17 @@ module.exports = {
   Query: {
     tweetsFeed: async (obj, data) => {
       let tweets;
-      let cursor;
-      const limit = data.limit ? data.limit : 5;
-      if (data.cursor) {
-        tweets = await Tweet.find({ _id: { $lt: new ObjectId(data.cursor) } }).sort('-_id').limit(limit);
-        cursor = tweets.length > 0 ? tweets[tweets.length - 1]._id : data.cursor;
+      let newCursor;
+      const { limit = 5, cursor, ...rest } = data;
+      if (cursor) {
+        tweets = await Tweet.find({ _id: { $lt: new ObjectId(cursor) }, ...rest }).sort('-_id').limit(limit);
+        newCursor = tweets.length > 0 ? tweets[tweets.length - 1]._id : cursor;
       } else {
-        tweets = await Tweet.find().sort('-_id').limit(limit);
-        cursor = tweets.length > 0 ? tweets[tweets.length - 1]._id : null;
+        tweets = await Tweet.find({ ...rest }).sort('-_id').limit(limit);
+        newCursor = tweets.length > 0 ? tweets[tweets.length - 1]._id : null;
       }
       return {
-        cursor,
+        cursor: newCursor,
         tweets,
       };
     },
