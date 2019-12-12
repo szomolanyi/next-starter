@@ -64,7 +64,10 @@ module.exports = {
   },
   Mutation: {
     createUser: async (obj, { email, password }, { login }) => {
-      const user = await User.register(new User({ email, hasLocalPassword: true }), password);
+      const user = await User.register(new User({
+        email,
+        follows: [],
+        hasLocalPassword: true }), password);
       await sendVerificationEmail(user._id, user.email);
       await login_(user, login);
       return user;
@@ -123,6 +126,34 @@ module.exports = {
       const user = await User.findById(context.user._id);
       user.firstName = firstName;
       user.lastName = lastName;
+      await user.save();
+      return user;
+    },
+    followUser: async (obj, { _id }, context) => {
+      if (!context.user) {
+        throw new ApolloError('Not authenthicated', 'NOT_AUTHENTICATED', {});
+      }
+      const user = await User.findById(context.user._id);
+      const followedUser = await User.findById(_id);
+      if (user.follows) {
+        const currentFollows = user.get('follows');
+        if (!currentFollows.includes(_id)) {
+          user.follows.push(_id);
+        }
+      } else {
+        user.follows = [_id];
+      }
+      if (followedUser.followers) {
+        const currentFollowers = followedUser.get('followers');
+        if (!currentFollowers.includes(context.user._id)) {
+          followedUser.followers.push(context.user._id);
+        }
+        console.log({ m: 'followUser1', currentFollowers, followedUser });
+      } else {
+        followedUser.followers = [context.user._id];
+        console.log({ m: 'followUser2', currentFollowers, followedUser });
+      }
+      await followedUser.save();
       await user.save();
       return user;
     },

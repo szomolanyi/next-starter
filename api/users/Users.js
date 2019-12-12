@@ -12,6 +12,8 @@ type User {
   isVerified: Boolean
   firstName: String
   lastName: String
+  follows: [User]
+  followers: [User]
 }
 
 type Result {
@@ -27,6 +29,7 @@ extend type Mutation {
   logout: Boolean
   sendVerifyEmail: Boolean
   verifyEmail(token: String!): Response
+  followUser(_id: ID!): User
 }
 `;
 module.exports = typeDefs;

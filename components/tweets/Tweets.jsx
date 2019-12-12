@@ -1,17 +1,27 @@
 import TweetForm from './TweetForm';
 import TweetsFeed from './TweetsFeed';
 
-const Tweets = () => (
-  <section className="section">
-    <div className="box">
-      <TweetForm
-        initialValues={{
-          text: '',
-        }}
+import { useUser } from '../../lib/hooks';
+
+const Tweets = () => {
+  const { currentUser } = useUser();
+  return (
+    <section className="section">
+      <div className="box">
+        <TweetForm
+          initialValues={{
+            text: '',
+          }}
+        />
+      </div>
+      <TweetsFeed filter={
+        currentUser && {
+          author: currentUser._id,
+        }
+      }
       />
-    </div>
-    <TweetsFeed />
-  </section>
-);
+    </section>
+  );
+};
 
 export default Tweets;

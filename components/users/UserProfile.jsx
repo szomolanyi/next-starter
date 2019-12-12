@@ -1,14 +1,15 @@
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import TweetsFeed from '../tweets/TweetsFeed';
 import AppError from '../ui/AppError';
 import Loading from '../ui/Loading';
 
 // eslint-disable-next-line
 import { withApollo } from '../../lib/apollo';
-import { GET_USER } from '../../lib/queries';
+import { GET_USER, FOLLOW_USER } from '../../lib/queries';
 
 const UserProfile = ({ _id }) => {
   const { loading, error, data } = useQuery(GET_USER, { variables: { _id } });
+  const [followUser] = useMutation(FOLLOW_USER);
   if (loading) return <Loading />;
   if (error) return <AppError error={error} />;
   return (
@@ -34,10 +35,22 @@ const UserProfile = ({ _id }) => {
 
           <div className="content">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-            <a href="#">#css</a> <a href="#">#responsive</a>
+            Phasellus nec iaculis mauris.
+            {' '}
+            <a>@bulmaio</a>
+.
+            <a href="#">#css</a>
+            <a href="#">#responsive</a>
             <br />
             <time dateTime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+            <br />
+            <button
+              className="button"
+              type="button"
+              onClick={() => followUser({ variables: { _id: data.user._id } })}
+            >
+              Follow
+            </button>
           </div>
         </div>
       </div>

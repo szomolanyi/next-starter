@@ -7,13 +7,21 @@ const userSchema = new mongoose.Schema({
   hasLocalPassword: { type: Boolean, default: false },
   firstName: String,
   lastName: String,
+  follows: {
+    type: [mongoose.Schema.Types.ObjectId],
+    required: true,
+  },
+  followers: {
+    type: [mongoose.Schema.Types.ObjectId],
+    required: true,
+  },
   google: {
     sub: String,
     id: String,
     displayName: String,
     name: {
       givenName: String,
-      familyName: String
+      familyName: String,
     },
     given_name: String,
     family_name: String,
