@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 _id: ID!
 text: String
 author: String!
-likes: [User]!
+likers: [User]!
 edited: Boolean
 reactions: [Tweet]!
 */
@@ -20,11 +20,11 @@ tweetSchema.add({
     type: mongoose.Schema.Types.ObjectId,
     required: true,
   },
-  likes: {
+  likers: {
     type: [mongoose.Schema.Types.ObjectId],
     required: true,
   },
-  retweets: {
+  retweeters: {
     type: [mongoose.Schema.Types.ObjectId],
     required: true,
   },

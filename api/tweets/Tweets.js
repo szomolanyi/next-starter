@@ -1,17 +1,23 @@
 const typeDefs = `
 extend type Query {
-  tweetsFeed(cursor: String, limit: Int, author: ID): TweetsFeed
+  tweetsFeed(cursor: String, limit: Int, filter: TweetFeedInput): TweetsFeed
 }
 
 type Tweet {
   _id: ID!
   text: String!
   author: User!
-  likes: [User]!
+  likers: [User]!
   retweeted: User
   edited: Boolean
   reactions: [Tweet]!
   createdAt: String!
+}
+
+input TweetFeedInput {
+  author: String
+  retweeters: String
+  likers: String
 }
 
 type TweetsFeed {

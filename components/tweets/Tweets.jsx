@@ -14,12 +14,7 @@ const Tweets = () => {
           }}
         />
       </div>
-      <TweetsFeed filter={
-        currentUser && {
-          author: currentUser._id,
-        }
-      }
-      />
+      <TweetsFeed />
     </section>
   );
 };

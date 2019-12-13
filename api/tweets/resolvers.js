@@ -4,19 +4,74 @@ const { Types: { ObjectId } } = require('mongoose');
 const Tweet = require('../../models/tweets');
 const Users = require('../../models/users');
 
+/*
+currentUser && {
+          $or: [
+            {
+              author: currentUser._id,
+            },
+            {
+              author: {
+                $in: currentUser.follows,
+              },
+            },
+          ],
+        }
+================
+hladanie tweetov
+1. authentifikovany user home page
+author:context.user._id or
+$in {author: context.user.follows} or
+retweeters:context.user._id
+likers:context.user._id
+
+2. UserProfile vlastne tweety
+author:param.user_id
+
+3. UserProfile retweeters
+retweeters:param.user_id
+
+4. UserProfile
+likers : param.user_id
+*/
+
 module.exports = {
   Query: {
-    tweetsFeed: async (obj, data) => {
+    tweetsFeed: async (obj, data, context) => {
       let tweets;
       let newCursor;
-      const { limit = 5, cursor, ...rest } = data;
+      const { limit = 5, cursor, filter } = data;
+      console.log({ m: 'tweetsFeed01', context });
+      let query;
+      if (!filter) {
+        console.log({ m: 'tweetsFeed01', query });
+        if (context.user) {
+          console.log({ m: 'tweetsFeed02', query });
+          query = {
+            $or: [
+              { author: context.user._id },
+              { retweeters: context.user._id },
+              { likers: context.user._id },
+              {
+                author: { $in: context.user.follows },
+              },
+            ],
+          };
+        } else {
+          query = {};
+        }
+      } else {
+        query = filter;
+      }
+      console.log({ m: 'tweetsFeed', query });
       if (cursor) {
-        tweets = await Tweet.find({ _id: { $lt: new ObjectId(cursor) }, ...rest }).sort('-_id').limit(limit);
+        tweets = await Tweet.find({ _id: { $lt: new ObjectId(cursor) }, ...query }).sort('-_id').limit(limit);
         newCursor = tweets.length > 0 ? tweets[tweets.length - 1]._id : cursor;
       } else {
-        tweets = await Tweet.find({ ...rest }).sort('-_id').limit(limit);
+        tweets = await Tweet.find({ ...query }).sort('-_id').limit(limit);
         newCursor = tweets.length > 0 ? tweets[tweets.length - 1]._id : null;
       }
+      console.log({ m: 'tweetsFeed after mongo', newCursor, tweets });
       return {
         cursor: newCursor,
         tweets,
@@ -31,12 +86,12 @@ module.exports = {
       };
     },
     createdAt: ({ createdAt }) => createdAt.toISOString(),
-    likes: async ({ likes }) => {
-      const promises = likes.map(liker => Users.findById(liker));
+    likers: async ({ likers }) => {
+      const promises = likers.map((liker) => Users.findById(liker));
       return Promise.all(promises);
     },
-    retweeted: ({ retweets }) => {
-      console.log(retweets);
+    retweeted: ({ retweeters }) => {
+      console.log(retweeters);
       return null;
     },
   },
@@ -48,8 +103,8 @@ module.exports = {
       const tweet = new Tweet({
         ...data,
         author: context.user._id,
-        likes: [],
-        retweets: [],
+        likers: [],
+        retweeters: [],
         edited: false,
         reactions: [],
       });
@@ -65,12 +120,12 @@ module.exports = {
     },
     likeTweet: async (Obj, { _id, userId }) => {
       const tweet = await Tweet.findById(new ObjectId(_id));
-      const isIn = tweet.likes.reduce((prev, val) => prev || val.toString() === userId, false);
+      const isIn = tweet.likers.reduce((prev, val) => prev || val.toString() === userId, false);
       if (isIn) {
-        const newLikes = tweet.likes.filter(val => val.toString() !== userId);
-        tweet.likes = newLikes;
+        const newLikers = tweet.likers.filter(val => val.toString() !== userId);
+        tweet.likers = newLikers;
       } else {
-        tweet.likes.push(new ObjectId(userId));
+        tweet.likers.push(new ObjectId(userId));
       }
       return tweet.save();
     },
@@ -83,7 +138,7 @@ module.exports = {
       if (tweet.author.toString() === context.user._id.toString()) {
         throw new UserInputError('Unable to retweet own tweet');
       }
-      const alreadyRetweeted = tweet.retweets.reduce(
+      const alreadyRetweeted = tweet.retweeters.reduce(
         (prev, u) => prev || u.toString() === context.user._id.toString(),
         false,
       );
@@ -91,8 +146,7 @@ module.exports = {
         throw new UserInputError('Already retweeted');
       }
       console.log('========== retweet');
-      console.log(tweet);
-      tweet.retweets.push(context.user._id);
+      tweet.retweeters.push(context.user._id);
       console.log('========== retweet end');
       return tweet.save();
     },

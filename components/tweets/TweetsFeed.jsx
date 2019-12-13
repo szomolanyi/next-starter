@@ -16,7 +16,7 @@ const TweetsFeed = ({ filter }) => {
   } = useQuery(GET_TWEETS, {
     variables: {
       limit: 10,
-      ...filter,
+      filter,
     },
   });
   if (loading) return <Loading />;
