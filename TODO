@@ -1,8 +1,13 @@
-* UserProfile : detekuj, ci je sledovany, ak nie je uzivatel prihlaseny tak nezobraz tlacidlo follow
+* now.json musi byt pouzity pri builde (default konfiguracia)
+
+* UserProfile : 
+  * doplnit zalozky : tweety, liked tweeds
+  * detekuj, ci je sledovany, ak nie je uzivatel prihlaseny tak nezobraz tlacidlo follow
 * implementuj refresh feedu: po pridani noveho usera na sledovanie
 * liked tweets sa nemaju zobrazovat v streeme
 * otestuj zobrazenie retweetov
 * implementacia retweetov
+
 
 * Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
 * test whole on-board process (signup, login, logout, verify)
