@@ -26,22 +26,22 @@
     }
   ],
   "alias": [
-    "ns-fomo.now.sh"
+    "ns-twitter.now.sh"
   ],
   "env": {
     "SENDGRID_API_KEY": "@sendgrid",
     "MONGODB_URI": "@mongo",
     "STANDALONE_GRAPHQL": "NO",
-    "SERVER_URL": "https://next-starter.fomo1.now.sh",
-    "APP_URL": "https://next-starter.fomo1.now.sh",
+    "SERVER_URL": "https://ns-twitter.now.sh",
+    "APP_URL": "https://ns-twitter.now.sh",
     "APP_EMAIL": "nextstarter@nextstarter.sk",
     "GOOGLE_APP_CLIENT_ID": "@google_app_clientid",
     "GOOGLE_APP_SECRET": "@google_app_secret"
   },
   "build": {
     "env": {
-      "SERVER_URL": "https://next-starter.fomo1.now.sh",
-      "APP_URL": "https://next-starter.fomo1.now.sh",
+      "SERVER_URL": "https://ns-twitter.now.sh",
+      "APP_URL": "https://ns-twitter.now.sh",
       "STANDALONE_GRAPHQL": "NO"
     }
   }
