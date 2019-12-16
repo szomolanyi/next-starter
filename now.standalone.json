@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "alias": [
+    "ns-fomo.now.sh"
+  ],
+  "build": {
+    "env": {
+      "SERVER_URL": "http://localhost:4000",
+      "APP_URL": "http://localhost:4000",
+      "STANDALONE_GRAPHQL": "YES"
+    }
+  }
+}
