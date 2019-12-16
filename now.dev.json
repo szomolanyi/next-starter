@@ -1,13 +1,36 @@
 {
   "version": 2,
-  "alias": [
-    "ns-fomo.now.sh"
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@now/node",
+      "config": {
+        "includeFiles": [
+          "emails/**"
+        ]
+      }
+    },
+    {
+      "src": "next.config.js",
+      "use": "@now/next"
+    }
   ],
+  "routes": [
+    {
+      "src": "/graphql",
+      "dest": "server.js"
+    },
+    {
+      "src": "/auth.*",
+      "dest": "server.js"
+    }
+  ],
+  "alias": ["ns-fomo.now.sh"],
   "build": {
     "env": {
-      "SERVER_URL": "http://localhost:4000",
-      "APP_URL": "http://localhost:4000",
-      "STANDALONE_GRAPHQL": "YES"
+      "SERVER_URL": "http://localhost:3000",
+      "APP_URL": "http://localhost:3000",
+      "STANDALONE_GRAPHQL": "NO"
     }
   }
 }

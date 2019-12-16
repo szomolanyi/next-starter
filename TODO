@@ -1,5 +1,3 @@
-* now.json musi byt pouzity pri builde (default konfiguracia)
-
 * UserProfile : 
   * doplnit zalozky : tweety, liked tweeds
   * detekuj, ci je sledovany, ak nie je uzivatel prihlaseny tak nezobraz tlacidlo follow
@@ -19,6 +17,7 @@
 * ako zistit msg pre invariant v produkcii :  grep -r InvariantError node_modules/**/bundle.cjs.js
 
 DONE:
+* now.json musi byt pouzity pri builde (default konfiguracia)
 * preverit ako s cookie: ci posielat cookie ako Bearer header (vid apollo.js) : posielat cookie, je to bezpecnejsie, lebo sa da nastavit httpOnly a tym padonm nie je cookie dostupna cez javascript
 * dorobit hasLocalPassword: pri local authentifikacii preverit ci ma user vobec zalozene heslo
 * vyhod credetntials z google passport use, daj do environmentu
