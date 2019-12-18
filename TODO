@@ -1,5 +1,6 @@
 * UserProfile : 
   * logout pti userProfile sposobi chybu
+  * Dorobit do profilu description usera
 * implementuj refresh feedu: po pridani noveho usera na sledovanie
 * liked tweets sa nemaju zobrazovat v streeme
 * otestuj zobrazenie retweetov

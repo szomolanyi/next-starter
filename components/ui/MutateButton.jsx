@@ -2,7 +2,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { useState } from 'react';
 import { SET_APP_MESSAGE } from '../../lib/queries';
 
-const MutateButton = ({ variables, mutateFunc, title }) => {
+const MutateButton = ({ mutateFunc, mutateOpts, title }) => {
   const [setAppMessage] = useMutation(SET_APP_MESSAGE);
   const [isLoading, setLoading] = useState(false);
   return (
@@ -11,7 +11,7 @@ const MutateButton = ({ variables, mutateFunc, title }) => {
       className={`button ${isLoading ? 'is-loading' : ''}`}
       onClick={() => {
         setLoading(true);
-        mutateFunc({ variables })
+        mutateFunc(mutateOpts)
           .then(() => setLoading(false))
           .catch(() => {
             setLoading(false);

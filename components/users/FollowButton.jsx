@@ -1,40 +1,37 @@
 import { useMutation } from '@apollo/react-hooks';
 import { useUser, useErrorHandler } from '../../lib/hooks';
-import { FOLLOW_USER, UNFOLLOW_USER } from '../../lib/queries';
+import { FOLLOW_USER, UNFOLLOW_USER, GET_TWEETS } from '../../lib/queries';
+import MutateButton from '../ui/MutateButton';
 
 const FollowButton = ({ user }) => {
-  const handleErrors = useErrorHandler();
   const [followUser] = useMutation(FOLLOW_USER);
   const [unFollowUser] = useMutation(UNFOLLOW_USER);
   const { currentUser } = useUser();
   const isFollowing = currentUser && currentUser.follows.map((u) => u._id).includes(user._id);
-  const followFunc = () => {
-    followUser({ variables: { _id: user._id } }).catch((error) => handleErrors(error));
-  };
-  const unFollowFunc = () => {
-    unFollowUser({ variables: { _id: user._id } }).catch((error) => handleErrors(error));
-  };
   if (!currentUser) {
     return null;
   }
+  const mutateOpts = {
+    variables: { _id: user._id },
+    refetchQueries: [{
+      query: GET_TWEETS,
+    }],
+  };
   return (
     isFollowing
       ? (
-        <button
-          className="button"
-          type="button"
-          onClick={unFollowFunc}
-        >
-      Stop following
-        </button>
-      ) : (
-        <button
-          className="button"
-          type="button"
-          onClick={followFunc}
-        >
-        Follow
-        </button>
+        <MutateButton
+          mutateOpts={mutateOpts}
+          mutateFunc={unFollowUser}
+          title="Stop following"
+        />
+      )
+      : (
+        <MutateButton
+          mutateOpts={mutateOpts}
+          mutateFunc={followUser}
+          title="Follow"
+        />
       )
   );
 };
