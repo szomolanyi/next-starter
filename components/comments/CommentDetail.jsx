@@ -13,7 +13,7 @@ const CommentDetail = ({ comment, editComment, deleteComment }) => (
       <div className="card-header">
         <div className="card-header-title">{comment.title}</div>
         <button type="button" className="button" onClick={() => editComment({ comment })}>Edit</button>
-        <MutateButton variables={{ _id: comment._id }} mutateFunc={deleteComment} title="Delete" />
+        <MutateButton mutateOpts={{ variables: { _id: comment._id } }} mutateFunc={deleteComment} title="Delete" />
       </div>
       <div className="card-content">
         <div className="content">{comment.text}</div>
