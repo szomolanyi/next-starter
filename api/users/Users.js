@@ -30,6 +30,7 @@ extend type Mutation {
   sendVerifyEmail: Boolean
   verifyEmail(token: String!): Response
   followUser(_id: ID!): User
+  unFollowUser(_id: ID!): User
 }
 `;
 module.exports = typeDefs;

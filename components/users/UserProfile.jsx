@@ -1,15 +1,18 @@
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
+import { useState } from 'react';
 import TweetsFeed from '../tweets/TweetsFeed';
 import AppError from '../ui/AppError';
 import Loading from '../ui/Loading';
 
 // eslint-disable-next-line
 import { withApollo } from '../../lib/apollo';
-import { GET_USER, FOLLOW_USER } from '../../lib/queries';
+import { GET_USER } from '../../lib/queries';
+import FollowButton from './FollowButton';
+
 
 const UserProfile = ({ _id }) => {
   const { loading, error, data } = useQuery(GET_USER, { variables: { _id } });
-  const [followUser] = useMutation(FOLLOW_USER);
+  const [activeTab, setActiveTab] = useState('tweets');
   if (loading) return <Loading />;
   if (error) return <AppError error={error} />;
   return (
@@ -44,19 +47,27 @@ const UserProfile = ({ _id }) => {
             <br />
             <time dateTime="2016-1-1">11:09 PM - 1 Jan 2016</time>
             <br />
-            <button
-              className="button"
-              type="button"
-              onClick={() => followUser({ variables: { _id: data.user._id } })}
-            >
-              Follow
-            </button>
+            <FollowButton user={data.user} />
           </div>
         </div>
       </div>
       <br />
-      <div className="title is-5">Tweets</div>
-      <TweetsFeed filter={{ author: data.user._id }} />
+      <div className="tabs is-centered is-fullwidth">
+        <ul>
+          <li className={activeTab === 'tweets' ? 'is-active' : ''}>
+            <a href="#" onClick={() => setActiveTab('tweets')}>Tweets</a>
+          </li>
+          <li className={activeTab === 'likes' ? 'is-active' : ''}>
+            <a href="#" onClick={() => setActiveTab('likes')}>Likes</a>
+          </li>
+        </ul>
+      </div>
+      {
+        activeTab === 'tweets' && <TweetsFeed filter={{ author: data.user._id }} />
+      }
+      {
+        activeTab === 'likes' && <TweetsFeed filter={{ likers: data.user._id }} />
+      }
     </div>
   );
 };

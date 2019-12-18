@@ -62,6 +62,12 @@ module.exports = {
       return user;
     },
   },
+  User: {
+    follows: async ({ follows }) => {
+      const promises = follows.map((usr) => User.findById(usr));
+      return Promise.all(promises);
+    },
+  },
   Mutation: {
     createUser: async (obj, { email, password }, { login }) => {
       const user = await User.register(new User({
@@ -148,10 +154,26 @@ module.exports = {
         if (!currentFollowers.includes(context.user._id)) {
           followedUser.followers.push(context.user._id);
         }
-        console.log({ m: 'followUser1', currentFollowers, followedUser });
       } else {
         followedUser.followers = [context.user._id];
-        console.log({ m: 'followUser2', currentFollowers, followedUser });
+      }
+      await followedUser.save();
+      await user.save();
+      return user;
+    },
+    unFollowUser: async (obj, { _id }, context) => {
+      if (!context.user) {
+        throw new ApolloError('Not authenthicated', 'NOT_AUTHENTICATED', {});
+      }
+      const user = await User.findById(context.user._id);
+      const followedUser = await User.findById(_id);
+      if (user.follows) {
+        const currentFollows = user.get('follows');
+        user.follows = currentFollows.filter((e) => e === _id);
+      }
+      if (followedUser.followers) {
+        const currentFollowers = followedUser.get('followers');
+        followedUser.followers = currentFollowers.filter((e) => e === context.user._id);
       }
       await followedUser.save();
       await user.save();

@@ -20,7 +20,7 @@ const TweetDetail = ({ tweet }) => {
       _id: tweet._id,
     },
   });
-  const likedByMe = tweet.likers.reduce((prev, like) => prev || like._id === currentUser._id, false);
+  const likedByMe = tweet.likers.reduce((prev, like) => prev || (currentUser && like._id === currentUser._id), false);
   const likers = tweet.likers.reduce((prev, like, i) => (i === 0 ? like.email : `${prev}\n${like.email}`), '');
   return (
     <div className="box">
