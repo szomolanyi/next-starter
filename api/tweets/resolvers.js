@@ -41,12 +41,9 @@ module.exports = {
       let tweets;
       let newCursor;
       const { limit = 5, cursor, filter } = data;
-      console.log({ m: 'tweetsFeed01', context });
       let query;
       if (!filter) {
-        console.log({ m: 'tweetsFeed01', query });
         if (context.user) {
-          console.log({ m: 'tweetsFeed02', query });
           query = {
             $or: [
               { author: context.user._id },
@@ -63,7 +60,6 @@ module.exports = {
       } else {
         query = filter;
       }
-      console.log({ m: 'tweetsFeed', query });
       if (cursor) {
         tweets = await Tweet.find({ _id: { $lt: new ObjectId(cursor) }, ...query }).sort('-_id').limit(limit);
         newCursor = tweets.length > 0 ? tweets[tweets.length - 1]._id : cursor;
@@ -71,7 +67,6 @@ module.exports = {
         tweets = await Tweet.find({ ...query }).sort('-_id').limit(limit);
         newCursor = tweets.length > 0 ? tweets[tweets.length - 1]._id : null;
       }
-      console.log({ m: 'tweetsFeed after mongo', newCursor, tweets });
       return {
         cursor: newCursor,
         tweets,
