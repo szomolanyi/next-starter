@@ -1,8 +1,6 @@
 * UserProfile : 
   * logout pti userProfile sposobi chybu
-  * Dorobit do profilu description usera
-* implementuj refresh feedu: po pridani noveho usera na sledovanie
-* liked tweets sa nemaju zobrazovat v streeme
+  * Dorobit do profilu about usera
 * otestuj zobrazenie retweetov
 * implementacia retweetov
 
@@ -17,6 +15,9 @@
 * ako zistit msg pre invariant v produkcii :  grep -r InvariantError node_modules/**/bundle.cjs.js
 
 DONE:
+* liked tweets sa nemaju zobrazovat v streeme
+* implementuj refresh feedu: po pridani noveho usera na sledovanie
+
 * now.json musi byt pouzity pri builde (default konfiguracia)
 * preverit ako s cookie: ci posielat cookie ako Bearer header (vid apollo.js) : posielat cookie, je to bezpecnejsie, lebo sa da nastavit httpOnly a tym padonm nie je cookie dostupna cez javascript
 * dorobit hasLocalPassword: pri local authentifikacii preverit ci ma user vobec zalozene heslo

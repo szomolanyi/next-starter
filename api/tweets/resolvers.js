@@ -51,7 +51,7 @@ module.exports = {
             $or: [
               { author: context.user._id },
               { retweeters: context.user._id },
-              { likers: context.user._id },
+              // { likers: context.user._id }, Do not show likes in feed
               {
                 author: { $in: context.user.follows },
               },
