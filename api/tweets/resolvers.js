@@ -47,11 +47,10 @@ module.exports = {
           query = {
             $or: [
               { author: context.user._id },
+              { retweeters: { $in: context.user.follows } },
               { retweeters: context.user._id },
               // { likers: context.user._id }, Do not show likes in feed
-              {
-                author: { $in: context.user.follows },
-              },
+              { author: { $in: context.user.follows } },
             ],
           };
         } else {
@@ -85,10 +84,13 @@ module.exports = {
       const promises = likers.map((liker) => Users.findById(liker));
       return Promise.all(promises);
     },
-    retweeted: ({ retweeters }) => {
-      console.log(retweeters);
-      return null;
+    retweetedBy: ({ retweeters }, data, { user }) => {
+      if (!retweeters || !user || !user.follows) return [];
+      const retweetedByIds = retweeters.filter((retweeter) => user.follows.includes(retweeter) || user._id.equals(retweeter));
+      const promises = retweetedByIds.map((id) => Users.findById(id));
+      return Promise.all(promises);
     },
+    retweetersCount: ({ retweeters }) => retweeters.length,
   },
   Mutation: {
     createTweet: async (obj, data, context) => {
@@ -127,6 +129,9 @@ module.exports = {
     retweet: async (Obj, { _id }, context) => {
       // TODO use transactions
       const tweet = await Tweet.findById(new ObjectId(_id));
+      if (!tweet) {
+        throw new UserInputError('Tweet not found');
+      }
       if (!context.user) {
         throw new ApolloError('Not authenthicated', 'NOT_AUTHENTICATED', {});
       }
@@ -138,11 +143,10 @@ module.exports = {
         false,
       );
       if (alreadyRetweeted === true) {
-        throw new UserInputError('Already retweeted');
+        tweet.retweeters = tweet.retweeters.filter((rby) => !rby.equals(context.user._id));
+      } else {
+        tweet.retweeters.push(context.user._id);
       }
-      console.log('========== retweet');
-      tweet.retweeters.push(context.user._id);
-      console.log('========== retweet end');
       return tweet.save();
     },
   },

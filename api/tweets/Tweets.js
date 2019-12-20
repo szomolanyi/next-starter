@@ -8,7 +8,8 @@ type Tweet {
   text: String!
   author: User!
   likers: [User]!
-  retweeted: User
+  retweetedBy: [User]
+  retweetersCount: Int
   edited: Boolean
   reactions: [Tweet]!
   createdAt: String!

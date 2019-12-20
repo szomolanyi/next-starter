@@ -3,6 +3,7 @@ import moment from 'moment';
 
 import { LIKE_TWEET, RETWEET } from '../../lib/queries';
 import { useUser } from '../../lib/hooks';
+import { RenameRootFields } from 'graphql-tools';
 
 const TweetDetail = ({ tweet }) => {
   const [likeTweet] = useMutation(LIKE_TWEET);
@@ -21,6 +22,7 @@ const TweetDetail = ({ tweet }) => {
   });
   const likedByMe = tweet.likers.reduce((prev, like) => prev || (currentUser && like._id === currentUser._id), false);
   const likers = tweet.likers.reduce((prev, like, i) => (i === 0 ? like.email : `${prev}\n${like.email}`), '');
+  const retweetedByMe = tweet.retweetedBy.reduce((prev, rby) => prev || (currentUser && rby._id === currentUser._id), false);
   return (
     <div className="box">
       <article className="media">
@@ -32,10 +34,14 @@ const TweetDetail = ({ tweet }) => {
         <div className="media-content">
           <div className="content">
             {
-              tweet.retweeted
+              tweet.retweetedBy && tweet.retweetedBy.length > 0
               && (
                 <div className="is-size-7 has-text-grey is-italic">
-                  {tweet.retweeted.email}
+                  {
+                    tweet.retweetedBy.map((rby, i) => (
+                      i === 0 ? rby.email : `, ${rby.email}`
+                    ))
+                  }
                   &nbsp;
                   retweeted
                 </div>
@@ -55,11 +61,15 @@ const TweetDetail = ({ tweet }) => {
                 <i className="fas fa-reply" aria-hidden="true" />
               </span>
             </a>
-            <a className="level-item" aria-label="retweet" onClick={retweetFunc} onKeyPress={retweetFunc} role="button" tabIndex={0}>
-              <span className="icon is-small">
-                <i className="fas fa-retweet" aria-hidden="true" />
-              </span>
-            </a>
+            <div className="level-item" >
+              <a aria-label="retweet" onClick={retweetFunc} onKeyPress={retweetFunc} role="button" tabIndex={0}>
+                <span className={`icon is-small ${retweetedByMe ? 'has-text-danger' : 'has-text-info'}`}>
+                  <i className="fas fa-retweet" aria-hidden="true" />
+                </span>
+              </a>
+              &nbsp;
+              <span>{tweet.retweetersCount}</span>
+            </div>
             <div className="level-item">
               <a aria-label="like" onClick={likeTweetFunc} onKeyPress={likeTweetFunc} role="button" tabIndex={-1} data-tooltip={likers}>
                 <span className={`icon is-small ${likedByMe ? 'has-text-danger' : 'has-text-info'}`}>

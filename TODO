@@ -1,9 +1,6 @@
 * UserProfile : 
   * logout pti userProfile sposobi chybu, zatial funguje, asi suvisi s curentUSer je null ked je logout
   
-* otestuj zobrazenie retweetov
-* implementacia retweetov
-
 * podpora pre obrazky: pridanie avataru do profilu
 * zamysli, ci currentUser sa nema defaultovat na empty object (zrobustenie vsetkych casti kodu, kde sa pouziva currentUser)
 * Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
@@ -19,6 +16,11 @@ DONE:
 * liked tweets sa nemaju zobrazovat v streeme
 * implementuj refresh feedu: po pridani noveho usera na sledovanie
 * Dorobit do profilu about usera, datum pripojenia - krajsie zobrazenie
+* implementacia retweetov
+  * doplnit moznost zrusit retweet
+  * zobrazit pocet retweetov
+  * zobrazit farebne ked retweetol user
+* otestuj zobrazenie retweetov
 
 * now.json musi byt pouzity pri builde (default konfiguracia)
 * preverit ako s cookie: ci posielat cookie ako Bearer header (vid apollo.js) : posielat cookie, je to bezpecnejsie, lebo sa da nastavit httpOnly a tym padonm nie je cookie dostupna cez javascript
