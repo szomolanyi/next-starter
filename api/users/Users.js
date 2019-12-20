@@ -11,6 +11,7 @@ type User {
   isVerified: Boolean
   firstName: String
   lastName: String
+  displayName: String
 }
 
 type Result {

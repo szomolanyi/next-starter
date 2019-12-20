@@ -55,6 +55,14 @@ module.exports = {
       return null;
     },
   },
+  User: {
+    displayName: ({ firstName, lastName }) => {
+      if (firstName && lastName) return `${firstName} ${lastName}`;
+      if (firstName) return firstName;
+      if (lastName) return lastName;
+      return null;
+    },
+  },
   Mutation: {
     createUser: async (obj, { email, password }, { login }) => {
       const user = await User.register(new User({ email, hasLocalPassword: true }), password);
