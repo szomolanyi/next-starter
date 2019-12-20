@@ -68,8 +68,6 @@ module.exports = {
       return Promise.all(promises);
     },
     createdAt: ({ createdAt }) => createdAt.toISOString(),
-  },
-  User: {
     displayName: ({ firstName, lastName }) => {
       if (firstName && lastName) return `${firstName} ${lastName}`;
       if (firstName) return firstName;

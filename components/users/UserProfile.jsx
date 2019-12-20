@@ -32,7 +32,8 @@ const UserProfile = ({ _id }) => {
               </figure>
             </div>
             <div className="media-content">
-              <p className="title is-4">{`${data.user.firstName} ${data.user.lastName}`}</p>
+              { data.user.displayName
+                && <p className="title is-4">{`${data.user.displayName}`}</p>}
               <p className="subtitle is-6">{data.user.email}</p>
             </div>
           </div>
