@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/react-hooks';
 import { useState } from 'react';
+import moment from 'moment';
 import TweetsFeed from '../tweets/TweetsFeed';
 import AppError from '../ui/AppError';
 import Loading from '../ui/Loading';
@@ -37,16 +38,8 @@ const UserProfile = ({ _id }) => {
           </div>
 
           <div className="content">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Phasellus nec iaculis mauris.
-            {' '}
-            <a>@bulmaio</a>
-.
-            <a href="#">#css</a>
-            <a href="#">#responsive</a>
-            <br />
-            <time dateTime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-            <br />
+            {data.user.about}
+            <p>{`Joined: ${moment(data.user.createdAt).format('LL')}`}</p>
             <FollowButton user={data.user} />
           </div>
         </div>

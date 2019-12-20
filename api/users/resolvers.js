@@ -67,6 +67,7 @@ module.exports = {
       const promises = follows.map((usr) => User.findById(usr));
       return Promise.all(promises);
     },
+    createdAt: ({ createdAt }) => createdAt.toISOString(),
   },
   Mutation: {
     createUser: async (obj, { email, password }, { login }) => {
@@ -125,13 +126,14 @@ module.exports = {
         throw error;
       }
     },
-    editUserProfile: async (Obj, { firstName, lastName }, context) => {
+    editUserProfile: async (Obj, { firstName, lastName, about }, context) => {
       if (!context.user) {
         throw new ApolloError('Not authenthicated', 'NOT_AUTHENTICATED', {});
       }
       const user = await User.findById(context.user._id);
       user.firstName = firstName;
       user.lastName = lastName;
+      user.about = about;
       await user.save();
       return user;
     },

@@ -12,6 +12,8 @@ type User {
   isVerified: Boolean
   firstName: String
   lastName: String
+  about: String
+  createdAt: String
   follows: [User]
   followers: [User]
 }
@@ -23,7 +25,7 @@ type Result {
 extend type Mutation {
   createUser(email: String!, password: String!): User
   deleteUser(_id: ID!): Boolean
-  editUserProfile(firstName: String, lastName: String): User
+  editUserProfile(firstName: String, lastName: String, about: String): User
   editUser(_id: ID!, email: String!, password: String!): User
   login(email: String!, password: String!): User
   logout: Boolean

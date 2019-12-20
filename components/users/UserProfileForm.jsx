@@ -9,6 +9,7 @@ import { useUser } from '../../lib/hooks';
 const ProfileSchema = Yup.object().shape({
   firstName: Yup.string(),
   lastName: Yup.string(),
+  about: Yup.string(),
 });
 
 const UserProfileForm = ({
@@ -22,6 +23,7 @@ const UserProfileForm = ({
       initialValues={{
         firstName: currentUser.firstName,
         lastName: currentUser.lastName,
+        about: currentUser.about,
       }}
       initialStatus={{}}
       onSubmit={
@@ -48,10 +50,23 @@ const UserProfileForm = ({
             errors, touched, isSubmitting, status,
           }) => (
             <Form>
-              <Field className="input" name="firstName" type="test" placeholder="First name" label="First name" component={TextInput} />
+              <Field className="input" name="firstName" type="text" placeholder="First name" label="First name" component={TextInput} />
               {errors.firstName && touched.firstName && <p className="help is-danger">{errors.firstName}</p>}
               <Field className="input" name="lastName" type="text" placeholder="Last name" label="Last name" component={TextInput} />
               {errors.lastName && touched.lastName && <p className="help is-danger">{errors.lastName}</p>}
+              <div className="field is-horizontal">
+                <div className="field-label is-normal">
+                  <label className="label">About me</label>
+                </div>
+                <div className="field-body">
+                  <div className="field">
+                    <div className="control">
+                      <Field className="textarea" label="About me" name="about" component="textarea" placeholder="About me" />
+                    </div>
+                  </div>
+                </div>
+                {errors.about && touched.about && <p className="help is-danger">{errors.about}</p>}
+              </div>
               <button className={`button ${isSubmitting ? 'is-loading' : ''}`} disabled={isSubmitting} type="submit" value="Submit">
                 Submit
               </button>
