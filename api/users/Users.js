@@ -12,6 +12,7 @@ type User {
   isVerified: Boolean
   firstName: String
   lastName: String
+  displayName: String
   about: String
   createdAt: String
   follows: [User]

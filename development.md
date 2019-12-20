@@ -62,8 +62,8 @@ TODO: where environment is defined (now*json, next.config.js)
 "SENDGRID_API_KEY": "@sendgrid",
 "MONGODB_URI": "@mongo",
 "STANDALONE_GRAPHQL": "NO",
-"SERVER_URL": "https://next-starter.fomo1.now.sh",
-"APP_URL": "https://next-starter.fomo1.now.sh",
+"SERVER_URL": "https://ns-fomo.now.sh",
+"APP_URL": "https://ns-fomo.now.sh",
 "APP_EMAIL": "nextstarter@nextstarter.sk"
 ```
 
