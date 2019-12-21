@@ -22,6 +22,9 @@ const sendVerificationEmail = async (_userId, email) => {
     transport,
     send: true,
     preview: false,
+    views: {
+      root: 'server/emails',
+    },
   });
   try {
     await emailTemplate.send({
