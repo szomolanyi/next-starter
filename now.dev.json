@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "server.js",
+      "src": "server/server.js",
       "use": "@now/node",
       "config": {
         "includeFiles": [
@@ -18,11 +18,11 @@
   "routes": [
     {
       "src": "/graphql",
-      "dest": "server.js"
+      "dest": "server/server.js"
     },
     {
       "src": "/auth.*",
-      "dest": "server.js"
+      "dest": "server/server.js"
     }
   ],
   "alias": ["ns-fomo.now.sh"],

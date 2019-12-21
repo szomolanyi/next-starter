@@ -19,10 +19,7 @@ const MongoStore = require('connect-mongo')(session);
 const { ApolloServer } = require('apollo-server-express');
 const cors = require('cors');
 const schema = require('./api');
-require('./lib/passport');
-
-const User = require('./models/users');
-const Token = require('./models/token');
+require('./passport');
 
 // mongoose connect
 mongoose.set('useFindAndModify', false);
@@ -92,8 +89,7 @@ app.get('/auth/google',
       'https://www.googleapis.com/auth/userinfo.profile',
       'https://www.googleapis.com/auth/userinfo.email',
     ],
-  }),
-);
+  }));
 
 app.get('/auth/google/callback', (req, res, next) => {
   passport.authenticate('google', (err, user) => {
@@ -110,55 +106,5 @@ app.get('/auth/google/callback', (req, res, next) => {
     });
   })(req, res, next);
 });
-
-app.get('/server/confirmemail1', (req, res) => {
-  Token.findOne({ token: req.query.token }, (err, token) => {
-    if (err) {
-      console.log(err);
-    }
-    if (!token) {
-      return res.render('confirmemail', { message: 'Token was not found or it is timed out', canlog: false });
-    }
-    return User.findOne({ _id: token._userId }, (err1, user) => {
-      if (err1) {
-        console.log(err1);
-      }
-      if (!user) {
-        return res.render('confirmemail', { message: 'We were unable to find a user for this token.', canlog: false });
-      }
-      if (user.isVerified) {
-        return res.render('confirmemail', { message: 'This user has already been verified.', canlog: true });
-      }
-      // Verify and save the user
-      user.isVerified = true;
-      return user.save((err2) => {
-        if (err2) {
-          console.log(err2);
-          res.render('confirmemail', { message: 'Internal error', canlog: false });
-        }
-        return res.render('confirmemail', { message: 'Great, your account has been activated !', canlog: true });
-      });
-    });
-  });
-});
-
-/*
-Use if standard LocalStrategy is used:
-
-app.post('/server/login', passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/login',
-  failureFlash: true,
-}));
-app.post('/login', postLogin) - alternative: custom login handler
-app.get('/server/logout', (req, res) => {
-  req.logout();
-  req.session.destroy((err) => {
-    if (err) console.log('Error : Failed to destroy the session during logout.', err);
-    req.user = null;
-    res.redirect('/');
-  });
-});
-*/
 
 module.exports = app;

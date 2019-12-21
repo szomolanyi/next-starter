@@ -8,7 +8,7 @@ const { ApolloError } = require('apollo-server-express');
 
 const User = require('../../models/users');
 const Token = require('../../models/token');
-const createResult = require('../../lib/result-codes');
+const createResult = require('../../../lib/result-codes');
 
 const sendVerificationEmail = async (_userId, email) => {
   const token = new Token({ _userId, token: crypto.randomBytes(16).toString('hex') });
@@ -79,8 +79,8 @@ module.exports = {
       return { _id, email };
     },
     login: async (Obj, { email, password }, { login }) => {
-      const user_tmp = await User.findOne({ email });
-      if (!user_tmp.hasLocalPassword) {
+      const userTmp = await User.findOne({ email });
+      if (!userTmp.hasLocalPassword) {
         throw new UserInputError('Local password is not created, only social authentication is possible');
       }
       const { user, error } = await User.authenticate()(email, password);
