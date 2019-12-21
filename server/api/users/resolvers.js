@@ -26,6 +26,7 @@ const sendVerificationEmail = async (_userId, email) => {
       root: 'server/emails',
     },
   });
+  console.log({ m: 'sendVerificationEmail', email, DEV_EMAIL: process.env.DEV_EMAIL });
   try {
     await emailTemplate.send({
       template: 'email-verify',
@@ -34,7 +35,7 @@ const sendVerificationEmail = async (_userId, email) => {
         to: process.env.DEV_EMAIL ? process.env.DEV_EMAIL : email,
       },
       locals: {
-        token: token.token,
+        verifyLink: `${process.env.APP_URL}/verify?token=${token.token}`,
       },
     });
   } catch (error) {

@@ -7,7 +7,6 @@ import EmailVerify from '../components/users/EmailVerify';
 const EmailVerifyPage = () => {
   const router = useRouter();
   const token = router.query.token || '';
-  console.log(`EmailVerifyPage token=${token}`);
   return (
     <Layout>
       <section className="hero">
