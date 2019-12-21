@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
     displayName: String,
     name: {
       givenName: String,
-      familyName: String
+      familyName: String,
     },
     given_name: String,
     family_name: String,
@@ -21,8 +21,8 @@ const userSchema = new mongoose.Schema({
     verified: Boolean,
     language: String,
     email: String,
-    picture: String
-  }
+    picture: String,
+  },
 }, {
   timestamps: true,
 });
