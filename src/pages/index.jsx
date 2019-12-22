@@ -1,6 +1,6 @@
 import Link from 'next/link';
 // eslint-disable-next-line
-import { withApollo } from '../lib/apollo';
+import { withApollo } from '../apollo';
 import Layout from '../components/ui/layout';
 
 const Index = () => (

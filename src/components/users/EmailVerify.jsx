@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import Link from 'next/link';
-import { VERIFY_EMAIL } from '../../lib/queries';
-import { useErrorHandler, useUser } from '../../lib/hooks';
-import createResult from '../../lib/result-codes';
+import { VERIFY_EMAIL } from '../../queries';
+import { useErrorHandler, useUser } from '../../hooks';
+import createResult from '../../../lib/result-codes';
 import LoadingSection from '../ui/LoadingSection';
 
 /* possible states:

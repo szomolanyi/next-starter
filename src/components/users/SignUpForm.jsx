@@ -1,41 +1,45 @@
 import * as Yup from 'yup';
-import { useMutation, useApolloClient } from '@apollo/react-hooks';
-import { Formik, Field, Form } from 'formik';
 import React from 'react';
-import Router from 'next/router';
-import { LOGIN_USER } from '../../lib/queries';
-import { graphQlErrorFilter } from '../../lib/utils';
+import { Formik, Field, Form } from 'formik';
 import TextInput from '../ui/TextInput';
+import { graphQlErrorFilter } from '../../utils';
 
-const LoginSchema = Yup.object().shape({
+
+const CommentSchema = Yup.object().shape({
   email: Yup.string()
-    .required('Required'),
+    .required('Required')
+    .email(),
   password: Yup.string()
+    .required('Required')
+    .min(6),
+  password2: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Passwords must match')
     .required('Required'),
 });
 
 
-const LoginForm = () => {
-  const [login] = useMutation(LOGIN_USER);
-  const client = useApolloClient();
-  return (
-    <Formik
-      initialValues={{
-        email: '',
-        password: '',
-      }}
-      initialStatus={{
-        errors: [],
-      }}
-      onSubmit={
+const SignUpForm = ({
+  signUp, postSubmit,
+}) => (
+  <Formik
+    initialValues={{
+      email: '',
+      password: '',
+      password2: '',
+    }}
+    initialStatus={{
+      errors: [],
+    }}
+    onSubmit={
         (values, fvals) => {
-          const { setSubmitting, resetForm, setStatus } = fvals;
-          login({ variables: values })
+          const { setSubmitting, setStatus, resetForm } = fvals;
+          signUp({ variables: values })
             .then(() => {
               setSubmitting(false);
               resetForm();
-              client.resetStore();
-              Router.push('/');
+              if (postSubmit) {
+                postSubmit();
+              }
             })
             .catch((error) => {
               setSubmitting(false);
@@ -44,14 +48,15 @@ const LoginForm = () => {
             });
         }
       }
-      validationSchema={LoginSchema}
-    >
-      {
+    validationSchema={CommentSchema}
+  >
+    {
         ({ isSubmitting, status }) => (
           <React.Fragment>
             <Form>
               <Field className="input" name="email" type="text" placeholder="Email" label="Email" component={TextInput} />
               <Field className="input" name="password" type="password" placeholder="Password" label="Password" component={TextInput} />
+              <Field className="input" name="password2" type="password" placeholder="Confirm password" label="Confirm Password" component={TextInput} />
               <input className="button" disabled={isSubmitting} type="submit" value="Submit" />
             </Form>
             {
@@ -61,8 +66,7 @@ const LoginForm = () => {
           </React.Fragment>
         )
       }
-    </Formik>
-  );
-};
+  </Formik>
+);
 
-export default LoginForm;
+export default SignUpForm;

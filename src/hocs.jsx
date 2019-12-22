@@ -1,4 +1,4 @@
-import CustomAppMessage from '../components/ui/CustomAppMessage';
+import CustomAppMessage from './components/ui/CustomAppMessage';
 
 export const RegisteredComponent = ({ componentName, ...rest }) => {
   let Component;

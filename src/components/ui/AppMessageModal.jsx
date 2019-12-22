@@ -1,6 +1,6 @@
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { APP_MESSAGE, CLOSE_APP_MESSAGE } from '../../lib/queries';
-import { RegisteredComponent } from '../../lib/hocs';
+import { APP_MESSAGE, CLOSE_APP_MESSAGE } from '../../queries';
+import { RegisteredComponent } from '../../hocs';
 
 
 const clsName = (severity) => {

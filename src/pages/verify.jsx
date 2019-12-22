@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 // eslint-disable-next-line
-import { withApollo } from '../lib/apollo';
+import { withApollo } from '../apollo';
 import Layout from '../components/ui/layout';
 import EmailVerify from '../components/users/EmailVerify';
 

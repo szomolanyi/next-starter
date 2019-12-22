@@ -25,7 +25,7 @@ export const useErrorHandler = () => {
   const [setAppMessage] = useMutation(SET_APP_MESSAGE);
   return (error) => {
     const errors = graphQlErrorFilter(error);
-    setAppMessage({ variables: { messages: errors.map(e => e.message), severity: 'error' } });
+    setAppMessage({ variables: { messages: errors.map((e) => e.message), severity: 'error' } });
   };
 };
 
@@ -37,7 +37,7 @@ export const useUser = () => {
     return {
       loading,
       currentUser: null,
-    }
+    };
   }
   return {
     loading,

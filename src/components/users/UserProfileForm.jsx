@@ -1,10 +1,10 @@
 import * as Yup from 'yup';
 import { Formik, Field, Form } from 'formik';
 import { useMutation } from '@apollo/react-hooks';
-import { graphQlErrorFilter } from '../../lib/utils';
-import { EDIT_USER_PROFILE } from '../../lib/queries';
+import { graphQlErrorFilter } from '../../utils';
+import { EDIT_USER_PROFILE } from '../../queries';
 import TextInput from '../ui/TextInput';
-import { useUser } from '../../lib/hooks';
+import { useUser } from '../../hooks';
 
 const ProfileSchema = Yup.object().shape({
   firstName: Yup.string(),
@@ -57,8 +57,7 @@ const UserProfileForm = ({
               </button>
               { status.errors
                 // eslint-disable-next-line react/no-array-index-key
-                && status.errors.map((error, i) => <p className="help is-danger" key={i}>{ error.message }</p>)
-              }
+                && status.errors.map((error, i) => <p className="help is-danger" key={i}>{ error.message }</p>)}
             </Form>
           )
         }

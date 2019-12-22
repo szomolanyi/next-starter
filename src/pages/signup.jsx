@@ -1,16 +1,16 @@
 // eslint-disable-next-line
-import { withApollo } from '../lib/apollo';
+import { withApollo } from '../apollo';
 import Layout from '../components/ui/layout';
-import LoginForm from '../components/users/LoginForm';
+import SignUp from '../components/users/SignUp';
 import SocialLoginButtons from '../components/users/SocialLoginButtons';
 
-const LoginPage = ({ messages }) => (
+const SignUpPage = () => (
   <Layout>
     <div className="columns">
       <div className="column">
         <section className="section">
-          <h1 className="title">Email and password</h1>
-          <LoginForm messages={messages} />
+          <h1 className="title">Sign up</h1>
+          <SignUp />
         </section>
       </div>
       <div className="column">
@@ -23,4 +23,4 @@ const LoginPage = ({ messages }) => (
   </Layout>
 );
 
-export default withApollo(LoginPage);
+export default withApollo(SignUpPage);

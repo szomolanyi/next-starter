@@ -1,11 +1,11 @@
 import React from 'react';
 import { useMutation } from '@apollo/react-hooks';
 
-import { EDIT_COMMENT, GET_COMMENTS, ADD_COMMENT } from '../../lib/queries';
+import { EDIT_COMMENT, GET_COMMENTS, ADD_COMMENT } from '../../queries';
 import CommentsList from './CommentsList';
 import CommentForm from './CommentForm';
 import EditModal from '../ui/EditModal';
-import { useModal } from '../../lib/hooks';
+import { useModal } from '../../hooks';
 
 const updateCacheAfterCreate = (cache, { data }) => {
   const { createComment } = data;

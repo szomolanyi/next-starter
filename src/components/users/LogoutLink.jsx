@@ -1,13 +1,13 @@
 import { useMutation, useApolloClient } from '@apollo/react-hooks';
-import { useErrorHandler } from '../../lib/hooks';
-import { LOGOUT_USER } from '../../lib/queries';
+import { useErrorHandler } from '../../hooks';
+import { LOGOUT_USER } from '../../queries';
 
 const LogoutLink = () => {
   const client = useApolloClient();
   const handleErrors = useErrorHandler();
   const [logout] = useMutation(LOGOUT_USER);
   const logoutFunc = () => {
-    logout().then(() => client.resetStore()).catch(error => handleErrors(error));
+    logout().then(() => client.resetStore()).catch((error) => handleErrors(error));
   };
   return (
     <a

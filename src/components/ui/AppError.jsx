@@ -1,4 +1,4 @@
-import { graphQlErrorFilter } from '../../lib/utils';
+import { graphQlErrorFilter } from '../../utils';
 
 const AppError = ({ error }) => (
   <div className="section">

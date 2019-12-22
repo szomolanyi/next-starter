@@ -4,7 +4,7 @@ import AppError from '../ui/AppError';
 import LoadingSection from '../ui/LoadingSection';
 import {
   GET_COMMENTS, DELETE_COMMENT,
-} from '../../lib/queries';
+} from '../../queries';
 
 
 const updateCacheAfterDelete = (cache, { data }) => {

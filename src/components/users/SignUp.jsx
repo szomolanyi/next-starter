@@ -1,8 +1,8 @@
 import { useMutation } from '@apollo/react-hooks';
-import { CREATE_USER, CURRENT_USER } from '../../lib/queries';
+import { CREATE_USER } from '../../queries';
 import SignUpForm from './SignUpForm';
 import Loading from '../ui/Loading';
-import { useUser } from '../../lib/hooks';
+import { useUser } from '../../hooks';
 
 const SignUp = ({ postSubmit }) => {
   const [signUp] = useMutation(CREATE_USER, {

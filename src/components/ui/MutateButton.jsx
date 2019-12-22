@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/react-hooks';
 import { useState } from 'react';
-import { SET_APP_MESSAGE } from '../../lib/queries';
+import { SET_APP_MESSAGE } from '../../queries';
 
 const MutateButton = ({ mutateFunc, mutateOpts, title }) => {
   const [setAppMessage] = useMutation(SET_APP_MESSAGE);
