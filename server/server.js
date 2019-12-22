@@ -66,6 +66,7 @@ if (process.env.STANDALONE_GRAPHQL === 'YES') {
 
 // pug is used to render special pages, confirmemail, ...
 app.set('view engine', 'pug');
+app.set('views', 'server/views');
 
 // apollo server
 const apolloServer = new ApolloServer({
