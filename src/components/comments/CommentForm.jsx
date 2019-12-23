@@ -48,8 +48,7 @@ const CommentForm = ({
             </button>
             { status.errors
               // eslint-disable-next-line react/no-array-index-key
-              && status.errors.map((error, i) => <p className="help is-danger" key={i}>{ error.message }</p>)
-            }
+              && status.errors.map((error, i) => <p className="help is-danger" key={i}>{ error.message }</p>)}
           </Form>
         )
       }
