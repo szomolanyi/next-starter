@@ -1,4 +1,4 @@
-const CustomAppMEssage = ({ appMessage, closeAppMessage }) => (
+const CustomAppMessage = ({ appMessage, closeAppMessage }) => (
   <div>
     {
       closeAppMessage && <button type="button" className="delete" aria-label="delete" onClick={() => closeAppMessage()} />
@@ -7,4 +7,4 @@ const CustomAppMEssage = ({ appMessage, closeAppMessage }) => (
   </div>
 );
 
-export default CustomAppMEssage;
+export default CustomAppMessage;

@@ -17,7 +17,7 @@ const AppMessage = ({ appMessage, closeAppMessage }) => (
     {
       closeAppMessage && <button type="button" className="delete" aria-label="delete" onClick={() => closeAppMessage()} />
     }
-    {appMessage.messages.map(message => <p>{message}</p>)}
+    {appMessage.messages.map((message) => <p>{message}</p>)}
   </div>
 );
 
@@ -26,7 +26,7 @@ const AppMessageModal = () => {
   const [closeAppMessage] = useMutation(CLOSE_APP_MESSAGE);
   if (loading) return null;
   if (!data) return null; // data is undefined during SSR
-  const appMessage = data.appMessage;
+  const { appMessage } = data;
   if (!appMessage) {
     // appMessage cache value is not initialized
     // it can happen if store is reset

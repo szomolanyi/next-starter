@@ -8,6 +8,7 @@ const AppError = ({ error }) => (
       </div>
       <div className="message-body">
         {
+          // eslint-disable-next-line react/no-array-index-key
           graphQlErrorFilter(error).map((err, i) => <p key={i}>{err.message}</p>)
         }
       </div>

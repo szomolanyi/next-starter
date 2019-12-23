@@ -16,7 +16,7 @@ const updateCacheAfterDelete = (cache, { data }) => {
       data: {
         comments: {
           cursor: comments.cursor,
-          comments: comments.comments.filter(comment => comment._id !== deleteComment),
+          comments: comments.comments.filter((comment) => comment._id !== deleteComment),
           __typename: comments.__typename,
         },
       },
@@ -50,7 +50,7 @@ const CommentsList = ({ editComment }) => {
     <>
       <div className="columns is-multiline">
         {
-          data.comments.comments.map(comment => (
+          data.comments.comments.map((comment) => (
             <CommentDetail
               key={comment._id}
               comment={comment}

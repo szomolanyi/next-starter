@@ -9,7 +9,6 @@ export const RegisteredComponent = ({ componentName, ...rest }) => {
     default:
       throw Error(`Unknown registered component ${componentName}`);
   }
-  // eslint-disable-next-line react/jsx-props-no-spreading
   return <Component {...rest} />;
 };
 

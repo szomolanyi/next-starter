@@ -1,13 +1,11 @@
-import Loading from './Loading'
+import Loading from './Loading';
 
-const LoadingSection = ({ size }) => {
-  return (
-    <section className="section">
-      <div className="container has-text-centered">
-        <Loading size={size} />
-      </div>
-    </section>
-  );
-};
+const LoadingSection = ({ size }) => (
+  <section className="section">
+    <div className="container has-text-centered">
+      <Loading size={size} />
+    </div>
+  </section>
+);
 
 export default LoadingSection;

@@ -27,5 +27,4 @@ const TextInput = ({
   </div>
 );
 
-export default TextInput
-;
+export default TextInput;
