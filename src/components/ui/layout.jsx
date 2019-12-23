@@ -3,7 +3,6 @@ import '../../styles/styles.sass';
 import React from 'react';
 import Head from 'next/head';
 
-// import AppError from '../components/AppError';
 import Header from './header';
 import AppMessageModal from './AppMessageModal';
 
