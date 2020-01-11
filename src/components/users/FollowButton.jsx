@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/react-hooks';
-import { useUser, useErrorHandler } from '../../lib/hooks';
-import { FOLLOW_USER, UNFOLLOW_USER, GET_TWEETS } from '../../lib/queries';
+import { useUser } from '../../hooks';
+import { FOLLOW_USER, UNFOLLOW_USER, GET_TWEETS } from '../../queries';
 import MutateButton from '../ui/MutateButton';
 
 const FollowButton = ({ user }) => {

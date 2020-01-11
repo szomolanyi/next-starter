@@ -6,8 +6,8 @@ import AppError from '../ui/AppError';
 import Loading from '../ui/Loading';
 
 // eslint-disable-next-line
-import { withApollo } from '../../lib/apollo';
-import { GET_USER } from '../../lib/queries';
+import { withApollo } from '../../apollo';
+import { GET_USER } from '../../queries';
 import FollowButton from './FollowButton';
 
 

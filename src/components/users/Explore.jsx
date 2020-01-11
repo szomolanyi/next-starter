@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/react-hooks';
 import Link from 'next/link';
-import { USERS } from '../../lib/queries';
+import { USERS } from '../../queries';
 import Loading from '../ui/Loading';
 import AppError from '../ui/AppError';
 
