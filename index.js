@@ -14,7 +14,7 @@ const nextApp = next({
   }),
 });
 const handle = nextApp.getRequestHandler();
-const app = require('./server');
+const app = require('./server/server');
 
 nextApp.prepare()
 

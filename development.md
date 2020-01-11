@@ -46,6 +46,10 @@ STANDALONE_GRAPHQL=NO
 # Deployment
 ## Deployment to Zeit.co
 ```code sh
+now --prod -e DEV_EMAIL=szomolanyi@gmail.com
+```
+alebo
+```code sh
 npm run now
 ```
 ### Required secrets

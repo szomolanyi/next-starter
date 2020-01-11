@@ -1,9 +1,8 @@
 const withSass = require('@zeit/next-sass');
 
-module.exports = (phase) => {
-  console.log(`phase: ${phase}`);
+module.exports = () => {
   console.log(`process.env.SERVER_URL: ${process.env.SERVER_URL}`);
-  console.log(`process.env.SERVER_URL: ${process.env.APP_URL}`);
+  console.log(`process.env.APP_URL: ${process.env.APP_URL}`);
   console.log(`process.env.STANDALONE_GRAPHQL3: ${process.env.STANDALONE_GRAPHQL}`);
   return withSass({
     env: {

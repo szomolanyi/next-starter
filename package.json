@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "concurrently npm:server npm:nowdev-app",
-    "server": "nodemon standalone-server.js",
+    "server": "nodemon server/standalone-server.js",
     "nowdev-app": "now dev --local-config=now.standalone.json",
     "nowdev": "now dev --local-config=now.dev.json",
     "dev-standalone": "nodemon index.js",
