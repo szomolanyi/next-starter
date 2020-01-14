@@ -6,6 +6,7 @@
 * viacnasobny login, ak je user prihlaseny pokus o druhy login zamerzne
 * eslint do dev dependencies
 * ako zistit msg pre invariant v produkcii :  grep -r InvariantError node_modules/**/bundle.cjs.js
+* BUG next: pri now dev nefunguje na win server side render : https://github.com/zeit/now/issues/3359
 
 DONE:
 * now.json musi byt pouzity pri builde (default konfiguracia)
