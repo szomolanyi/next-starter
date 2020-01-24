@@ -9,6 +9,9 @@ module.exports = () => {
       SERVER_URL: process.env.SERVER_URL,
       APP_URL: process.env.APP_URL,
       STANDALONE_GRAPHQL: process.env.STANDALONE_GRAPHQL ? process.env.STANDALONE_GRAPHQL : 'NO',
+      CLOUDINARY_KEY: process.env.CLOUDINARY_KEY,
+      CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
+      CLOUDINARY_PRESET: process.env.CLOUDINARY_PRESET,
     },
   });
 };

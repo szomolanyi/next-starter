@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
   hasLocalPassword: { type: Boolean, default: false },
   firstName: String,
   lastName: String,
+  avatar: String,
   google: {
     sub: String,
     id: String,

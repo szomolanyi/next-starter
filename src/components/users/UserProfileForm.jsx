@@ -20,8 +20,8 @@ const UserProfileForm = ({
   return (
     <Formik
       initialValues={{
-        firstName: currentUser.firstName,
-        lastName: currentUser.lastName,
+        firstName: currentUser.firstName || '',
+        lastName: currentUser.lastName || '',
       }}
       initialStatus={{}}
       onSubmit={

@@ -12,6 +12,7 @@ type User {
   firstName: String
   lastName: String
   displayName: String
+  avatar: String
 }
 
 type Result {
@@ -27,6 +28,8 @@ extend type Mutation {
   logout: Boolean
   sendVerifyEmail: Boolean
   verifyEmail(token: String!): Response
+  setAvatar(avatar: String!): User
+  signCloudinaryUpload(data: String!): String
 }
 `;
 module.exports = typeDefs;

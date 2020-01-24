@@ -30,7 +30,10 @@
     "env": {
       "SERVER_URL": "http://localhost:3000",
       "APP_URL": "http://localhost:3000",
-      "STANDALONE_GRAPHQL": "NO"
+      "STANDALONE_GRAPHQL": "NO",
+      "CLOUDINARY_KEY": "145936715346926",
+      "CLOUDINARY_CLOUD_NAME": "duhahryey",
+      "CLOUDINARY_PRESET": "geuikqmr"
     }
   }
 }

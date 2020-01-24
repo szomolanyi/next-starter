@@ -2,11 +2,13 @@ import gql from 'graphql-tag';
 
 const USER_FRAGMENT = gql`
 fragment UserFragment on User {
+  _id
   email
   firstName
   lastName
   displayName
   isVerified
+  avatar
 }
 `;
 
@@ -65,5 +67,19 @@ mutation VerifyEmail($token: String!) {
     code
     message
   }
+}
+`;
+
+export const SET_AVATAR = gql`
+mutation SetAvatar($avatar: String!) {
+  setAvatar(avatar: $avatar) {
+    avatar
+  }
+}
+`;
+
+export const SIGN_CLOUDINARY_UPLOAD = gql`
+mutation SignCloudinaryUpload($data: String!) {
+  signCloudinaryUpload(data: $data)
 }
 `;
