@@ -36,13 +36,18 @@
     "APP_URL": "https://next-starter-git-example-twitter.fomo1.now.sh",
     "APP_EMAIL": "nextstarter@nextstarter.sk",
     "GOOGLE_APP_CLIENT_ID": "@google_app_clientid",
-    "GOOGLE_APP_SECRET": "@google_app_secret"
+    "GOOGLE_APP_SECRET": "@google_app_secret",
+    "CLOUDINARY_KEY": "145936715346926",
+    "CLOUDINARY_SECRET": "@cloudinary_secret"
   },
   "build": {
     "env": {
       "SERVER_URL": "https://next-starter-git-example-twitter.fomo1.now.sh",
       "APP_URL": "https://next-starter-git-example-twitter.fomo1.now.sh",
-      "STANDALONE_GRAPHQL": "NO"
+      "STANDALONE_GRAPHQL": "NO",
+      "CLOUDINARY_KEY": "145936715346926",
+      "CLOUDINARY_CLOUD_NAME": "duhahryey",
+      "CLOUDINARY_PRESET": "geuikqmr"
     }
   }
 }

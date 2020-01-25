@@ -17,6 +17,7 @@ type User {
   createdAt: String
   follows: [User]
   followers: [User]
+  avatar: String
 }
 
 type Result {
@@ -34,6 +35,8 @@ extend type Mutation {
   verifyEmail(token: String!): Response
   followUser(_id: ID!): User
   unFollowUser(_id: ID!): User
+  setAvatar(avatar: String!): User
+  signCloudinaryUpload(data: String!): String
 }
 `;
 module.exports = typeDefs;

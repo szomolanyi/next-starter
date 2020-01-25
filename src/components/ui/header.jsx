@@ -14,11 +14,27 @@ const NotLogged = () => (
   </div>
 );
 
+const Avatar = ({ currentUser }) => {
+  if (!currentUser) {
+    return <i className="fas fa-user" />;
+  }
+  if (!currentUser.isVerified) {
+    return <i className="fas fa-user-lock has-text-danger" />;
+  }
+  if (currentUser.avatar) {
+    return (
+      <figure className="image is-32x32">
+        <img src={currentUser.avatar} alt="" />
+      </figure>
+    )
+  }
+  return <i className="fas fa-user" />;
+};
+
 const Logged = ({ currentUser }) => {
-  const userIcon = currentUser && currentUser.isVerified === false ? 'fa-user-lock has-text-danger' : 'fa-user';
   return (
     <div className="navbar-item has-dropdown is-hoverable">
-      <a className="navbar-link is-arrowless"><i className={`fas ${userIcon}`} /></a>
+      <a className="navbar-link is-arrowless"><Avatar currentUser={currentUser} /></a>
       <div className="navbar-dropdown is-right">
         <div className="navbar-item is-block">
           <p className="is-size-7">Signed in as:</p>

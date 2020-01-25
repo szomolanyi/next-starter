@@ -3,6 +3,7 @@ const { UserInputError } = require('apollo-server-express');
 const nodemailer = require('nodemailer');
 const nodemailerSendgrid = require('nodemailer-sendgrid');
 const Email = require('email-templates');
+const sha1 = require('js-sha1');
 
 const { ApolloError } = require('apollo-server-express');
 
@@ -190,6 +191,23 @@ module.exports = {
       await followedUser.save();
       await user.save();
       return user;
+    },
+    setAvatar: async (Obj, { avatar }, context) => {
+      if (!context.user) {
+        throw new ApolloError('Not authenthicated', 'NOT_AUTHENTICATED', {});
+      }
+      const user = await User.findById(context.user._id);
+      console.log({ m: 'setAvatar', avatar });
+      user.avatar = avatar;
+      await user.save();
+      return user;
+    },
+    signCloudinaryUpload: (Obj, { data }, context) => {
+      if (!context.user) {
+        throw new ApolloError('Not authenthicated', 'NOT_AUTHENTICATED', {});
+      }
+      console.log(data);
+      return sha1(`${data}${process.env.CLOUDINARY_SECRET}`);
     },
   },
 };

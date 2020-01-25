@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema({
     type: [mongoose.Schema.Types.ObjectId],
     required: true,
   },
+  avatar: String,
   google: {
     sub: String,
     id: String,

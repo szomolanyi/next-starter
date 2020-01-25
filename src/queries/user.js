@@ -14,6 +14,7 @@ fragment UserFragment on User {
     email
   }
   createdAt
+  avatar
 }
 `;
 
@@ -109,5 +110,19 @@ mutation VerifyEmail($token: String!) {
     code
     message
   }
+}
+`;
+
+export const SET_AVATAR = gql`
+mutation SetAvatar($avatar: String!) {
+  setAvatar(avatar: $avatar) {
+    avatar
+  }
+}
+`;
+
+export const SIGN_CLOUDINARY_UPLOAD = gql`
+mutation SignCloudinaryUpload($data: String!) {
+  signCloudinaryUpload(data: $data)
 }
 `;
