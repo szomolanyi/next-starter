@@ -15,6 +15,7 @@ const CoudinaryUpload = ({ transformations, options }) => {
       clb(cHash.data.signCloudinaryUpload);
     });
   };
+  if (typeof window === 'undefined') return null;
   const cloudinaryWidget = window.cloudinary.createUploadWidget({
     ...options,
     uploadSignature: signUpload,
