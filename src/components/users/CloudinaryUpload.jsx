@@ -23,7 +23,7 @@ const CoudinaryUpload = ({ transformations, options }) => {
   },
   (err, result) => {
     if (result.event === 'success') {
-      const avatarUrl = `http://res.cloudinary.com/duhahryey/image/upload/${transformations}/${result.info.path}`;
+      const avatarUrl = `https://res.cloudinary.com/duhahryey/image/upload/${transformations}/${result.info.path}`;
       setAvatar({ variables: { avatar: avatarUrl } });
     }
   });
