@@ -6,6 +6,7 @@ const TWEET_FRAGMENT = gql`
       text
       author {
         email
+        avatar
       }
       likers {
         _id

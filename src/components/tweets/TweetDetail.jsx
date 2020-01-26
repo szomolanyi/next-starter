@@ -29,7 +29,10 @@ const TweetDetail = ({ tweet }) => {
       <article className="media">
         <div className="media-left">
           <figure className="image is-64x64">
-            <img src="https://bulma.io/images/placeholders/128x128.png" alt="Avatar" />
+            <img
+              src={tweet.author.avatar ? tweet.author.avatar : 'https://bulma.io/images/placeholders/128x128.png'}
+              alt="Avatar"
+            />
           </figure>
         </div>
         <div className="media-content">

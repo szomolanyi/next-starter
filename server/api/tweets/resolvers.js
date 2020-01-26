@@ -77,6 +77,7 @@ module.exports = {
       const user = await Users.findById(author);
       return {
         email: user.email,
+        avatar: user.avatar,
       };
     },
     createdAt: ({ createdAt }) => createdAt.toISOString(),
