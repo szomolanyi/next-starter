@@ -44,6 +44,3 @@ export const useUser = () => {
     currentUser: data.currentUser,
   };
 };
-
-
-export const eslintFix = () => null;
