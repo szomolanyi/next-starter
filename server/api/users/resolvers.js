@@ -192,13 +192,12 @@ module.exports = {
       await user.save();
       return user;
     },
-    setAvatar: async (Obj, { avatar }, context) => {
+    setImageUrl: async (Obj, { url, type }, context) => {
       if (!context.user) {
         throw new ApolloError('Not authenthicated', 'NOT_AUTHENTICATED', {});
       }
       const user = await User.findById(context.user._id);
-      console.log({ m: 'setAvatar', avatar });
-      user.avatar = avatar;
+      user[type] = url;
       await user.save();
       return user;
     },
@@ -206,7 +205,6 @@ module.exports = {
       if (!context.user) {
         throw new ApolloError('Not authenthicated', 'NOT_AUTHENTICATED', {});
       }
-      console.log(data);
       return sha1(`${data}${process.env.CLOUDINARY_SECRET}`);
     },
   },

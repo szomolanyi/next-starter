@@ -35,7 +35,7 @@ extend type Mutation {
   verifyEmail(token: String!): Response
   followUser(_id: ID!): User
   unFollowUser(_id: ID!): User
-  setAvatar(avatar: String!): User
+  setImageUrl(url: String, type: String): User
   signCloudinaryUpload(data: String!): String
 }
 `;

@@ -32,13 +32,15 @@ export const graphQlErrorFilter = (error) => {
   return errors;
 };
 
-export const cloudinaryAvatarUploadOptions = {
-  cloudName: process.env.CLOUDINARY_CLOUD_NAME,
-  apiKey: process.env.CLOUDINARY_KEY,
-  uploadPreset: process.env.CLOUDINARY_PRESET,
-  // sources: ['local'],
-  multiple: false,
-  showPoweredBy: false,
-  folder: 'avatar',
-  maxImageWidth: '500',
+export const cloudinaryUploadOptions = {
+  avatar: {
+    cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+    apiKey: process.env.CLOUDINARY_KEY,
+    uploadPreset: process.env.CLOUDINARY_PRESET,
+    // sources: ['local'],
+    multiple: false,
+    showPoweredBy: false,
+    folder: 'avatar',
+    maxImageWidth: '500',
+  },
 };
