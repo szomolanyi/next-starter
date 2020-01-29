@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   avatar: String,
+  banner: String,
   google: {
     sub: String,
     id: String,

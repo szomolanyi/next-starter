@@ -15,6 +15,7 @@ fragment UserFragment on User {
   }
   createdAt
   avatar
+  banner
 }
 `;
 

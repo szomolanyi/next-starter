@@ -21,7 +21,7 @@ const UserImageUpload = ({
       <div className="columns">
         <div className="column">
           <figure className={`image ${imageClassName}`}>
-            <img src={currentUser.avatar} alt="" />
+            <img src={currentUser[type]} alt="" />
           </figure>
         </div>
         <div className="column">
@@ -32,6 +32,7 @@ const UserImageUpload = ({
               publicId: currentUser._id,
             }}
             afterUpload={afterUpload}
+            buttonTitle={`Upload ${type}`}
           />
         </div>
       </div>

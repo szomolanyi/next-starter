@@ -1,7 +1,9 @@
 import { useMutation } from '@apollo/react-hooks';
 import { SIGN_CLOUDINARY_UPLOAD } from '../../queries';
 
-const CloudinaryUploadButton = ({ transformations, options, afterUpload }) => {
+const CloudinaryUploadButton = ({
+  transformations, options, afterUpload, buttonTitle,
+}) => {
   const [signCloudinaryUpload] = useMutation(SIGN_CLOUDINARY_UPLOAD);
   const signUpload = (clb, params) => {
     const data = Object.keys(params).sort().reduce((res, val, i) => (i === 0
@@ -24,7 +26,7 @@ const CloudinaryUploadButton = ({ transformations, options, afterUpload }) => {
   const showWidget = () => cloudinaryWidget.open();
   return (
     <div>
-      <button className="button" type="button" onClick={showWidget}>Upload avatar</button>
+      <button className="button" type="button" onClick={showWidget}>{buttonTitle}</button>
     </div>
   );
 };

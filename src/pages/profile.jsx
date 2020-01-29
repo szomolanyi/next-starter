@@ -16,6 +16,13 @@ const UserProfilePage = () => (
         title="Upload your avatar"
         imageClassName="is-128x128"
       />
+      <hr />
+      <UserImageUpload
+        type="banner"
+        transformations="g_auto,c_fill,ar_3"
+        title="Upload banner"
+        imageClassName="is-3by1"
+      />
     </section>
   </Layout>
 );

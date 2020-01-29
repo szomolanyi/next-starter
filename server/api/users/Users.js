@@ -18,6 +18,7 @@ type User {
   follows: [User]
   followers: [User]
   avatar: String
+  banner: String
 }
 
 type Result {

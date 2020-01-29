@@ -43,4 +43,14 @@ export const cloudinaryUploadOptions = {
     folder: 'avatar',
     maxImageWidth: '500',
   },
+  banner: {
+    cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+    apiKey: process.env.CLOUDINARY_KEY,
+    uploadPreset: process.env.CLOUDINARY_PRESET,
+    // sources: ['local'],
+    multiple: false,
+    showPoweredBy: false,
+    folder: 'banner',
+    maxImageWidth: '2048',
+  },
 };
