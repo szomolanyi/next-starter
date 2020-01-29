@@ -2,7 +2,7 @@
 import { withApollo } from '../apollo';
 import Layout from '../components/ui/layout';
 import UserProfileForm from '../components/users/UserProfileForm';
-import AvatarUpload from '../components/users/AvatarUpload';
+import UserImageUpload from '../components/users/ImageUpload';
 
 const UserProfilePage = () => (
   <Layout>
@@ -10,7 +10,12 @@ const UserProfilePage = () => (
       <h1 className="title">User profile</h1>
       <UserProfileForm />
       <hr />
-      <AvatarUpload />
+      <UserImageUpload
+        type="avatar"
+        transformations="w_200,h_200,g_face,c_fill"
+        title="Upload your avatar"
+        imageClassName="is-128x128"
+      />
     </section>
   </Layout>
 );

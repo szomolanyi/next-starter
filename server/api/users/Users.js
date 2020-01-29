@@ -28,7 +28,7 @@ extend type Mutation {
   logout: Boolean
   sendVerifyEmail: Boolean
   verifyEmail(token: String!): Response
-  setAvatar(avatar: String!): User
+  setImageUrl(url: String, type: String): User
   signCloudinaryUpload(data: String!): String
 }
 `;

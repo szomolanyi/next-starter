@@ -70,12 +70,13 @@ mutation VerifyEmail($token: String!) {
 }
 `;
 
-export const SET_AVATAR = gql`
-mutation SetAvatar($avatar: String!) {
-  setAvatar(avatar: $avatar) {
-    avatar
+export const SET_IMAGE_URL = gql`
+mutation SetImageUrl($url: String!, $type: String!) {
+  setImageUrl(url: $url, type: $type) {
+    ...UserFragment
   }
 }
+${USER_FRAGMENT}
 `;
 
 export const SIGN_CLOUDINARY_UPLOAD = gql`
