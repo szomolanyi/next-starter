@@ -1,11 +1,12 @@
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation, useState } from '@apollo/react-hooks';
+import { useDebounce } from 'use-lodash-debounce-throttle';
+
 import CommentDetail from './CommentDetail';
 import AppError from '../ui/AppError';
 import LoadingSection from '../ui/LoadingSection';
 import {
   GET_COMMENTS, DELETE_COMMENT,
 } from '../../queries';
-
 
 const updateCacheAfterDelete = (cache, { data }) => {
   const { deleteComment } = data;
@@ -24,18 +25,14 @@ const updateCacheAfterDelete = (cache, { data }) => {
   }
 };
 
-
-const CommentsList = ({ editComment }) => {
-  const {
-    loading,
-    error,
-    data,
-    fetchMore,
-  } = useQuery(GET_COMMENTS, {
-    variables: {
-      limit: 4,
-    },
-  });
+const CommentsListInternal = ({
+  loading,
+  error,
+  data,
+  editComment,
+  fetchMore,
+  searchPattern,
+}) => {
   const [deleteComment] = useMutation(DELETE_COMMENT, {
     update: updateCacheAfterDelete,
     // refetchQueries: ['Comments'], // TODO, ktory sposob je lepsi, napr. v suvislosti sa pageing ?
@@ -69,6 +66,7 @@ const CommentsList = ({ editComment }) => {
             variables: {
               cursor: data.comments.cursor,
               limit: 4,
+              searchPattern,
             },
             updateQuery: (previousResult, { fetchMoreResult }) => ({
               comments: {
@@ -84,6 +82,47 @@ const CommentsList = ({ editComment }) => {
       >
         More comments
       </button>
+    </>
+  );
+};
+
+const CommentsList = ({ editComment }) => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const {
+    loading,
+    error,
+    data,
+    fetchMore,
+    refetch,
+  } = useQuery(GET_COMMENTS, {
+    variables: {
+      limit: 4,
+    },
+  });
+  const debouncedSearchHandler = useDebounce((searchPattern) => {
+    setSearchTerm(searchPattern);
+    refetch({
+      limit: 4,
+      searchPattern,
+    });
+  }, 200);
+  return (
+    <>
+      <input
+        type="text"
+        className="input"
+        placeholder="Filter comments"
+        onChange={(event) => debouncedSearchHandler(event.target.value)}
+      />
+      <hr />
+      <CommentsListInternal
+        loading={loading}
+        error={error}
+        data={data}
+        editComment={editComment}
+        fetchMore={fetchMore}
+        searchPattern={searchTerm}
+      />
     </>
   );
 };

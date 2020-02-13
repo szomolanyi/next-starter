@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const GET_COMMENTS = gql`
-  query Comments($cursor: String, $limit: Int) {
-    comments(cursor: $cursor, limit: $limit) @connection(key: "comments") {
+  query Comments($cursor: String, $limit: Int, $searchPattern: String) {
+    comments(cursor: $cursor, limit: $limit, searchPattern: $searchPattern) @connection(key: "comments") {
       cursor
       comments {
         _id
