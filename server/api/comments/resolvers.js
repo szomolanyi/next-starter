@@ -6,16 +6,26 @@ const Comment = require('../../models/comments');
 module.exports = {
   Query: {
     comments: async (obj, data) => {
-      let comments;
-      let cursor;
+      let cursor = data.cursor ? data.cursor : null;
       const limit = data.limit ? data.limit : 5;
-      if (data.cursor) {
-        comments = await Comment.find({ _id: { $lt: new ObjectId(data.cursor) } }).sort('-_id').limit(limit);
-        cursor = comments.length > 0 ? comments[comments.length - 1]._id : data.cursor;
-      } else {
-        comments = await Comment.find().sort('-_id').limit(limit);
-        cursor = comments.length > 0 ? comments[comments.length - 1]._id : null;
+      let findObj = {};
+      if (data.searchPattern) {
+        findObj = {
+          ...findObj,
+          $text: {
+            $search: data.searchPattern,
+          },
+        };
       }
+      if (data.cursor) {
+        findObj = {
+          ...findObj,
+          _id: { $lt: new ObjectId(data.cursor) },
+        };
+      }
+      const comments = await Comment.find(findObj).sort('-_id').limit(limit);
+      console.log({ m: 'comments', findObj, comments });
+      cursor = comments.length > 0 ? comments[comments.length - 1]._id : cursor;
       return {
         cursor,
         comments,

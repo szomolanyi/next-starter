@@ -1,6 +1,6 @@
 const typeDefs = `
 extend type Query {
-  comments(cursor: String, limit: Int): CommentsFeed
+  comments(cursor: String, limit: Int, searchPattern: String): CommentsFeed
 }
 
 type Comment {
