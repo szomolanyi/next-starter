@@ -24,7 +24,6 @@ module.exports = {
         };
       }
       const comments = await Comment.find(findObj).sort('-_id').limit(limit);
-      console.log({ m: 'comments', findObj, comments });
       cursor = comments.length > 0 ? comments[comments.length - 1]._id : cursor;
       return {
         cursor,
