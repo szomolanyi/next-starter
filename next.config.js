@@ -1,5 +1,5 @@
 const withSass = require('@zeit/next-sass');
-const withTM = require('next-transpile-modules')(['lodash-es']);
+const withTM = require('next-transpile-modules')(['lodash-es', 'use-lodash-debounce-throttle']);
 
 module.exports = () => {
   console.log(`process.env.SERVER_URL: ${process.env.SERVER_URL}`);
