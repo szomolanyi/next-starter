@@ -1,7 +1,7 @@
 
 const typeDefs = `
 extend type Query {
-  users: [User]
+  users(pattern: String): [User]
   currentUser: User
   user(_id: ID!): User
 }

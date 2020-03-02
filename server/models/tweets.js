@@ -40,6 +40,16 @@ tweetSchema.add({
 
 tweetSchema.set('timestamps', true);
 
+tweetSchema.index({
+  text: 'text',
+},
+{
+  name: 'Tweets weighted text search',
+  weights: {
+    text: 5,
+  },
+});
+
 const Tweet = mongoose.model('Tweet', tweetSchema);
 
 module.exports = Tweet;

@@ -19,6 +19,7 @@ input TweetFeedInput {
   author: String
   retweeters: String
   likers: String
+  pattern: String
 }
 
 type TweetsFeed {

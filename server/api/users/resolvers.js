@@ -54,8 +54,16 @@ const login_ = async (user, login) => new Promise((resolve, reject) => login(use
 
 module.exports = {
   Query: {
-    users: async () => {
-      const users = await User.find();
+    users: async (obj, { pattern }) => {
+      const filter = {};
+      if (pattern) {
+        filter.$or = [
+          { email: { $regex: pattern } },
+          { firstName: { $regex: pattern } },
+          { lastName: { $regex: pattern } },
+        ];
+      }
+      const users = await User.find(filter);
       return users;
     },
     currentUser: (Obj, data, { user }) => {

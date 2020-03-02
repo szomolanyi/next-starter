@@ -57,8 +57,15 @@ module.exports = {
           query = {};
         }
       } else {
-        query = filter;
+        const { pattern, ...rest } = filter;
+        query = rest;
+        if (pattern) {
+          query.$text = {
+            $search: pattern,
+          };
+        }
       }
+      console.log({ m: 'tweet search', query });
       if (cursor) {
         tweets = await Tweet.find({ _id: { $lt: new ObjectId(cursor) }, ...query }).sort('-_id').limit(limit);
         newCursor = tweets.length > 0 ? tweets[tweets.length - 1]._id : cursor;

@@ -53,8 +53,8 @@ ${USER_FRAGMENT}
 `;
 
 export const USERS = gql`
-query Users {
-  users {
+query Users($pattern: String) {
+  users(pattern: $pattern) {
     ...UserFragment
   }
 }
