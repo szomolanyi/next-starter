@@ -2,6 +2,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import LogoutLink from '../users/LogoutLink';
 import VerifyEmailLink from '../users/VerifyEmailLink';
+import Avatar from '../users/Avatar';
 import { useUser } from '../../hooks';
 
 
@@ -13,23 +14,6 @@ const NotLogged = () => (
     </div>
   </div>
 );
-
-const Avatar = ({ currentUser }) => {
-  if (!currentUser) {
-    return <i className="fas fa-user" />;
-  }
-  if (!currentUser.isVerified) {
-    return <i className="fas fa-user-lock has-text-danger" />;
-  }
-  if (currentUser.avatar) {
-    return (
-      <figure className="image is-32x32">
-        <img src={currentUser.avatar} alt="" />
-      </figure>
-    )
-  }
-  return <i className="fas fa-user" />;
-};
 
 const Logged = ({ currentUser }) => {
   return (

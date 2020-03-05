@@ -5,6 +5,7 @@ import Head from 'next/head';
 
 import Header from './header';
 import AppMessageModal from './AppMessageModal';
+import TwitterSideMenu from './TwitterSideMenu';
 
 const Layout = ({ children }) => (
   <>
@@ -13,12 +14,18 @@ const Layout = ({ children }) => (
       <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript" />
     </Head>
     <Header />
-    <AppMessageModal />
     <div className="container">
-      {children}
+      <div className="columns">
+        <div className="column is-3 is-hidden-mobile">
+          <TwitterSideMenu />
+        </div>
+        <main className="column is-6-desktop">
+          <AppMessageModal />
+          {children}
+        </main>
+      </div>
     </div>
   </>
 );
-
 
 export default Layout;

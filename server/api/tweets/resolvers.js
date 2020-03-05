@@ -65,7 +65,6 @@ module.exports = {
           };
         }
       }
-      console.log({ m: 'tweet search', query });
       if (cursor) {
         tweets = await Tweet.find({ _id: { $lt: new ObjectId(cursor) }, ...query }).sort('-_id').limit(limit);
         newCursor = tweets.length > 0 ? tweets[tweets.length - 1]._id : cursor;

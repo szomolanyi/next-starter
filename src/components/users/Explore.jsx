@@ -55,7 +55,7 @@ const SearchUsers = ({ pattern }) => {
       {
         data.users.map((user) => (
           <div key={user._id}>
-            <Link href="/p/[id]" as={`/p/${user._id}`}>
+            <Link href="/twitter/p/[id]" as={`/twitter/p/${user._id}`}>
               <a><UserBox user={user} /></a>
             </Link>
           </div>

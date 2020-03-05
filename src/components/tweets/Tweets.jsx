@@ -2,16 +2,14 @@ import TweetForm from './TweetForm';
 import TweetsFeed from './TweetsFeed';
 
 const Tweets = () => (
-  <section className="section">
-    <div className="box">
-      <TweetForm
-        initialValues={{
-          text: '',
-        }}
-      />
-    </div>
+  <div className="box">
+    <TweetForm
+      initialValues={{
+        text: '',
+      }}
+    />
     <TweetsFeed />
-  </section>
+  </div>
 );
 
 export default Tweets;
