@@ -7,7 +7,7 @@ import TwitterUserProfile from '../../../components/users/TwitterUserProfile';
 const ProfilePage = () => {
   const router = useRouter();
   return (
-    <Layout>
+    <Layout title="User profile">
       <TwitterUserProfile _id={router.query.id} />
     </Layout>
   );

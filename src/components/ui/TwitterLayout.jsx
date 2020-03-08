@@ -1,52 +1,27 @@
 import '../../styles/styles.sass';
 
-import React, { useState } from 'react';
 import Head from 'next/head';
 
 import AppMessageModal from './AppMessageModal';
 import TwitterSideMenu from './TwitterSideMenu';
 import TwitterNavBar from './TwitterNavBar';
-
-const MobileMenu = () => (
-  <div className="left-menu-expanded is-hidden-tablet">
-    <TwitterSideMenu />
-    <style jsx>
-      {`
-        div.left-menu-expanded {
-          position: absolute;
-          left: 0px;
-          top: 0px;
-          z-index: 100;
-          background-color: rgb(255,255,255);
-          height: 100%;
-        }
-      `}
-    </style>
-  </div>
-);
+import TwitterMobileNavBar from './TwitterMobileNavBar';
 
 const Layout = ({ title, children }) => {
-  const [mobileMenuOpened, setMobileMenu] = useState(false);
   return (
     <>
       <Head>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossOrigin="anonymous" />
         <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript" />
       </Head>
-      <TwitterNavBar setMobileMenu={setMobileMenu} mobileMenuOpened={mobileMenuOpened} />
+      <TwitterMobileNavBar title={title} />
       <div className="container">
-        {
-          mobileMenuOpened && <MobileMenu />
-        }
         <div className="columns">
           <div className="column is-3 left-menu is-hidden-mobile">
             <TwitterSideMenu />
           </div>
           <main className="column is-6-desktop">
-            <div>
-              <span className="is-size-2">Twitter example - {title}</span>
-            </div>
-            <hr />
+            <TwitterNavBar title={title} />
             <AppMessageModal />
             {children}
           </main>

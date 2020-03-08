@@ -4,8 +4,7 @@ import Layout from '../../components/ui/TwitterLayout';
 import Explore from '../../components/users/Explore';
 
 const ExplorePage = () => (
-  <Layout>
-    <h1 className="title">Explore</h1>
+  <Layout title="Explore">
     <Explore />
   </Layout>
 );

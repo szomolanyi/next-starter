@@ -12,10 +12,10 @@ const MenuItem = ({
       <div>
         <span className={!IconComponent && 'icon'}>
           {
-            IconComponent ? <IconComponent currentUser={currentUser} /> : <i className={`fas ${faIconName}`} />
+            IconComponent ? <IconComponent currentUser={currentUser} /> : <i className={faIconName} />
           }
         </span>
-        <span>{title}</span>
+        <span>{title !== '' && title}</span>
         <style jsx>
           {`
             span:nth-child(2) {
@@ -32,30 +32,34 @@ const TwitterSideMenu = () => {
   const { currentUser } = useUser();
   return (
     <aside className="menu">
-      <div className="is-size-6 has-text-weight-bold">
+      <div className="is-size-5 has-text-weight-bold twitter-side-menu">
         <ul>
-          <li className="menu-list"><MenuItem faIconName="fa-home" title="Twitter home" href="/twitter/" /></li>
-          <li className="menu-list"><MenuItem faIconName="fa-search" title="Explore" href="/twitter/explore" /></li>
+          <li className="menu-list has-text-info"><MenuItem faIconName="fab fa-twitter" href="/twitter/" /></li>
+          <li className="menu-list"><MenuItem faIconName="fas fa-home" title="Home" href="/twitter/" /></li>
+          <li className="menu-list"><MenuItem faIconName="fas fa-search" title="Explore" href="/twitter/explore" /></li>
           {
             currentUser
-              ? (<li className="menu-list"><MenuItem faIconName="fa-user" title="Profile" href="/twitter/profile" /></li>)
+              ? (<li className="menu-list"><MenuItem faIconName="fas fa-user" title="Profile" href="/twitter/profile" /></li>)
               : (
                 <>
-                  <li className="menu-list"><MenuItem faIconName="fa-user-plus" title="Sign up" href="/signup" /></li>
-                  <li className="menu-list"><MenuItem faIconName="fa-sign-in-alt" title="Login" href="/login" /></li>
+                  <li className="menu-list"><MenuItem faIconName="fas fa-user-plus" title="Sign up" href="/signup" /></li>
+                  <li className="menu-list"><MenuItem faIconName="fas fa-sign-in-alt" title="Login" href="/login" /></li>
                 </>
               )
             }
-          <li className="menu-list"><MenuItem faIconName="fa-window-close" title="Exit twitter" href="/" /></li>
+          <li className="menu-list"><MenuItem faIconName="fas fa-window-close" title="Exit twitter" href="/" /></li>
         </ul>
-        <style jsx>
-          {`
-            li {
-              margin-bottom: 1rem;
-            }
-          `}
-        </style>
       </div>
+      <style jsx>
+        {`
+          li {
+            margin-bottom: 1rem;
+          }
+          div.twitter-side-menu {
+            margin-top: 1rem;
+          }
+        `}
+      </style>
     </aside>
   );
 };

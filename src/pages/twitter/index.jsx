@@ -4,7 +4,7 @@ import Tweets from '../../components/tweets/Tweets';
 import { withApollo } from '../../apollo';
 
 const PostsPage = () => (
-  <Layout>
+  <Layout title="Home">
     <Tweets />
   </Layout>
 );

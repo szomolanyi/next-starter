@@ -1,18 +1,17 @@
-const TwitterNavBar = ({ setMobileMenu, mobileMenuOpened }) => {
+const TwitterNavBar = ({ title }) => {
   return (
     <>
-      <nav className="navbar" role="navigation" aria-label="main navigatio">
-        <div className="container">
-          <div className="navbar-brand">
-            <a
-              className="navbar-item is-hidden-tablet"
-              onClick={() => setMobileMenu(!mobileMenuOpened)}
-            >
-              <span className="icon"><i className="fas fa-bars" /></span>
-            </a>
-          </div>
-        </div>
-      </nav>
+      <div className="is-hidden-mobile is-size-5 has-text-weight-bold twitter-title">{title}</div>
+      <style jsx>
+        {`
+          div.twitter-title {
+            padding: 0.5rem 0.75rem;
+            height: 3.25rem;
+            border-bottom: 1px solid;
+            border-bottom-color: rgb(230, 236, 240);
+          }
+        `}
+      </style>
     </>
   );
 };

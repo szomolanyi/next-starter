@@ -4,7 +4,7 @@ import Layout from '../../components/ui/TwitterLayout';
 import UserProfile from '../../components/users/UserProfile';
 
 const UserProfilePage = () => (
-  <Layout>
+  <Layout title="My profile">
     <UserProfile />
   </Layout>
 );
