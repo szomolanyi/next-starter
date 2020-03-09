@@ -23,7 +23,9 @@ const Layout = ({ title, children }) => {
           <main className="column is-6-desktop">
             <TwitterNavBar title={title} />
             <AppMessageModal />
-            {children}
+            <section className="section">
+              {children}
+            </section>
           </main>
         </div>
         <style jsx>
