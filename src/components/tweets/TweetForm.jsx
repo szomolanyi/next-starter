@@ -57,16 +57,27 @@ const TweetForm = ({ initialValues, postSubmit }) => {
         ({
           errors, touched, isSubmitting, status,
         }) => (
-          <Form>
-            <Field className="textarea" name="text" component="textarea" placeholder="What's happening ?" />
-            {errors.text && touched.text && <p className="help is-danger">{errors.text}</p>}
-            <button className={`button ${isSubmitting ? 'is-loading' : ''}`} disabled={isSubmitting} type="submit" value="Submit">
-              Submit
-            </button>
-            { status.errors
-              // eslint-disable-next-line react/no-array-index-key
-              && status.errors.map((error, i) => <p className="help is-danger" key={i}>{ error.message }</p>)}
-          </Form>
+          <div className="box">
+            <Form>
+              <div className="form-body">
+                <Field className="textarea" name="text" component="textarea" placeholder="What's happening ?" />
+                {errors.text && touched.text && <p className="help is-danger">{errors.text}</p>}
+              </div>
+              <button className={`button is-rounded is-link ${isSubmitting ? 'is-loading' : ''}`} disabled={isSubmitting} type="submit" value="Submit">
+                Tweet
+              </button>
+              { status.errors
+                // eslint-disable-next-line react/no-array-index-key
+                && status.errors.map((error, i) => <p className="help is-danger" key={i}>{ error.message }</p>)}
+              <style jsx>
+                {`
+                  .form-body {
+                    margin-bottom: 1rem;
+                  }
+                `}
+              </style>
+            </Form>
+          </div>
         )
       }
     </Formik>

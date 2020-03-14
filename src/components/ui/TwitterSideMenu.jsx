@@ -28,7 +28,7 @@ const MenuItem = ({
   </Link>
 );
 
-const TwitterSideMenu = () => {
+const TwitterSideMenu = ({ setModalOpened }) => {
   const { currentUser } = useUser();
   return (
     <aside className="menu">
@@ -49,11 +49,21 @@ const TwitterSideMenu = () => {
             }
           <li className="menu-list"><MenuItem faIconName="fas fa-window-close" title="Exit twitter" href="/" /></li>
         </ul>
+        <button
+          type="button"
+          className="button is-rounded is-link"
+          onClick={() => setModalOpened(true)}
+        >
+            Tweet
+        </button>
       </div>
       <style jsx>
         {`
           li {
             margin-bottom: 1rem;
+          }
+          ul {
+            margin-bottom: 2rem;
           }
           div.twitter-side-menu {
             margin-top: 1rem;
