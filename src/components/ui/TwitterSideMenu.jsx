@@ -12,7 +12,8 @@ const MenuItem = ({
       <div>
         <span className={!IconComponent && 'icon'}>
           {
-            IconComponent ? <IconComponent currentUser={currentUser} /> : <i className={faIconName} />
+            IconComponent
+              ? <IconComponent currentUser={currentUser} /> : <i className={faIconName} />
           }
         </span>
         <span>{title !== '' && title}</span>

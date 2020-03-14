@@ -55,7 +55,7 @@ const Layout = ({ title, children }) => {
         </style>
       </div>
     </>
-  )
+  );
 };
 
 export default Layout;
