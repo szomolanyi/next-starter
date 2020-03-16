@@ -64,11 +64,20 @@ const TweetsFeed = ({ filter }) => {
           ))
         }
       </div>
-      {
-        doRefetch && <LoadingSection />
-      }
     </>
   );
 };
+
+/* TODO: pridanie LoagingSection pri refetchi sposobilo,
+ze sa vygeneroval scroll event a znova sa pustil refetch a cyklilo sa to , asi ... preskumaj
+      {
+        doRefetch && <LoadingSection />
+      }
+console.log(`scroll event, scrollY: ${window.scrollY}, scrollHeight:
+${tweetDiv.scrollHeight}, innerHeight: ${window.innerHeight}, clientHeight:
+${tweetDiv.clientHeight} offsetTop: ${tweetDiv.offsetTop} scrollTop: ${tweetDiv.scrollTop}`);
+console.log(`scroll event, v1: ${window.scrollY + window.innerHeight},
+v2: ${tweetDiv.clientHeight + tweetDiv.offsetTop}`);
+*/
 
 export default TweetsFeed;
