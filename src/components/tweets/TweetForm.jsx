@@ -35,14 +35,12 @@ const updateCacheAfterCreate2 = (replyOn) => {
         id: `Tweet:${replyOn}`,
         fragment: TWEET_FRAGMENT,
       });
-      console.log({ m: 'updateCache', replyOn, frgm, replies: frgm.replies, repliesCount: frgm.repliesCount });
       const newData = {
         ...frgm,
         replies: [...frgm.replies, createTweet],
         repliesCount: frgm.repliesCount + 1,
         __typename: 'Tweet',
       };
-      console.log(newData);
       cache.writeFragment({
         id: `Tweet:${replyOn}`,
         fragment: TWEET_FRAGMENT,
