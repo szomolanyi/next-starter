@@ -35,6 +35,18 @@ retweeters:param.user_id
 likers : param.user_id
 */
 
+/*
+tweetsFeed
+zobrazi tweetsFeed pre kazdeho usera, t.j. hlavny vstup je userId
+  userID is null - zobrazuje vsetky tweety
+  UserID is not null zobrazi tweety usera v 2 modoch
+    1. tweety, ktore user napisal, alebo ktore retweetol, alebo ktore sleduje
+    2. tweety, ktore user like-ol
+
+dalsie parametre :
+  pattern: pattern pre full text search
+*/
+
 module.exports = {
   Query: {
     tweetsFeed: async (obj, data, context) => {
