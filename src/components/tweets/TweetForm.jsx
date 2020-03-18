@@ -2,7 +2,7 @@ import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 import { useMutation } from '@apollo/react-hooks';
 
-import { GET_TWEETS, ADD_TWEET } from '../../queries';
+import { GET_TWEETS, ADD_TWEET, TWEET_FRAGMENT } from '../../queries';
 
 import { graphQlErrorFilter } from '../../utils';
 
@@ -26,9 +26,45 @@ const updateCacheAfterCreate = (cache, { data }) => {
   });
 };
 
-const TweetForm = ({ initialValues, postSubmit }) => {
+const updateCacheAfterCreate2 = (replyOn) => {
+  return (cache, { data }) => {
+    const { createTweet } = data;
+    const { tweetsFeed } = cache.readQuery({ query: GET_TWEETS });
+    if (replyOn) {
+      const frgm = cache.readFragment({
+        id: `Tweet:${replyOn}`,
+        fragment: TWEET_FRAGMENT,
+      });
+      console.log({ m: 'updateCache', replyOn, frgm, replies: frgm.replies, repliesCount: frgm.repliesCount });
+      const newData = {
+        ...frgm,
+        replies: [...frgm.replies, createTweet],
+        repliesCount: frgm.repliesCount + 1,
+        __typename: 'Tweet',
+      };
+      console.log(newData);
+      cache.writeFragment({
+        id: `Tweet:${replyOn}`,
+        fragment: TWEET_FRAGMENT,
+        data: newData,
+      });
+    }
+    cache.writeQuery({
+      query: GET_TWEETS,
+      data: {
+        tweetsFeed: {
+          cursor: tweetsFeed.cursor,
+          tweets: [createTweet, ...tweetsFeed.tweets],
+          __typename: 'TweetsFeed',
+        },
+      },
+    });
+  };
+};
+
+const TweetForm = ({ initialValues, postSubmit, replyOn }) => {
   const [create] = useMutation(ADD_TWEET, {
-    update: updateCacheAfterCreate,
+    update: updateCacheAfterCreate2(replyOn),
   });
   return (
     <Formik
@@ -37,7 +73,7 @@ const TweetForm = ({ initialValues, postSubmit }) => {
       onSubmit={
         (values, fvals) => {
           const { setSubmitting, resetForm, setStatus } = fvals;
-          create({ variables: values })
+          create({ variables: { ...values, replyOn } })
             .then(() => {
               resetForm(initialValues);
               if (postSubmit) {

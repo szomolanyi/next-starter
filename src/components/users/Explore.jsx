@@ -47,7 +47,6 @@ const SearchUsers = ({ pattern }) => {
   const { loading, error, data } = useQuery(USERS, {
     variables: { pattern },
   });
-  console.log({ pattern, data, error });
   if (loading) return <Loading />;
   if (error) return <AppError error={error} />;
   return (

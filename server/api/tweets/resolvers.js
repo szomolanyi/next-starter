@@ -93,11 +93,23 @@ module.exports = {
     },
     retweetedBy: ({ retweeters }, data, { user }) => {
       if (!retweeters || !user || !user.follows) return [];
-      const retweetedByIds = retweeters.filter((retweeter) => user.follows.includes(retweeter) || user._id.equals(retweeter));
+      const retweetedByIds = retweeters.filter(
+        (retweeter) => user.follows.includes(retweeter) || user._id.equals(retweeter),
+      );
       const promises = retweetedByIds.map((id) => Users.findById(id));
       return Promise.all(promises);
     },
     retweetersCount: ({ retweeters }) => retweeters.length,
+    repliesCount: ({ replies }) => (replies ? replies.length : 0),
+    replies: ({ replies }) => {
+      if (!replies) return [];
+      const promises = replies.map((id) => Tweet.findById(id));
+      return Promise.all(promises);
+    },
+    replyOn: ({ replyOn }) => {
+      if (!replyOn) return null;
+      return Tweet.findById(replyOn);
+    },
   },
   Mutation: {
     createTweet: async (obj, data, context) => {
@@ -110,9 +122,19 @@ module.exports = {
         likers: [],
         retweeters: [],
         edited: false,
-        reactions: [],
+        replies: [],
       });
-      return tweet.save();
+      const savedTweet = await tweet.save();
+      if (data.replyOn) {
+        const tweet2 = await Tweet.findById(data.replyOn);
+        if (!tweet2.replies) {
+          tweet2.replies = [savedTweet._id];
+        } else {
+          tweet2.replies.push(savedTweet._id);
+        }
+        tweet2.save();
+      }
+      return savedTweet;
     },
     deleteTweet: async (obj, { _id }) => {
       await Tweet.findByIdAndDelete(_id);
@@ -126,7 +148,7 @@ module.exports = {
       const tweet = await Tweet.findById(new ObjectId(_id));
       const isIn = tweet.likers.reduce((prev, val) => prev || val.toString() === userId, false);
       if (isIn) {
-        const newLikers = tweet.likers.filter(val => val.toString() !== userId);
+        const newLikers = tweet.likers.filter((val) => val.toString() !== userId);
         tweet.likers = newLikers;
       } else {
         tweet.likers.push(new ObjectId(userId));

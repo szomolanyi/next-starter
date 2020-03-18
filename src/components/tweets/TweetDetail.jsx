@@ -1,13 +1,17 @@
 import { useMutation } from '@apollo/react-hooks';
+import { useContext } from 'react';
 import moment from 'moment';
 
 import { LIKE_TWEET, RETWEET } from '../../queries';
 import { useUser } from '../../hooks';
 
+import TwitterContext from '../../context';
+
 const TweetDetail = ({ tweet }) => {
   const [likeTweet] = useMutation(LIKE_TWEET);
   const [retweet] = useMutation(RETWEET);
   const { currentUser } = useUser();
+  const { openNewTweetModal } = useContext(TwitterContext);
   const likeTweetFunc = () => likeTweet({
     variables: {
       _id: tweet._id,
@@ -19,6 +23,7 @@ const TweetDetail = ({ tweet }) => {
       _id: tweet._id,
     },
   });
+  const openModalFunc = () => openNewTweetModal(tweet._id);
   const likedByMe = tweet.likers.reduce((prev, like) => prev
     || (currentUser && like._id === currentUser._id), false);
   const likers = tweet.likers.reduce((prev, like, i) => (i === 0 ? like.email : `${prev}\n${like.email}`), '');
@@ -60,11 +65,15 @@ const TweetDetail = ({ tweet }) => {
             </p>
           </div>
           <nav className="level is-mobile">
-            <a className="level-item" aria-label="reply">
-              <span className="icon is-small">
-                <i className="fas fa-reply" aria-hidden="true" />
-              </span>
-            </a>
+            <div className="level-item">
+              <a aria-label="reply" onClick={openModalFunc} onKeyPress={openModalFunc} role="button" tabIndex={0}>
+                <span className="icon is-small">
+                  <i className="fas fa-reply" aria-hidden="true" />
+                </span>
+              </a>
+              &nbsp;
+              <span>{tweet.repliesCount}</span>
+            </div>
             <div className="level-item">
               <a aria-label="retweet" onClick={retweetFunc} onKeyPress={retweetFunc} role="button" tabIndex={0}>
                 <span className={`icon is-small ${retweetedByMe ? 'has-text-danger' : 'has-text-info'}`}>

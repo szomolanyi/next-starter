@@ -8,10 +8,12 @@ type Tweet {
   text: String!
   author: User!
   likers: [User]!
-  retweetedBy: [User]
-  retweetersCount: Int
+  retweetedBy: [User]!
+  retweetersCount: Int!
   edited: Boolean
-  reactions: [Tweet]!
+  replies: [Tweet]!
+  repliesCount: Int!
+  replyOn: Tweet
   createdAt: String!
 }
 
@@ -28,7 +30,7 @@ type TweetsFeed {
 }
 
 extend type Mutation {
-  createTweet(text: String!): Tweet
+  createTweet(text: String!, replyOn: ID): Tweet
   deleteTweet(_id: ID!): String
   editTweet(_id: ID!, text: String!): Tweet
   likeTweet(_id: ID!, userId: ID!): Tweet

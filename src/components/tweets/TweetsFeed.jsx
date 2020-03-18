@@ -45,13 +45,15 @@ const TweetsFeed = ({ filter }) => {
       });
     }
   }, [doRefetch]);
+  const scrollListener = () => {
+    const tweetDiv = document.getElementById('tweet-feed-id');
+    if (window.scrollY + window.innerHeight >= tweetDiv.clientHeight + tweetDiv.offsetTop) {
+      setRefetch(true);
+    }
+  };
   useEffect(() => {
-    window.addEventListener('scroll', () => {
-      const tweetDiv = document.getElementById('tweet-feed-id');
-      if (window.scrollY + window.innerHeight >= tweetDiv.clientHeight + tweetDiv.offsetTop) {
-        setRefetch(true);
-      }
-    });
+    window.addEventListener('scroll', scrollListener);
+    return () => window.removeEventListener('scroll', scrollListener);
   }, []);
   if (loading) return <LoadingSection />;
   if (error) return <AppError error={error} />;

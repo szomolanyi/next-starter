@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Link from 'next/link';
 
+import TwitterContext from '../../context';
 import { useUser } from '../../hooks';
 
 
@@ -29,8 +30,9 @@ const MenuItem = ({
   </Link>
 );
 
-const TwitterSideMenu = ({ setModalOpened }) => {
+const TwitterSideMenu = () => {
   const { currentUser } = useUser();
+  const { openNewTweetModal } = useContext(TwitterContext);
   return (
     <aside className="menu">
       <div className="is-size-5 has-text-weight-bold twitter-side-menu">
@@ -53,7 +55,7 @@ const TwitterSideMenu = ({ setModalOpened }) => {
         <button
           type="button"
           className="button is-rounded is-link"
-          onClick={() => setModalOpened(true)}
+          onClick={() => openNewTweetModal(null)}
         >
             Tweet
         </button>

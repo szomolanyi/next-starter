@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-const TWEET_FRAGMENT = gql`
+export const TWEET_FRAGMENT = gql`
   fragment TweetParts on Tweet {
     _id
       text
@@ -19,6 +19,13 @@ const TWEET_FRAGMENT = gql`
         email
       }
       retweetersCount
+      replyOn {
+        _id
+      }
+      repliesCount
+      replies {
+        _id
+      }
   }
 `;
 
@@ -35,8 +42,8 @@ export const GET_TWEETS = gql`
 `;
 
 export const ADD_TWEET = gql`
-  mutation CreateTweet($text: String!) {
-    createTweet(text: $text) {
+  mutation CreateTweet($text: String!, $replyOn: ID) {
+    createTweet(text: $text, replyOn: $replyOn) {
       ...TweetParts
     }
   }

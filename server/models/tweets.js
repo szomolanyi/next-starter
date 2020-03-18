@@ -32,9 +32,12 @@ tweetSchema.add({
     type: mongoose.Schema.Types.Boolean,
     required: true,
   },
-  reactions: {
-    type: [tweetSchema],
+  replies: {
+    type: [mongoose.Schema.Types.ObjectId],
     required: true,
+  },
+  replyOn: {
+    type: mongoose.Schema.Types.ObjectId,
   },
 });
 
