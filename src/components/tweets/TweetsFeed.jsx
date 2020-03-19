@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/react-hooks';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import LoadingSection from '../ui/LoadingSection';
 import AppError from '../ui/AppError';
@@ -8,16 +8,20 @@ import { GET_TWEETS } from '../../queries';
 
 import TweetDetail from './TweetDetail';
 
-const TweetsFeed = ({ filter }) => {
+const TweetsFeed = ({ userId, feedType, pattern }) => {
+  const initialRender = useRef(true);
   const {
     loading,
     error,
     data,
     fetchMore,
+    refetch,
   } = useQuery(GET_TWEETS, {
     variables: {
       limit: 10,
-      filter,
+      userId,
+      feedType,
+      pattern,
     },
   });
   const [doRefetch, setRefetch] = useState(false);
@@ -28,7 +32,9 @@ const TweetsFeed = ({ filter }) => {
         variables: {
           cursor: data.tweetsFeed.cursor,
           limit: 10,
-          filter,
+          userId,
+          feedType,
+          pattern,
         },
         updateQuery: (previousResult, { fetchMoreResult }) => {
           setRefetch(false);
@@ -47,7 +53,8 @@ const TweetsFeed = ({ filter }) => {
   }, [doRefetch]);
   const scrollListener = () => {
     const tweetDiv = document.getElementById('tweet-feed-id');
-    if (window.scrollY + window.innerHeight >= tweetDiv.clientHeight + tweetDiv.offsetTop) {
+    if (tweetDiv
+      && window.scrollY + window.innerHeight >= tweetDiv.clientHeight + tweetDiv.offsetTop) {
       setRefetch(true);
     }
   };
@@ -55,6 +62,19 @@ const TweetsFeed = ({ filter }) => {
     window.addEventListener('scroll', scrollListener);
     return () => window.removeEventListener('scroll', scrollListener);
   }, []);
+  useEffect(() => {
+    if (initialRender.current) {
+      initialRender.current = false;
+    } else {
+      refetch({
+        cursor: null,
+        limit: 10,
+        userId,
+        feedType,
+        pattern,
+      });
+    }
+  }, [pattern]);
   if (loading) return <LoadingSection />;
   if (error) return <AppError error={error} />;
   return (

@@ -63,10 +63,10 @@ const TwitterUserProfile = ({ _id }) => {
         </ul>
       </div>
       {
-        activeTab === 'tweets' && <TweetsFeed filter={{ author: data.user._id }} />
+        activeTab === 'tweets' && <TweetsFeed userId={data.user._id} />
       }
       {
-        activeTab === 'likes' && <TweetsFeed filter={{ likers: data.user._id }} />
+        activeTab === 'likes' && <TweetsFeed userId={data.user._id} feedType="LIKED" />
       }
     </>
   );

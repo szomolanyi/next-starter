@@ -65,7 +65,7 @@ const SearchUsers = ({ pattern }) => {
 };
 
 const SearchTweets = ({ pattern }) => (
-  <TweetsFeed filter={{ pattern }} />
+  <TweetsFeed pattern={pattern} />
 );
 
 const Explore = () => {

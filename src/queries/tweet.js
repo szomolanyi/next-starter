@@ -30,8 +30,8 @@ export const TWEET_FRAGMENT = gql`
 `;
 
 export const GET_TWEETS = gql`
-  query Tweets($cursor: String, $limit: Int, $filter: TweetFeedInput) {
-    tweetsFeed(cursor: $cursor, limit: $limit, filter: $filter) @connection(key: "tweetsFeed", filter: ["filter"]) {
+  query Tweets($cursor: String, $limit: Int, $userId: ID, $feedType: String, $pattern: String) {
+    tweetsFeed(cursor: $cursor, limit: $limit, userId: $userId, feedType: $feedType, pattern: $pattern) @connection(key: "tweetsFeed", filter: ["userId", "feedType"]) {
       cursor
       tweets {
         ...TweetParts

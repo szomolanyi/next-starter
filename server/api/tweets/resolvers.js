@@ -47,35 +47,45 @@ dalsie parametre :
   pattern: pattern pre full text search
 */
 
+const emptyFeed = {
+  cursor: null,
+  tweets: [],
+};
+
 module.exports = {
   Query: {
-    tweetsFeed: async (obj, data, context) => {
+    tweetsFeed: async (obj, data) => {
       let tweets;
       let newCursor;
-      const { limit = 5, cursor, filter } = data;
-      let query;
-      if (!filter) {
-        if (context.user) {
-          query = {
-            $or: [
-              { author: context.user._id },
-              { retweeters: { $in: context.user.follows } },
-              { retweeters: context.user._id },
-              // { likers: context.user._id }, Do not show likes in feed
-              { author: { $in: context.user.follows } },
-            ],
-          };
-        } else {
-          query = {};
+      const {
+        limit = 5,
+        cursor,
+        userId,
+        feedType = 'BASIC',
+        pattern,
+      } = data;
+      const query = {};
+      if (userId) {
+        if (feedType === 'BASIC') {
+          const user = await Users.findById(userId);
+          if (!user) {
+            return emptyFeed;
+          }
+          query.$or = [
+            { author: user._id },
+            { author: { $in: user.follows } },
+            { retweeters: user._id },
+            { retweeters: { $in: user.follows } },
+          ];
         }
-      } else {
-        const { pattern, ...rest } = filter;
-        query = rest;
-        if (pattern) {
-          query.$text = {
-            $search: pattern,
-          };
+        if (feedType === 'LIKED') {
+          query.likers = userId;
         }
+      }
+      if (pattern) {
+        query.$text = {
+          $search: pattern,
+        };
       }
       if (cursor) {
         tweets = await Tweet.find({ _id: { $lt: new ObjectId(cursor) }, ...query }).sort('-_id').limit(limit);
