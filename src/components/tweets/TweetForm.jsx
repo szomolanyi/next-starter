@@ -2,6 +2,8 @@ import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 import { useMutation } from '@apollo/react-hooks';
 
+import { useUser } from '../../hooks';
+
 import { GET_TWEETS, ADD_TWEET, TWEET_FRAGMENT } from '../../queries';
 
 import { graphQlErrorFilter } from '../../utils';
@@ -11,9 +13,32 @@ const TweetsSchema = Yup.object().shape({
     .required('Required'),
 });
 
-const updateCacheAfterCreate = (cache, { data }) => {
+const updateCacheAfterCreate2 = (replyOn, currentUser) => (cache, { data }) => {
   const { createTweet } = data;
-  const { tweetsFeed } = cache.readQuery({ query: GET_TWEETS });
+  const cacheData = cache.readQuery({
+    query: GET_TWEETS,
+    variables: {
+      userId: currentUser._id,
+    },
+  });
+  const { tweetsFeed } = cacheData;
+  if (replyOn) {
+    const frgm = cache.readFragment({
+      id: `Tweet:${replyOn}`,
+      fragment: TWEET_FRAGMENT,
+    });
+    const newData = {
+      ...frgm,
+      replies: [...frgm.replies, createTweet],
+      repliesCount: frgm.repliesCount + 1,
+      __typename: 'Tweet',
+    };
+    cache.writeFragment({
+      id: `Tweet:${replyOn}`,
+      fragment: TWEET_FRAGMENT,
+      data: newData,
+    });
+  }
   cache.writeQuery({
     query: GET_TWEETS,
     data: {
@@ -23,46 +48,16 @@ const updateCacheAfterCreate = (cache, { data }) => {
         __typename: 'TweetsFeed',
       },
     },
+    variables: {
+      userId: currentUser._id,
+    },
   });
 };
 
-const updateCacheAfterCreate2 = (replyOn) => {
-  return (cache, { data }) => {
-    const { createTweet } = data;
-    const { tweetsFeed } = cache.readQuery({ query: GET_TWEETS });
-    if (replyOn) {
-      const frgm = cache.readFragment({
-        id: `Tweet:${replyOn}`,
-        fragment: TWEET_FRAGMENT,
-      });
-      const newData = {
-        ...frgm,
-        replies: [...frgm.replies, createTweet],
-        repliesCount: frgm.repliesCount + 1,
-        __typename: 'Tweet',
-      };
-      cache.writeFragment({
-        id: `Tweet:${replyOn}`,
-        fragment: TWEET_FRAGMENT,
-        data: newData,
-      });
-    }
-    cache.writeQuery({
-      query: GET_TWEETS,
-      data: {
-        tweetsFeed: {
-          cursor: tweetsFeed.cursor,
-          tweets: [createTweet, ...tweetsFeed.tweets],
-          __typename: 'TweetsFeed',
-        },
-      },
-    });
-  };
-};
-
 const TweetForm = ({ initialValues, postSubmit, replyOn }) => {
+  const { currentUser } = useUser();
   const [create] = useMutation(ADD_TWEET, {
-    update: updateCacheAfterCreate2(replyOn),
+    update: updateCacheAfterCreate2(replyOn, currentUser),
   });
   return (
     <Formik
