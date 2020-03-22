@@ -99,6 +99,7 @@ module.exports = {
         tweets,
       };
     },
+    tweet: (obj, { _id }) => Tweet.findById(_id),
   },
   Tweet: {
     author: async ({ author }) => {

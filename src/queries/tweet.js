@@ -3,6 +3,60 @@ import gql from 'graphql-tag';
 export const TWEET_FRAGMENT = gql`
   fragment TweetParts on Tweet {
     _id
+    text
+    author {
+      email
+      avatar
+    }
+    likers {
+      _id
+      email
+    }
+    edited
+    createdAt
+    retweetedBy {
+      _id
+      email
+    }
+    retweetersCount
+    replyOn {
+      _id
+      author {
+        email
+      }
+    }
+    repliesCount
+  }
+`;
+
+export const TWEET_DETAIL_FRAGMENT = gql`
+  fragment TweetDetailParts on Tweet {
+    _id
+    text
+    author {
+      email
+      avatar
+    }
+    likers {
+      _id
+      email
+    }
+    edited
+    createdAt
+    retweetedBy {
+      _id
+      email
+    }
+    retweetersCount
+    replyOn {
+      _id
+      author {
+        email
+      }
+    }
+    repliesCount
+    replies {
+      _id
       text
       author {
         email
@@ -21,11 +75,12 @@ export const TWEET_FRAGMENT = gql`
       retweetersCount
       replyOn {
         _id
+        author {
+          email
+        }
       }
       repliesCount
-      replies {
-        _id
-      }
+    }
   }
 `;
 
@@ -39,6 +94,15 @@ export const GET_TWEETS = gql`
     }
   }
   ${TWEET_FRAGMENT}
+`;
+
+export const GET_TWEET = gql`
+  query Tweet($_id: ID) {
+    tweet(_id: $_id) {
+      ...TweetDetailParts
+    }
+  }
+  ${TWEET_DETAIL_FRAGMENT}
 `;
 
 export const ADD_TWEET = gql`

@@ -1,6 +1,7 @@
 const typeDefs = `
 extend type Query {
   tweetsFeed(cursor: String, limit: Int, userId: ID, feedType: String, pattern: String): TweetsFeed
+  tweet(_id: ID): Tweet
 }
 
 type Tweet {
