@@ -68,18 +68,24 @@ const TweetDetail = ({ tweet }) => {
                 )
               }
               <p>
-                <strong>{tweet.author.email}</strong>
+                <Link href="/twitter/p/[id]" as={`/twitter/p/${tweet.author._id}`}>
+                  <span><strong>{tweet.author.email}</strong></span>
+                </Link>
                 &nbsp;
                 <small>{moment(tweet.createdAt).fromNow()}</small>
                 {
                   tweet.replyOn && (
                     <>
                       <br />
-                      <small>
-                        reply on
-                        &nbsp;
-                        {tweet.replyOn.author.email}
-                      </small>
+                      <Link href="/twitter/p/[id]" as={`/twitter/p/${tweet.replyOn.author._id}`}>
+                        <span>
+                          <small>
+                            reply on
+                            &nbsp;
+                            {tweet.replyOn.author.email}
+                          </small>
+                        </span>
+                      </Link>
                     </>
                   )
                 }

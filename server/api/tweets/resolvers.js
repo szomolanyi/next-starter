@@ -105,6 +105,7 @@ module.exports = {
     author: async ({ author }) => {
       const user = await Users.findById(author);
       return {
+        _id: user._id,
         email: user.email,
         avatar: user.avatar,
       };

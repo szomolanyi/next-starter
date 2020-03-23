@@ -5,6 +5,7 @@ export const TWEET_FRAGMENT = gql`
     _id
     text
     author {
+      _id
       email
       avatar
     }
@@ -22,6 +23,7 @@ export const TWEET_FRAGMENT = gql`
     replyOn {
       _id
       author {
+        _id
         email
       }
     }
@@ -34,6 +36,7 @@ export const TWEET_DETAIL_FRAGMENT = gql`
     _id
     text
     author {
+      _id
       email
       avatar
     }
