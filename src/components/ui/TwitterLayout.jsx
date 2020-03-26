@@ -25,8 +25,10 @@ const Layout = ({ title, children }) => {
       <TwitterMobileNavBar title={title} />
       <div className="container">
         <div className="columns">
-          <div className="column is-3 left-menu is-hidden-mobile">
-            <TwitterSideMenu />
+          <div className="column is-3 left-menu-container is-hidden-mobile">
+            <div className="left-menu">
+              <TwitterSideMenu />
+            </div>
           </div>
           <main className="column is-6-desktop">
             <TwitterNavBar title={title} />
@@ -51,9 +53,13 @@ const Layout = ({ title, children }) => {
         </div>
         <style jsx>
           {`
-            div.left-menu {
+            div.left-menu-container {
               border-right: 1px solid;
               border-right-color: rgb(230, 236, 240);
+              position: relative;
+            }
+            div.left-menu {
+              position: fixed;
             }
           `}
         </style>
