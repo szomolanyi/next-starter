@@ -160,6 +160,9 @@ module.exports = {
       if (!context.user) {
         throw new ApolloError('Not authenthicated', 'NOT_AUTHENTICATED', {});
       }
+      if (_id === context.user._id.toString()) {
+        throw new ApolloError('Unable to follow yourself', 'BAD_USER_INPUT', {});
+      }
       const user = await User.findById(context.user._id);
       const followedUser = await User.findById(_id);
       if (user.follows) {

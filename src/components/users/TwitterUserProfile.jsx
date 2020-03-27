@@ -9,9 +9,11 @@ import Loading from '../ui/Loading';
 import { withApollo } from '../../apollo';
 import { GET_USER } from '../../queries';
 import FollowButton from './FollowButton';
+import { useUser } from '../../hooks';
 
 
 const TwitterUserProfile = ({ _id }) => {
+  const { currentUser } = useUser();
   const { loading, error, data } = useQuery(GET_USER, { variables: { _id } });
   const [activeTab, setActiveTab] = useState('tweets');
   if (loading) return <Loading />;
@@ -47,7 +49,8 @@ const TwitterUserProfile = ({ _id }) => {
           <div className="content">
             {data.user.about}
             <p>{`Joined: ${moment(data.user.createdAt).format('LL')}`}</p>
-            <FollowButton user={data.user} />
+            { currentUser && currentUser._id !== data.user._id
+            && <FollowButton user={data.user} /> }
           </div>
         </div>
       </div>
