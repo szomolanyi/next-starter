@@ -17,7 +17,7 @@ const AppMessage = ({ appMessage, closeAppMessage }) => (
     {
       closeAppMessage && <button type="button" className="delete" aria-label="delete" onClick={() => closeAppMessage()} />
     }
-    {appMessage.messages.map((message) => <p>{message}</p>)}
+    {appMessage.messages.map((message, i) => <p key={i}>{message}</p>)}
   </div>
 );
 
