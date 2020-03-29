@@ -134,3 +134,9 @@ export const RETWEET = gql`
   }
   ${TWEET_FRAGMENT}
 `;
+
+export const DELETE_TWEET = gql`
+  mutation deleteTweet($_id: ID!) {
+    deleteTweet(_id: $_id)
+  }
+`;

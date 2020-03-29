@@ -3,15 +3,40 @@ import { useContext } from 'react';
 import Link from 'next/link';
 import moment from 'moment';
 
-import { LIKE_TWEET, RETWEET } from '../../queries';
+import { GET_TWEETS, LIKE_TWEET, RETWEET, DELETE_TWEET } from '../../queries';
 import { useUser } from '../../hooks';
 
 import TwitterContext from '../../context';
+
+const updateCacheAfterDelete = (userId) => (cache, { data }) => {
+  const { deleteTweet } = data;
+  if (deleteTweet) {
+    const data1 = cache.readQuery({
+      query: GET_TWEETS,
+      variables: { userId },
+    });
+    const { tweetsFeed } = data1;
+    cache.writeQuery({
+      query: GET_TWEETS,
+      variables: { userId },
+      data: {
+        tweetsFeed: {
+          cursor: tweetsFeed.cursor,
+          tweets: tweetsFeed.tweets.filter((tweet) => tweet._id !== deleteTweet),
+          __typename: tweetsFeed.__typename,
+        },
+      },
+    });
+  }
+};
 
 const TweetDetail = ({ tweet }) => {
   const [likeTweet] = useMutation(LIKE_TWEET);
   const [retweet] = useMutation(RETWEET);
   const { currentUser } = useUser();
+  const [deleteTweet] = useMutation(DELETE_TWEET, {
+    update: updateCacheAfterDelete(currentUser._id),
+  });
   const { openNewTweetModal } = useContext(TwitterContext);
   const likeTweetFunc = (e) => {
     e.stopPropagation();
@@ -33,6 +58,14 @@ const TweetDetail = ({ tweet }) => {
   const openModalFunc = (e) => {
     e.stopPropagation();
     openNewTweetModal(tweet._id);
+  };
+  const deleteTweetFunc = (e) => {
+    e.stopPropagation();
+    deleteTweet({
+      variables: {
+        _id: tweet._id,
+      },
+    });
   };
   const likedByMe = tweet.likers.reduce((prev, like) => prev
     || (currentUser && like._id === currentUser._id), false);
@@ -122,6 +155,13 @@ const TweetDetail = ({ tweet }) => {
                 <span>{tweet.likers.length}</span>
               </div>
             </nav>
+          </div>
+          <div className="media-right">
+            {
+              tweet.author._id === currentUser._id
+              // eslint-disable-next-line jsx-a11y/control-has-associated-label
+              && <button type="button" className="delete" onClick={deleteTweetFunc} />
+            }
           </div>
         </article>
       </Link>

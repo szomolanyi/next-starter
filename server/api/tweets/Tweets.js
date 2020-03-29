@@ -32,7 +32,7 @@ type TweetsFeed {
 
 extend type Mutation {
   createTweet(text: String!, replyOn: ID): Tweet
-  deleteTweet(_id: ID!): String
+  deleteTweet(_id: ID!): ID
   editTweet(_id: ID!, text: String!): Tweet
   likeTweet(_id: ID!, userId: ID!): Tweet
   retweet(_id: ID!): Tweet
