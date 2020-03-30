@@ -44,3 +44,10 @@ export const useUser = () => {
     currentUser: data.currentUser,
   };
 };
+
+export const useDeleteTweetModal = () => {
+  const [deleteTweetModal, setDeleteTweetModal] = useState({ isOpen: false, _id: null });
+  const openDeleteTweetModal = (_id) => setDeleteTweetModal({ isOpen: true, _id });
+  const closeDeleteTweetModal = () => setDeleteTweetModal({ isOpen: false, _id: null });
+  return [deleteTweetModal, openDeleteTweetModal, closeDeleteTweetModal];
+};
