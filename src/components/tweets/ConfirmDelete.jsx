@@ -49,7 +49,7 @@ const ConfirmDelete = ({ isOpen, _id, closeModal }) => {
             your feed and from feed of users which retweeted or liked it.
           </p>
           <br />
-          <div className="level">
+          <div className="level is-mobile">
             <div className="level-left">
               <button type="button" className="button" onClick={deleteTweetFunc}>Ok</button>
             </div>
