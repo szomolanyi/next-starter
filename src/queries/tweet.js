@@ -81,6 +81,7 @@ export const TWEET_DETAIL_FRAGMENT = gql`
       replyOn {
         _id
         author {
+          _id
           email
         }
       }
