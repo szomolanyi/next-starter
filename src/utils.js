@@ -12,6 +12,7 @@ export const isKnownError = (error) => (
 );
 
 export const graphQlErrorFilter = (error) => {
+  console.log({ m: 'graphQlErrorFilter', error });
   const errors = [];
   if (error.networkError) {
     errors.push(new Error('Unexpected network error has occured. Try to refresh page and retry operation.'));
