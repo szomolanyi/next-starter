@@ -28,7 +28,7 @@ const updateCacheAfterDelete = (userId) => (cache, { data }) => {
 const ConfirmDelete = ({ isOpen, _id, closeModal }) => {
   const { currentUser } = useUser();
   const [deleteTweet] = useMutation(DELETE_TWEET, {
-    update: updateCacheAfterDelete(currentUser._id),
+    update: updateCacheAfterDelete(currentUser ? currentUser._id : null),
   });
   const deleteTweetFunc = () => {
     deleteTweet({
@@ -38,6 +38,7 @@ const ConfirmDelete = ({ isOpen, _id, closeModal }) => {
     });
     closeModal();
   };
+  if (!currentUser) return null;
   return (
     <div className={`modal ${isOpen ? 'is-active' : ''}`}>
       <div className="modal-background" />

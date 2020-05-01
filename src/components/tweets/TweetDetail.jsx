@@ -129,7 +129,7 @@ const TweetDetail = ({ tweet }) => {
           </div>
           <div className="media-right">
             {
-              tweet.author._id === currentUser._id
+              currentUser && tweet.author._id === currentUser._id
               // eslint-disable-next-line jsx-a11y/control-has-associated-label
               && <button type="button" className="delete" onClick={openDeleteTweetModalFunc} />
             }
