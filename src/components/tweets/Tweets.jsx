@@ -4,8 +4,7 @@ import TweetsFeed from './TweetsFeed';
 import { useUser } from '../../hooks';
 
 const Tweets = () => {
-  const user = useUser();
-  const userId = user.currentUser ? user.currentUser._id : null;
+  const { currentUserId } = useUser();
   return (
     <>
       <TweetForm
@@ -13,7 +12,7 @@ const Tweets = () => {
           text: '',
         }}
       />
-      <TweetsFeed userId={userId} />
+      <TweetsFeed userId={currentUserId} />
     </>
   );
 };

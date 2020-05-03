@@ -4,7 +4,7 @@ import { useUser } from '../../hooks';
 
 const TwitterMobileNavBar = ({ title }) => {
   const [active, setActive] = useState('');
-  const { currentUser } = useUser();
+  const { currentUserId } = useUser();
   return (
     <nav className="navbar has-shadow is-spaced is-hidden-tablet is-spaced" style={{ height: '3.25rem' }} role="navigation" aria-label="main navigation">
       <div className="navbar-brand is-size-4">
@@ -33,14 +33,14 @@ const TwitterMobileNavBar = ({ title }) => {
           <Link href="/twitter/"><a className="navbar-item">Home</a></Link>
           <Link href="/twitter/explore"><a className="navbar-item">Explore</a></Link>
           {
-            currentUser && (
+            currentUserId && (
               <Link href="/twitter/profile"><a className="navbar-item">Profile</a></Link>
             )
           }
           <Link href="/"><a className="navbar-item">Exit twitter</a></Link>
         </div>
       </div>
-  </nav>
+    </nav>
   );
 };
 

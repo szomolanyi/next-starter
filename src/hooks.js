@@ -37,11 +37,13 @@ export const useUser = () => {
     return {
       loading,
       currentUser: null,
+      currentUserId: null,
     };
   }
   return {
     loading,
     currentUser: data.currentUser,
+    currentUserId: data.currentUser ? data.currentUser._id : null,
   };
 };
 

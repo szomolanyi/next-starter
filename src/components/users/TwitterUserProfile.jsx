@@ -13,7 +13,7 @@ import { useUser } from '../../hooks';
 
 
 const TwitterUserProfile = ({ _id }) => {
-  const { currentUser } = useUser();
+  const { currentUserId } = useUser();
   const { loading, error, data } = useQuery(GET_USER, { variables: { _id } });
   const [activeTab, setActiveTab] = useState('tweets');
   if (loading) return <Loading />;
@@ -49,7 +49,7 @@ const TwitterUserProfile = ({ _id }) => {
           <div className="content">
             {data.user.about}
             <p>{`Joined: ${moment(data.user.createdAt).format('LL')}`}</p>
-            { currentUser && currentUser._id !== data.user._id
+            { currentUserId !== data.user._id
             && <FollowButton user={data.user} /> }
           </div>
         </div>

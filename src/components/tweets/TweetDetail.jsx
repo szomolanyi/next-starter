@@ -11,14 +11,14 @@ import TwitterContext from '../../context';
 const TweetDetail = ({ tweet }) => {
   const [likeTweet] = useMutation(LIKE_TWEET);
   const [retweet] = useMutation(RETWEET);
-  const { currentUser } = useUser();
+  const { currentUserId } = useUser();
   const { openNewTweetModal, openDeleteTweetModal } = useContext(TwitterContext);
   const likeTweetFunc = (e) => {
     e.stopPropagation();
     likeTweet({
       variables: {
         _id: tweet._id,
-        userId: currentUser._id,
+        userId: currentUserId,
       },
     });
   };
@@ -39,10 +39,10 @@ const TweetDetail = ({ tweet }) => {
     openDeleteTweetModal(tweet._id);
   };
   const likedByMe = tweet.likers.reduce((prev, like) => prev
-    || (currentUser && like._id === currentUser._id), false);
+    || (like._id === currentUserId), false);
   const likers = tweet.likers.reduce((prev, like, i) => (i === 0 ? like.email : `${prev}\n${like.email}`), '');
   const retweetedByMe = tweet.retweetedBy.reduce((prev, rby) => prev
-    || (currentUser && rby._id === currentUser._id), false);
+    || (rby._id === currentUserId), false);
   return (
     <div className="box">
       <Link href="/twitter/tweet/[id]" as={`/twitter/tweet/${tweet._id}`}>
@@ -129,7 +129,7 @@ const TweetDetail = ({ tweet }) => {
           </div>
           <div className="media-right">
             {
-              currentUser && tweet.author._id === currentUser._id
+              tweet.author._id === currentUserId
               // eslint-disable-next-line jsx-a11y/control-has-associated-label
               && <button type="button" className="delete" onClick={openDeleteTweetModalFunc} />
             }
