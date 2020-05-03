@@ -23,4 +23,4 @@ const LoginPage = ({ messages }) => (
   </Layout>
 );
 
-export default withApollo(LoginPage);
+export default withApollo(LoginPage, { ssr: false });

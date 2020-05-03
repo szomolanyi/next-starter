@@ -16,4 +16,4 @@ const EmailVerifyPage = () => {
     </Layout>
   );
 };
-export default withApollo(EmailVerifyPage);
+export default withApollo(EmailVerifyPage, { ssr: false });

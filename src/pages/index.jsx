@@ -13,4 +13,4 @@ const Index = () => (
   </Layout>
 );
 
-export default withApollo(Index);
+export default withApollo(Index, { ssr: false });

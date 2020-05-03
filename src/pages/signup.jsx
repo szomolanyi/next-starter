@@ -23,4 +23,4 @@ const SignUpPage = () => (
   </Layout>
 );
 
-export default withApollo(SignUpPage);
+export default withApollo(SignUpPage, { ssr: false });
