@@ -2,6 +2,8 @@ import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 import { useMutation } from '@apollo/react-hooks';
 
+import gql from 'graphql-tag';
+
 import { useUser } from '../../hooks';
 
 import { GET_TWEETS, ADD_TWEET, TWEET_FRAGMENT } from '../../queries';
@@ -22,23 +24,6 @@ const updateCacheAfterCreate2 = (replyOn, currentUser) => (cache, { data }) => {
     },
   });
   const { tweetsFeed } = cacheData;
-  if (replyOn) {
-    const frgm = cache.readFragment({
-      id: `Tweet:${replyOn}`,
-      fragment: TWEET_FRAGMENT,
-    });
-    const newData = {
-      ...frgm,
-      replies: [...frgm.replies, createTweet],
-      repliesCount: frgm.repliesCount + 1,
-      __typename: 'Tweet',
-    };
-    cache.writeFragment({
-      id: `Tweet:${replyOn}`,
-      fragment: TWEET_FRAGMENT,
-      data: newData,
-    });
-  }
   cache.writeQuery({
     query: GET_TWEETS,
     data: {
@@ -52,6 +37,22 @@ const updateCacheAfterCreate2 = (replyOn, currentUser) => (cache, { data }) => {
       userId: currentUser._id,
     },
   });
+  if (replyOn) {
+    const frgm = cache.readFragment({
+      id: `Tweet:${replyOn}`,
+      fragment: TWEET_FRAGMENT,
+    });
+    cache.writeFragment({
+      id: `Tweet:${replyOn}`,
+      fragment: gql`fragment tweetUpd on Tweet {
+        repliesCount
+      }`,
+      data: {
+        repliesCount: frgm.repliesCount + 1,
+        __typename: 'Tweet',
+      },
+    });
+  }
 };
 
 const TweetForm = ({ initialValues, postSubmit, replyOn }) => {
