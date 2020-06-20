@@ -21,7 +21,9 @@ const Tweet = ({ tweetId }) => {
       <TweetDetail key={data.tweet._id} tweet={data.tweet} />
       {
         data.tweet.replies
-        && data.tweet.replies.filter((tweet) => tweet !== null).map((tweet) => <TweetDetail key={tweet._id} tweet={tweet} />)
+        && data.tweet.replies.filter((tweet) => tweet !== null).map(
+          (tweet) => <TweetDetail key={tweet._id} tweet={tweet} />,
+        )
       }
     </>
   );
