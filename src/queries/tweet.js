@@ -53,10 +53,31 @@ export const TWEET_DETAIL_FRAGMENT = gql`
     retweetersCount
     replyOn {
       _id
+      text
       author {
         _id
         email
+        avatar
       }
+      likers {
+        _id
+        email
+      }
+      edited
+      createdAt
+      retweetedBy {
+        _id
+        email
+      }
+      retweetersCount
+      replyOn {
+        _id
+        author {
+          _id
+          email
+        }
+      }
+      repliesCount
     }
     repliesCount
     replies {

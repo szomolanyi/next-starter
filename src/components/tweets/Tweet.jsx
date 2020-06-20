@@ -14,6 +14,10 @@ const Tweet = ({ tweetId }) => {
   if (error) return <AppError error={error} />;
   return (
     <>
+      {
+        data.tweet.replyOn
+        && <TweetDetail tweet={data.tweet.replyOn} />
+      }
       <TweetDetail key={data.tweet._id} tweet={data.tweet} />
       {
         data.tweet.replies
