@@ -12,7 +12,7 @@ const CloudinaryUploadButton = ({
       clb(cHash.data.signCloudinaryUpload);
     });
   };
-  if (typeof window === 'undefined') return null;
+  if (typeof window === 'undefined' || !window.cloudinary) return null;
   const cloudinaryWidget = window.cloudinary.createUploadWidget({
     ...options,
     uploadSignature: signUpload,
