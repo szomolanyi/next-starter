@@ -37,7 +37,7 @@ const Logged = ({ currentUser }) => {
 
 const Header = () => {
   const [active, setActive] = useState('');
-  const { currentUser } = useUser();
+  const { currentUser, loading } = useUser();
   return (
     <nav className="navbar has-shadow is-spaced" role="navigation" aria-label="main navigation">
       <div className="container">
@@ -84,11 +84,16 @@ const Header = () => {
             </div>
           </div>
 
-          <div className="navbar-end">
-            {
-              currentUser ? <Logged currentUser={currentUser} /> : <NotLogged />
-            }
-          </div>
+          {
+            typeof window !== 'undefined'
+            && !loading && (
+              <div className="navbar-end">
+                {
+                  currentUser ? <Logged currentUser={currentUser} /> : <NotLogged />
+                }
+              </div>
+            )
+          }
         </div>
       </div>
     </nav>
