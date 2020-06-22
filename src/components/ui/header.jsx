@@ -15,25 +15,23 @@ const NotLogged = () => (
   </div>
 );
 
-const Logged = ({ currentUser }) => {
-  return (
-    <div className="navbar-item has-dropdown is-hoverable">
-      <a className="navbar-link is-arrowless"><Avatar currentUser={currentUser} /></a>
-      <div className="navbar-dropdown is-right">
-        <div className="navbar-item is-block">
-          <p className="is-size-7">Signed in as:</p>
-          <p className="has-text-weight-bold">{currentUser.email}</p>
-        </div>
-        <hr className="navbar-divider" />
-        <Link href="/profile"><a className="navbar-item">Profile</a></Link>
-        <LogoutLink />
-        {
+const Logged = ({ currentUser }) => (
+  <div className="navbar-item has-dropdown is-hoverable">
+    <a className="navbar-link is-arrowless"><Avatar currentUser={currentUser} /></a>
+    <div className="navbar-dropdown is-right">
+      <div className="navbar-item is-block">
+        <p className="is-size-7">Signed in as:</p>
+        <p className="has-text-weight-bold">{currentUser.email}</p>
+      </div>
+      <hr className="navbar-divider" />
+      <Link href="/profile"><a className="navbar-item">Profile</a></Link>
+      <LogoutLink />
+      {
           currentUser.isVerified === false && <VerifyEmailLink />
         }
-      </div>
     </div>
-  );
-};
+  </div>
+);
 
 const Header = () => {
   const [active, setActive] = useState('');
