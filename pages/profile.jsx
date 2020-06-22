@@ -1,7 +1,7 @@
 // eslint-disable-next-line
-import { withApollo } from '../apollo';
-import Layout from '../components/ui/layout';
-import UserProfile from '../components/users/UserProfile';
+import { withApollo } from '../client/apollo';
+import Layout from '../client/components/ui/layout';
+import UserProfile from '../client/components/users/UserProfile';
 
 const UserProfilePage = () => (
   <Layout>

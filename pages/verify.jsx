@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 // eslint-disable-next-line
-import { withApollo } from '../apollo';
-import Layout from '../components/ui/layout';
-import EmailVerify from '../components/users/EmailVerify';
+import { withApollo } from '../client/apollo';
+import Layout from '../client/components/ui/layout';
+import EmailVerify from '../client/components/users/EmailVerify';
 
 const EmailVerifyPage = () => {
   const router = useRouter();

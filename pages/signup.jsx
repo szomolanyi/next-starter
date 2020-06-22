@@ -1,8 +1,8 @@
 // eslint-disable-next-line
-import { withApollo } from '../apollo';
-import Layout from '../components/ui/layout';
-import SignUp from '../components/users/SignUp';
-import SocialLoginButtons from '../components/users/SocialLoginButtons';
+import { withApollo } from '../client/apollo';
+import Layout from '../client/components/ui/layout';
+import SignUp from '../client/components/users/SignUp';
+import SocialLoginButtons from '../client/components/users/SocialLoginButtons';
 
 const SignUpPage = () => (
   <Layout>

@@ -66,7 +66,7 @@ const Header = () => {
         <div id="navbarBasicExample" className={`navbar-menu ${active}`}>
           <div className="navbar-start">
             <Link href="/"><a className="navbar-item">Home</a></Link>
-            <Link href="/twitter/"><a className="navbar-item">Tweets</a></Link>
+            <Link href="/twitter"><a className="navbar-item">Tweets</a></Link>
 
             <Link href="/twitter/explore"><a className="navbar-item">Explore</a></Link>
 

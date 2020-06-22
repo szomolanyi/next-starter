@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
 // eslint-disable-next-line
-import { withApollo } from '../../../apollo';
+import { withApollo } from '../../../client/apollo';
 
-import Layout from '../../../components/ui/TwitterLayout';
-import Tweet from '../../../components/tweets/Tweet';
+import Layout from '../../../client/components/ui/TwitterLayout';
+import Tweet from '../../../client/components/tweets/Tweet';
 
 const TweetPage = () => {
   const router = useRouter();
