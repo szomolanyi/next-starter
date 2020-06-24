@@ -10,7 +10,7 @@ const Header = () => {
           <Link href="/">
             <a href="/" className="navbar-item has-text-danger">
               <i className="far fa-keyboard" />
-              <strong>&nbsp;Next starter</strong>
+              <strong>&nbsp;Next.js starter</strong>
             </a>
           </Link>
 
@@ -32,9 +32,9 @@ const Header = () => {
 
         <div id="navbarBasicExample" className={`navbar-menu ${active}`}>
           <div className="navbar-start">
-            <Link href="/twitter"><a className="navbar-item">Twitter demo</a></Link>
             <Link href="#features"><a className="navbar-item">Features</a></Link>
-            <Link href="/"><a className="navbar-item">Contact</a></Link>
+            <Link href="#about"><a className="navbar-item">About</a></Link>
+            <Link href="/twitter"><a className="navbar-item">Twitter demo</a></Link>
           </div>
         </div>
       </div>
