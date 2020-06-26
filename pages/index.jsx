@@ -2,14 +2,18 @@ import Link from 'next/link';
 // eslint-disable-next-line
 import { withApollo } from '../client/apollo';
 import Layout from '../client/components/ui/BasicLayout';
+import Header from '../client/components/ui/BasicHeader';
 
 const Index = () => (
   <Layout>
-    <section className="hero is-light is-fullheight">
+    <section className="hero has-background-info-light is-fullheight" id="start">
+      <div className="hero-head">
+        <Header />
+      </div>
       <div className="hero-body">
         <div className="container has-text-centered">
           <h1 className="title">
-            NEXT.JS STARTER <a className="is-info" href="https://nextjs.org/">Next.js</a>
+            NEXT.JS STARTER
           </h1>
           <h2 className="subtitle">
             Next.js + GraphQL boilerplate
@@ -18,8 +22,15 @@ const Index = () => (
           <Link href="/twitter"><a className="button is-rounded">Twitter demo</a></Link>
         </div>
       </div>
+      <div className="hero-foot">
+        <div className="container has-text-centered">
+          <span className="icon is-large">
+            <a href="#features" className="has-text-danger"><i className="fas fa-angle-double-down fa-2x" aria-hidden="true" /></a>
+          </span>
+        </div>
+      </div>
     </section>
-    <section className="hero is-black is-medium" id="features">
+    <section className="hero has-background-primary-light is-fullheight" id="features">
       <div className="hero-body">
         <div className="container">
           <div className="columns">
@@ -32,10 +43,11 @@ const Index = () => (
                   <li>
                     <a className="has-text-danger" href="https://nextjs.org/">Next.js</a>
                     {' '}
-                    application with SSR
+                    application, SSR support
                   </li>
-                  <li><a className="has-text-danger" href="https://www.apollographql.com/">Apollo GraphQL API server</a> with Mongo database support</li>
-                  <li>Apollo GraphQL client with SSR</li>
+                  <li><a className="has-text-danger" href="https://www.apollographql.com/">Apollo GraphQL API server</a></li>
+                  <li>Apollo GraphQL client</li>
+                  <li><a className="has-text-danger" href="https://www.mongodb.com">Mongo database</a></li>
                   <li>Password or social based authentication</li>
                   <li><a className="has-text-danger" href="https://cloudinary.com/">Cloudinary</a> image handling</li>
                   <li><a className="has-text-danger" href="https://bulma.ioBulma/">Bulma</a> CSS framework</li>
@@ -48,12 +60,28 @@ const Index = () => (
           </div>
         </div>
       </div>
-    </section>
-    <section id="about" className="hero is-light is-medium">
-      <div className="hero-body">
+      <div className="hero-foot">
         <div className="container has-text-centered">
+          <span className="icon is-large">
+            <a href="#about" className="has-text-danger"><i className="fas fa-angle-double-down fa-2x" aria-hidden="true" /></a>
+          </span>
+        </div>
+      </div>
+    </section>
+    <section id="about" className="hero has-background-info-light is-fullheight">
+      <div className="hero-body">
+        <div className="container has-text-left">
           <h1 className="title">About</h1>
-          <p>Hi, my name is Robert. I am author of Next.JS STARTER project. It is my atempt to provide boilerplate for rapid development of full stack web applications based on NEXT.JS, GraphQL and Mongo database trio.</p>
+          <p>Hi, my name is Robert and I am author of NEXT.JS STARTER project.</p>
+          <p>It is my atempt to provide boilerplate for rapid development of full stack web applications based on NEXT.JS, GraphQL and Mongo database trio.</p>
+          <p>If you have some suggestions, ideas or requests to modify Next.js starter, feel free to send email to <a href="mailto:szomolanyi@gmail.com" className="has-text-danger">szomolanyi@gmail.com</a>.</p>
+        </div>
+      </div>
+      <div className="hero-foot">
+        <div className="container has-text-centered">
+          <span className="icon is-large">
+            <a href="#start" className="has-text-danger"><i className="fas fa-angle-double-up fa-2x" aria-hidden="true" /></a>
+          </span>
         </div>
       </div>
     </section>

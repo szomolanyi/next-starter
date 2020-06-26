@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 const Header = () => {
   const [active, setActive] = useState('');
   return (
-    <nav className="navbar is-fixed-top is-dark" role="navigation" aria-label="main navigation">
+    <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="container">
         <div className="navbar-brand is-size-4">
           <Link href="/">
@@ -31,7 +31,7 @@ const Header = () => {
         </div>
 
         <div id="navbarBasicExample" className={`navbar-menu ${active}`}>
-          <div className="navbar-start">
+          <div className="navbar-end">
             <Link href="#features"><a className="navbar-item">Features</a></Link>
             <Link href="#about"><a className="navbar-item">About</a></Link>
             <Link href="/twitter"><a className="navbar-item">Twitter demo</a></Link>
