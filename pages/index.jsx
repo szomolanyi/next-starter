@@ -4,6 +4,14 @@ import { withApollo } from '../client/apollo';
 import Layout from '../client/components/ui/BasicLayout';
 import Header from '../client/components/ui/BasicHeader';
 
+const ScrollArrow = ({ href, direction }) => (
+  <p className="mt-6 has-text-centered">
+    <span className="icon is-large">
+      <a href={href} className="has-text-danger"><i className={`fas fa-angle-double-${direction} fa-2x`} aria-hidden="true" /></a>
+    </span>
+  </p>
+);
+
 const Index = () => (
   <Layout>
     <section className="hero has-background-info-light is-fullheight" id="start">
@@ -20,13 +28,7 @@ const Index = () => (
           </h2>
           <a href="https://github.com/szomolanyi/next-starter" className="button is-rounded is-link mr-4">Github</a>
           <Link href="/twitter"><a className="button is-rounded">Twitter demo</a></Link>
-        </div>
-      </div>
-      <div className="hero-foot">
-        <div className="container has-text-centered">
-          <span className="icon is-large">
-            <a href="#features" className="has-text-danger"><i className="fas fa-angle-double-down fa-2x" aria-hidden="true" /></a>
-          </span>
+          <ScrollArrow href="#features" direction="down" />
         </div>
       </div>
     </section>
@@ -58,13 +60,7 @@ const Index = () => (
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div className="hero-foot">
-        <div className="container has-text-centered">
-          <span className="icon is-large">
-            <a href="#about" className="has-text-danger"><i className="fas fa-angle-double-down fa-2x" aria-hidden="true" /></a>
-          </span>
+          <ScrollArrow href="#about" direction="down" />
         </div>
       </div>
     </section>
@@ -75,13 +71,7 @@ const Index = () => (
           <p>Hi, my name is Robert and I am author of NEXT.JS STARTER project.</p>
           <p>It is my atempt to provide boilerplate for rapid development of full stack web applications based on NEXT.JS, GraphQL and Mongo database trio.</p>
           <p>If you have some suggestions, ideas or requests to modify Next.js starter, feel free to send email to <a href="mailto:szomolanyi@gmail.com" className="has-text-danger">szomolanyi@gmail.com</a>.</p>
-        </div>
-      </div>
-      <div className="hero-foot">
-        <div className="container has-text-centered">
-          <span className="icon is-large">
-            <a href="#start" className="has-text-danger"><i className="fas fa-angle-double-up fa-2x" aria-hidden="true" /></a>
-          </span>
+          <ScrollArrow href="#start" direction="up" />
         </div>
       </div>
     </section>
