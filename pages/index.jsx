@@ -1,8 +1,14 @@
 import Link from 'next/link';
+import smoothscroll from 'smoothscroll-polyfill';
+
 // eslint-disable-next-line
 import { withApollo } from '../client/apollo';
 import Layout from '../client/components/ui/BasicLayout';
 import Header from '../client/components/ui/BasicHeader';
+
+if (typeof window !== 'undefined') {
+  smoothscroll.polyfill();
+}
 
 const ScrollArrow = ({ href, direction }) => (
   <p className="mt-6 has-text-centered">

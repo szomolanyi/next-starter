@@ -1,13 +1,7 @@
 import '../../styles/styles.sass';
 
-import smoothscroll from 'smoothscroll-polyfill';
-
 import React from 'react';
 import Head from 'next/head';
-
-if (typeof window !== 'undefined') {
-  smoothscroll.polyfill();
-}
 
 const Layout = ({ children }) => (
   <>
