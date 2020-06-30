@@ -77,6 +77,7 @@ const Index = () => (
           <p>Hi, my name is Robert and I am author of NEXT.JS STARTER project.</p>
           <p>It is my atempt to provide boilerplate for rapid development of full stack web applications based on NEXT.JS, GraphQL and Mongo database trio.</p>
           <p>If you have some suggestions, ideas or requests to modify Next.js starter, feel free to send email to <a href="mailto:szomolanyi@gmail.com" className="has-text-danger">szomolanyi@gmail.com</a>.</p>
+          <p>If you value may work, please support me on Patreon.</p>
           <ScrollArrow href="#start" direction="up" />
         </div>
       </div>
