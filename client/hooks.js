@@ -32,7 +32,14 @@ export const useErrorHandler = () => {
 export const useUser = () => {
   const { loading, error, data } = useQuery(CURRENT_USER);
   const handleErrors = useErrorHandler();
-  if (error) return handleErrors(error);
+  if (error) {
+    handleErrors(error);
+    return {
+      loading: false,
+      currentUser: null,
+      currentUserId: null,
+    };
+  }
   if (loading) {
     return {
       loading,
