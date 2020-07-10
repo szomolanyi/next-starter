@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import Link from 'next/link';
+import LogoutLink from '../users/LogoutLink';
 
 import TwitterContext from '../../context';
 import { useUser } from '../../hooks';
@@ -37,16 +38,21 @@ const TwitterSideMenu = () => {
     <aside className="menu">
       <div className="is-size-5 has-text-weight-bold twitter-side-menu">
         <ul>
-          <li className="menu-list has-text-info"><MenuItem faIconName="fab fa-twitter" href="/twitter/" /></li>
+          <li className="menu-list has-text-info"><MenuItem faIconName="fab fa-twitter" title="TWITTER DEMO" href="/twitter/" /></li>
           <li className="menu-list"><MenuItem faIconName="fas fa-home" title="Home" href="/twitter/" /></li>
           <li className="menu-list"><MenuItem faIconName="fas fa-search" title="Explore" href="/twitter/explore" /></li>
           {
             currentUser
-              ? (<li className="menu-list"><MenuItem faIconName="fas fa-user" title="Profile" href="/twitter/profile" /></li>)
+              ? (
+                <>
+                  <li className="menu-list"><MenuItem faIconName="fas fa-user" title="Profile" href="/twitter/profile" /></li>
+                  <li><LogoutLink /></li>
+                </>
+              )
               : (
                 <>
-                  <li className="menu-list"><MenuItem faIconName="fas fa-user-plus" title="Sign up" href="/signup" /></li>
-                  <li className="menu-list"><MenuItem faIconName="fas fa-sign-in-alt" title="Login" href="/login" /></li>
+                  <li className="menu-list"><MenuItem faIconName="fas fa-user-plus" title="Sign up" href="/twitter/signup" /></li>
+                  <li className="menu-list"><MenuItem faIconName="fas fa-sign-in-alt" title="Login" href="/twitter/login" /></li>
                 </>
               )
             }

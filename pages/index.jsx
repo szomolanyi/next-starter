@@ -57,8 +57,11 @@ const Index = () => (
                   <li>Apollo GraphQL client</li>
                   <li><a className="has-text-danger" href="https://www.mongodb.com">Mongo database</a></li>
                   <li>Password or social based authentication</li>
-                  <li><a className="has-text-danger" href="https://cloudinary.com/">Cloudinary</a> image handling</li>
-                  <li><a className="has-text-danger" href="https://bulma.ioBulma/">Bulma</a> CSS framework</li>
+                  <li>
+                    <a className="has-text-danger" href="https://cloudinary.com/">Cloudinary</a>
+                    { ' image handling' }
+                  </li>
+                  <li><a className="has-text-danger" href="https://bulma.io/">Bulma</a> CSS framework</li>
                   <li><a className="has-text-danger" href="https://sendgrid.com/">Sendgrid</a> email processing</li>
                   <li><a className="has-text-danger" href="https://vercel.com/">Vercer</a> deployment</li>
                   <li><Link href="/twitter"><a className="has-text-danger">Twitter demo</a></Link> application</li>
@@ -76,7 +79,13 @@ const Index = () => (
           <h1 className="title">About</h1>
           <p>Hi, my name is Robert and I am author of NEXT.JS STARTER project.</p>
           <p>It is my atempt to provide boilerplate for rapid development of full stack web applications based on NEXT.JS, GraphQL and Mongo database trio.</p>
-          <p>If you have some suggestions, ideas or requests to modify Next.js starter, feel free to send email to <a href="mailto:szomolanyi@gmail.com" className="has-text-danger">szomolanyi@gmail.com</a>.</p>
+          <p>
+            If you have some suggestions, ideas or requests to modify Next.js starter, feel free to send email to
+            {' '}
+            <a href="mailto:szomolanyi@gmail.com" className="has-text-danger">szomolanyi@gmail.com</a>
+            {' '}
+            .
+          </p>
           <p>If you value may work, please support me on Patreon.</p>
           <ScrollArrow href="#start" direction="up" />
         </div>

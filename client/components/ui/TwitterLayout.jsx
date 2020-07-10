@@ -36,6 +36,12 @@ const Layout = ({ title, children }) => {
           <main className="column is-6-desktop">
             <TwitterNavBar title={title} />
             <AppMessageModal />
+            <div className="notification is-warning is-size-7">
+              <strong>
+                This is Twitter demo app created to demonstrate abilities od Next Starter project.
+                Feel free to look around, create account and some tweets.
+              </strong>
+            </div>
             <section className="section">
               {children}
             </section>
