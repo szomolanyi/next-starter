@@ -1,3 +1,6 @@
+* ked nefunguje konekt do Mongo, tak sa zacykli useUser hook, zacyklenie nastava pri lubovolnom pouziti useErrorHandler hooku (napr. ked GET_TWEETS raisne)
+  * chybajuci connect na Mongo, resp. na API treba urcite vyriesit
+
 * UserProfile : 
   * logout pti userProfile sposobi chybu, zatial funguje, asi suvisi s curentUSer je null ked je logout
   
