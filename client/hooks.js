@@ -20,7 +20,6 @@ export const useModal = (isOpenInit) => {
   };
 };
 
-
 export const useErrorHandler = () => {
   const [setAppMessage] = useMutation(SET_APP_MESSAGE);
   return (error) => {
@@ -30,10 +29,9 @@ export const useErrorHandler = () => {
 };
 
 export const useUser = () => {
-  const { loading, error, data } = useQuery(CURRENT_USER);
-  const handleErrors = useErrorHandler();
+  const onError = useErrorHandler();
+  const { loading, error, data } = useQuery(CURRENT_USER, { onError });
   if (error) {
-    handleErrors(error);
     return {
       loading: false,
       currentUser: null,

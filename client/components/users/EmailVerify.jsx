@@ -36,25 +36,21 @@ const VerifyResult = ({ result, currentUser }) => {
 };
 
 const EmailVerify2 = ({ token, currentUser }) => {
-  const handleErrors = useErrorHandler();
+  const onError = useErrorHandler();
+  const [result, setResult] = useState(null);
   const [verifyEmailFunc] = useMutation(VERIFY_EMAIL, {
     refetchQueries: [
       'CurrentUser',
     ],
+    onError,
+    onCompleted: ({ verifyEmail }) => setResult(verifyEmail),
   });
-  const [result, setResult] = useState(null);
   useEffect(() => {
     if (currentUser && currentUser.isVerified) {
       setResult(createResult('ALREADY_VERIFIED'));
       return;
     }
-    verifyEmailFunc({ variables: { token } })
-      .then(({ data: { verifyEmail } }) => {
-        setResult(verifyEmail);
-      })
-      .catch((err) => {
-        handleErrors(err);
-      });
+    verifyEmailFunc({ variables: { token } });
   }, []);
   return <VerifyResult result={result} currentUser={currentUser} />;
 };
