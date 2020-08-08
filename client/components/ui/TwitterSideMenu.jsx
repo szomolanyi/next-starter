@@ -1,69 +1,72 @@
 import React, { useContext } from 'react';
 import Link from 'next/link';
-import LogoutLink from '../users/LogoutLink';
-
 import TwitterContext from '../../context';
-import { useUser } from '../../hooks';
+import { useUser, useLogout, useVerifyEmail } from '../../hooks';
+import { getMenuData } from '../../utils';
 
-
-const MenuItem = ({
-  faIconName, title, href, IconComponent, currentUser,
-}) => (
-  <Link href={href}>
-    <a>
-      <div>
-        <span className={!IconComponent && 'icon'}>
-          {
-            IconComponent
-              ? <IconComponent currentUser={currentUser} /> : <i className={faIconName} />
-          }
-        </span>
-        <span>{title !== '' && title}</span>
-        <style jsx>
-          {`
-            span:nth-child(2) {
-              margin-left: 1rem;
-            }
-          `}
-        </style>
-      </div>
-    </a>
-  </Link>
+const MenuItem = ({ faIconName, title }) => (
+  <div>
+    <span className="icon">
+      <i className={faIconName} />
+    </span>
+    <span>{title !== '' && title}</span>
+    <style jsx>
+      {`
+        span:nth-child(2) {
+          margin-left: 1rem;
+        }
+      `}
+    </style>
+  </div>
 );
+
+const LinkMenuItem2 = ({
+  href, aProps, itemProps,
+}) => {
+  if (href) {
+    return (
+      <Link href={href}>
+        <a {...aProps}>
+          <MenuItem {...itemProps} />
+        </a>
+      </Link>
+    );
+  }
+  return (
+    <a {...aProps}>
+      <MenuItem {...itemProps} />
+    </a>
+  );
+};
 
 const TwitterSideMenu = () => {
   const { currentUser } = useUser();
   const { openNewTweetModal } = useContext(TwitterContext);
+  const [logout] = useLogout();
+  const [verifyEmail] = useVerifyEmail();
+  const menuData = getMenuData(currentUser, logout, verifyEmail);
   return (
     <aside className="menu">
       <div className="is-size-5 has-text-weight-bold twitter-side-menu">
         <ul>
-          <li className="menu-list has-text-info"><MenuItem faIconName="fab fa-twitter" title="TWITTER DEMO" href="/twitter/" /></li>
-          <li className="menu-list"><MenuItem faIconName="fas fa-home" title="Home" href="/twitter/" /></li>
-          <li className="menu-list"><MenuItem faIconName="fas fa-search" title="Explore" href="/twitter/explore" /></li>
           {
-            currentUser
-              ? (
-                <>
-                  <li className="menu-list"><MenuItem faIconName="fas fa-user" title="Profile" href="/twitter/profile" /></li>
-                  <li><LogoutLink /></li>
-                </>
-              )
-              : (
-                <>
-                  <li className="menu-list"><MenuItem faIconName="fas fa-user-plus" title="Sign up" href="/twitter/signup" /></li>
-                  <li className="menu-list"><MenuItem faIconName="fas fa-sign-in-alt" title="Login" href="/twitter/login" /></li>
-                </>
-              )
-            }
-          <li className="menu-list"><MenuItem faIconName="fas fa-window-close" title="Exit twitter" href="/" /></li>
+            menuData.map((item) => (
+              <li key={item.itemProps.title} className={item.className}>
+                <LinkMenuItem2
+                  itemProps={item.itemProps}
+                  href={item.href}
+                  aProps={item.aProps}
+                />
+              </li>
+            ))
+          }
         </ul>
         <button
           type="button"
           className="button is-rounded is-link"
           onClick={() => openNewTweetModal(null)}
         >
-            Tweet
+          Tweet
         </button>
       </div>
       <style jsx>

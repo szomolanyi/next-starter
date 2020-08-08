@@ -93,7 +93,8 @@ module.exports = {
       const user = await User.register(new User({
         email,
         follows: [],
-        hasLocalPassword: true }), password);
+        hasLocalPassword: true,
+      }), password);
       await sendVerificationEmail(user._id, user.email);
       await login_(user, login);
       return user;

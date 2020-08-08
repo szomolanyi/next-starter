@@ -7,7 +7,7 @@ import SocialLoginButtons from '../../client/components/users/SocialLoginButtons
 const LoginPage = ({ messages }) => (
   <Layout>
     <h1 className="title">Email login</h1>
-    <LoginForm messages={messages} />
+    <LoginForm messages={messages} redirectTo="/twitter" />
     <hr />
     <h1 className="title has-text-centered">or</h1>
     <SocialLoginButtons />

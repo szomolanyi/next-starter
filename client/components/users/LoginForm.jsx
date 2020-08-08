@@ -14,8 +14,7 @@ const LoginSchema = Yup.object().shape({
     .required('Required'),
 });
 
-
-const LoginForm = () => {
+const LoginForm = ({ redirectTo }) => {
   const [login] = useMutation(LOGIN_USER);
   const client = useApolloClient();
   return (
@@ -35,7 +34,7 @@ const LoginForm = () => {
               setSubmitting(false);
               resetForm();
               client.resetStore();
-              Router.push('/');
+              Router.push(redirectTo || '/');
             })
             .catch((error) => {
               setSubmitting(false);

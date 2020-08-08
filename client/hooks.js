@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useMutation, useQuery, useApolloClient } from '@apollo/react-hooks';
 
 import { graphQlErrorFilter } from './utils';
-import { SET_APP_MESSAGE, CURRENT_USER } from './queries';
+import {
+  SET_APP_MESSAGE, CURRENT_USER, LOGOUT_USER, SEND_VERIFY_EMAIL,
+} from './queries';
 
 export const useModal = (isOpenInit) => {
   const [modalOpened, setOpen] = useState(isOpenInit);
@@ -50,6 +52,28 @@ export const useUser = () => {
     currentUser: data.currentUser,
     currentUserId: data.currentUser ? data.currentUser._id : null,
   };
+};
+
+export const useLogout = () => {
+  const client = useApolloClient();
+  const onError = useErrorHandler();
+  const logout = useMutation(LOGOUT_USER, {
+    onError,
+    onCompleted: () => client.resetStore(),
+  });
+  return logout;
+};
+
+export const useVerifyEmail = () => {
+  const onError = useErrorHandler();
+  const [setAppMessage] = useMutation(SET_APP_MESSAGE);
+  const sendVerifyEmail = useMutation(SEND_VERIFY_EMAIL, {
+    onError,
+    onCompleted: () => {
+      setAppMessage({ variables: { messages: ['Verification email was sent. Please check your email and click verification link.'] } });
+    },
+  });
+  return sendVerifyEmail;
 };
 
 export const useDeleteTweetModal = () => {
