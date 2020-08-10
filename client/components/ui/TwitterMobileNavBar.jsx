@@ -53,7 +53,7 @@ const TwitterMobileNavBar = ({ title }) => {
       <div id="mobileNav" className={`navbar-menu ${active}`}>
         <div className="navbar-start">
           {
-            menuData.map((item) => <MenuItem item={item} />)
+            menuData.map((item) => <MenuItem key={item.itemProps.title} item={item} />)
           }
         </div>
       </div>
