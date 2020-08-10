@@ -103,7 +103,7 @@ app.get('/auth/google/callback', (req, res, next) => {
         console.log({ m: 'Google auth login error', err1 });
         return res.render('social_auth_err');
       }
-      return res.redirect(`${process.env.APP_URL}`);
+      return res.redirect(`${process.env.APP_URL}/twitter`);
     });
   })(req, res, next);
 });

@@ -47,7 +47,7 @@ const LoginForm = ({ redirectTo }) => {
     >
       {
         ({ isSubmitting, status }) => (
-          <React.Fragment>
+          <>
             <Form>
               <Field className="input" name="email" type="text" placeholder="Email" label="Email" component={TextInput} />
               <Field className="input" name="password" type="password" placeholder="Password" label="Password" component={TextInput} />
@@ -57,7 +57,7 @@ const LoginForm = ({ redirectTo }) => {
               // eslint-disable-next-line react/no-array-index-key
               status.errors.map((error, i) => <div key={i} className="has-text-danger has-text-centered">{error.message}</div>)
             }
-          </React.Fragment>
+          </>
         )
       }
     </Formik>
