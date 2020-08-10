@@ -28,7 +28,7 @@ const updateCacheAfterCreate2 = (replyOn, currentUser) => (cache, { data }) => {
     query: GET_TWEETS,
     data: {
       tweetsFeed: {
-        cursor: tweetsFeed.cursor,
+        cursor: tweetsFeed.cursor || createTweet._id,
         tweets: [createTweet, ...tweetsFeed.tweets],
         __typename: 'TweetsFeed',
       },
