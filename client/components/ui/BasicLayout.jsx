@@ -1,5 +1,3 @@
-import '../../styles/styles.sass';
-
 import React from 'react';
 import Head from 'next/head';
 

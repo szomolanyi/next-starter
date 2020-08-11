@@ -1,5 +1,3 @@
-import '../../styles/styles.sass';
-
 import Head from 'next/head';
 
 import React, { useState } from 'react';
