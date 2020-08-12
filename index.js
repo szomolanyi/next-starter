@@ -1,17 +1,16 @@
 const next = require('next');
-const withSass = require('@zeit/next-sass');
 
 // create next app
 const dev = process.env.NODE_ENV !== 'production';
 const nextApp = next({
   dev,
-  conf: withSass({
+  conf: {
     env: {
       SERVER_URL: 'http://localhost:3000',
       APP_URL: 'http://localhost:3000',
       STANDALONE_GRAPHQL: process.env.STANDALONE_GRAPHQL ? process.env.STANDALONE_GRAPHQL : 'NO',
     },
-  }),
+  },
 });
 const handle = nextApp.getRequestHandler();
 const app = require('./server/server');
