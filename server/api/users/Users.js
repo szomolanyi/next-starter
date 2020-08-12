@@ -1,4 +1,3 @@
-
 const typeDefs = `
 extend type Query {
   users(pattern: String): [User]

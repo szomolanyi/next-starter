@@ -32,7 +32,6 @@ mongoose.connection.on('error', (err) => {
   process.exit();
 });
 
-
 // express app
 const app = express();
 

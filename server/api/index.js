@@ -1,4 +1,3 @@
-
 const { makeExecutableSchema } = require('graphql-tools');
 const { merge } = require('lodash');
 

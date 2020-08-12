@@ -1,15 +1,5 @@
 const mongoose = require('mongoose');
 
-/* GraphQL schema
-_id: ID!
-text: String
-author: String!
-likers: [User]!
-edited: Boolean
-reactions: [Tweet]!
-*/
-
-
 const tweetSchema = new mongoose.Schema();
 tweetSchema.add({
   text: {
