@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { useState, useEffect, useRef } from 'react';
 
 import LoadingSection from '../ui/LoadingSection';

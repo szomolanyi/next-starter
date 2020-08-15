@@ -1,4 +1,4 @@
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import { CREATE_USER } from '../../queries';
 import SignUpForm from './SignUpForm';
 import Loading from '../ui/Loading';

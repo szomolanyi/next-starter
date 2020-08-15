@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 import { useState } from 'react';
 import { useDebounce } from 'use-lodash-debounce-throttle';
 

@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 import { APP_MESSAGE, CLOSE_APP_MESSAGE } from '../../queries';
 import { RegisteredComponent } from '../../hocs';
 

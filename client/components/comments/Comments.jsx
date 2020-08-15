@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 
 import { EDIT_COMMENT, GET_COMMENTS, ADD_COMMENT } from '../../queries';
 import CommentsList from './CommentsList';

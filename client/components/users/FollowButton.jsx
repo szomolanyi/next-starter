@@ -1,4 +1,4 @@
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import { useUser } from '../../hooks';
 import { FOLLOW_USER, UNFOLLOW_USER, GET_TWEETS } from '../../queries';
 import MutateButton from '../ui/MutateButton';

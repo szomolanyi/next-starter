@@ -1,4 +1,4 @@
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import { SET_IMAGE_URL, CURRENT_USER } from '../../queries';
 import { useUser } from '../../hooks';
 import { cloudinaryUploadOptions } from '../../utils';

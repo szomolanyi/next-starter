@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import { Formik, Field, Form } from 'formik';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import { graphQlErrorFilter } from '../../utils';
 import { EDIT_USER_PROFILE } from '../../queries';
 import TextInput from '../ui/TextInput';

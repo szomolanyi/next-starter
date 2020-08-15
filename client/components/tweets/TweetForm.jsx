@@ -1,8 +1,6 @@
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
-import { useMutation } from '@apollo/react-hooks';
-
-import gql from 'graphql-tag';
+import { useMutation, gql } from '@apollo/client';
 
 import { useUser } from '../../hooks';
 

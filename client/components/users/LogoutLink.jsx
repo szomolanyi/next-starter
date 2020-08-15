@@ -1,4 +1,4 @@
-import { useMutation, useApolloClient } from '@apollo/react-hooks';
+import { useMutation, useApolloClient } from '@apollo/client';
 import { useErrorHandler } from '../../hooks';
 import { LOGOUT_USER } from '../../queries';
 

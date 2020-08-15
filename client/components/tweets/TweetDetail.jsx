@@ -1,4 +1,4 @@
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import { useContext } from 'react';
 import Link from 'next/link';
 import moment from 'moment';

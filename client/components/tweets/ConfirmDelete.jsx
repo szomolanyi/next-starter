@@ -1,4 +1,4 @@
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 
 import { GET_TWEETS, DELETE_TWEET } from '../../queries';
 import { useUser } from '../../hooks';

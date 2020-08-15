@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 export const TWEET_FRAGMENT = gql`
   fragment TweetParts on Tweet {

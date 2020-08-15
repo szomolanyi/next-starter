@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useMutation, useQuery, useApolloClient } from '@apollo/react-hooks';
+import { useMutation, useQuery, useApolloClient } from '@apollo/client';
 
 import { graphQlErrorFilter } from './utils';
 import {

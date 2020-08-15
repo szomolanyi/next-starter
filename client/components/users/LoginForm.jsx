@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { useMutation, useApolloClient } from '@apollo/react-hooks';
+import { useMutation, useApolloClient } from '@apollo/client';
 import { Formik, Field, Form } from 'formik';
 import React from 'react';
 import Router from 'next/router';

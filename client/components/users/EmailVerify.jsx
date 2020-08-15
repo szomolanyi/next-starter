@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import Link from 'next/link';
 import { VERIFY_EMAIL } from '../../queries';
 import { useErrorHandler, useUser } from '../../hooks';

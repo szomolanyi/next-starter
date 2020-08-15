@@ -10,7 +10,6 @@ if (!process.env.MONGODB_URI) {
 
 const express = require('express');
 const session = require('express-session');
-const flash = require('express-flash');
 const BodyParser = require('body-parser');
 const CookieParser = require('cookie-parser');
 const passport = require('passport');
@@ -53,8 +52,6 @@ app.use(session({
 // passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
-// flash
-app.use(flash());
 console.log(`process.env.STANDALONE_GRAPHQL2=${process.env.STANDALONE_GRAPHQL}`);
 if (process.env.STANDALONE_GRAPHQL === 'YES') {
   app.use(cors({
