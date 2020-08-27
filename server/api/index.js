@@ -1,4 +1,4 @@
-const { makeExecutableSchema } = require('apollo-server-express');
+const { makeExecutableSchema } = require('graphql-tools');
 const { merge } = require('lodash');
 
 const RootSchema = `

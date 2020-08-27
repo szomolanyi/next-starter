@@ -1,6 +1,8 @@
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth2').Strategy;
-const User = require('./models/users');
+import passport from 'passport';
+import { Strategy } from 'passport-google-oauth2';
+import User from './models/users';
+
+const GoogleStrategy = Strategy;
 
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
@@ -87,4 +89,5 @@ const postLogin = (req, res, next) => {
 };
 */
 
-module.exports = {};
+export default passport;
+//module.exports = passport;

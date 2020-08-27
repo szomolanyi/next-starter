@@ -43,6 +43,11 @@ tweetSchema.index({
   },
 });
 
-const Tweet = mongoose.model('Tweet', tweetSchema);
+let Tweet;
+try {
+  Tweet = mongoose.model('Tweet');
+} catch (e) {
+  Tweet = mongoose.model('Tweet', tweetSchema);
+}
 
 module.exports = Tweet;

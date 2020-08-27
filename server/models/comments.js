@@ -25,6 +25,11 @@ commentSchema.index({
   },
 });
 
-const Comment = mongoose.model('Comment', commentSchema);
+let Comment;
+try {
+  Comment = mongoose.model('Comment');
+} catch (e) {
+  Comment = mongoose.model('Comment', commentSchema);
+}
 
 module.exports = Comment;

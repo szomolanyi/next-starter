@@ -2,27 +2,13 @@
   "version": 2,
   "builds": [
     {
-      "src": "server/server.js",
-      "use": "@now/node",
+      "src": "next.config.js",
+      "use": "@now/next",
       "config": {
         "includeFiles": [
           "server/emails/**"
         ]
       }
-    },
-    {
-      "src": "next.config.js",
-      "use": "@now/next"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/graphql",
-      "dest": "server/server.js"
-    },
-    {
-      "src": "/auth.*",
-      "dest": "server/server.js"
     }
   ],
   "alias": [
