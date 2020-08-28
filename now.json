@@ -4,13 +4,15 @@
     {
       "src": "next.config.js",
       "use": "@now/next",
-      "config": {
-        "includeFiles": [
-          "server/emails/**"
-        ]
-      }
     }
   ],
+  "functions": {
+    "api/graphql.js": {
+      "includeFiles": [
+        "server/emails/**"
+      ]
+    }
+  },
   "alias": [
     "ns-fomo.now.sh"
   ],
