@@ -1,15 +1,17 @@
 const crypto = require('crypto');
-const { UserInputError } = require('apollo-server-express');
+const { UserInputError, ApolloError } = require('apollo-server-micro');
 const nodemailer = require('nodemailer');
 const nodemailerSendgrid = require('nodemailer-sendgrid');
-const Email = require('email-templates');
 const sha1 = require('js-sha1');
-
-const { ApolloError } = require('apollo-server-express');
 
 const User = require('../../models/users');
 const Token = require('../../models/token');
 const createResult = require('../../../lib/result-codes');
+
+const genVerificationEmailHtml = (verifyLink) => `
+<h1>Account activation.</h1>
+<h3>Your account has been successfully created. Click <a href="${verifyLink}">this link</a> to activate your account.</h3>
+`;
 
 const sendVerificationEmail = async (_userId, email) => {
   const token = new Token({ _userId, token: crypto.randomBytes(16).toString('hex') });
@@ -19,25 +21,13 @@ const sendVerificationEmail = async (_userId, email) => {
       apiKey: process.env.SENDGRID_API_KEY,
     }),
   );
-  const emailTemplate = new Email({
-    transport,
-    send: true,
-    preview: false,
-    views: {
-      root: 'server/emails',
-    },
-  });
   console.log({ m: 'sendVerificationEmail', email, DEV_EMAIL: process.env.DEV_EMAIL });
   try {
-    await emailTemplate.send({
-      template: 'email-verify',
-      message: {
-        from: process.env.APP_EMAIL,
-        to: process.env.DEV_EMAIL ? process.env.DEV_EMAIL : email,
-      },
-      locals: {
-        verifyLink: `${process.env.APP_URL}/verify?token=${token.token}`,
-      },
+    await transport.sendMail({
+      from: process.env.APP_EMAIL,
+      to: process.env.DEV_EMAIL ? process.env.DEV_EMAIL : email,
+      subject: 'Next starter - account verification email',
+      html: genVerificationEmailHtml(`${process.env.APP_URL}/verify?token=${token.token}`),
     });
   } catch (error) {
     console.log(error);

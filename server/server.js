@@ -15,7 +15,7 @@ const CookieParser = require('cookie-parser');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
-const { ApolloServer } = require('apollo-server-express');
+const { ApolloServer } = require('apollo-server-micro');
 const cors = require('cors');
 const schema = require('./api');
 require('./passport');

@@ -1,4 +1,4 @@
-const { ApolloError, UserInputError } = require('apollo-server-express');
+const { ApolloError, UserInputError } = require('apollo-server-micro');
 const { Types: { ObjectId } } = require('mongoose');
 
 const Tweet = require('../../models/tweets');

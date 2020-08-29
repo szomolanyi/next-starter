@@ -1,18 +1,5 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "next.config.js",
-      "use": "@now/next"
-    }
-  ],
-  "functions": {
-    "api/graphql.js": {
-      "includeFiles": [
-        "server/emails/**"
-      ]
-    }
-  },
   "alias": [
     "ns-fomo.now.sh"
   ],
