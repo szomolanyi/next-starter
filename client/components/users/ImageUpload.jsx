@@ -40,5 +40,4 @@ const UserImageUpload = ({
   );
 };
 
-
 export default UserImageUpload;

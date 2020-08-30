@@ -151,11 +151,10 @@ function createApolloClient(initialState = {}, { getToken }) {
   }
   */
 
-  console.log(`create httplink url=${process.env.SERVER_URL}`);
-  console.log(`STANDALONE_GRAPHQL1=${process.env.STANDALONE_GRAPHQL}`);
+  console.log(`create httplink url=${process.env.NEXT_PUBLIC_SERVER_URL}`);
   const httpLink = new HttpLink({
-    uri: `${process.env.SERVER_URL}/graphql`,
-    credentials: process.env.STANDALONE_GRAPHQL === 'YES' ? 'include' : 'same-origin',
+    uri: `${process.env.NEXT_PUBLIC_SERVER_URL}/graphql`,
+    credentials: 'same-origin',
     fetch,
     fetchOptions,
   })

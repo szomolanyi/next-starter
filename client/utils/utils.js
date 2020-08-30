@@ -35,9 +35,9 @@ export const graphQlErrorFilter = (error) => {
 
 export const cloudinaryUploadOptions = {
   avatar: {
-    cloudName: process.env.CLOUDINARY_CLOUD_NAME,
-    apiKey: process.env.CLOUDINARY_KEY,
-    uploadPreset: process.env.CLOUDINARY_PRESET,
+    cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+    apiKey: process.env.NEXT_PUBLIC_CLOUDINARY_KEY,
+    uploadPreset: process.env.NEXT_PUBLIC_CLOUDINARY_PRESET,
     // sources: ['local'],
     multiple: false,
     showPoweredBy: false,
@@ -45,9 +45,9 @@ export const cloudinaryUploadOptions = {
     maxImageWidth: '500',
   },
   banner: {
-    cloudName: process.env.CLOUDINARY_CLOUD_NAME,
-    apiKey: process.env.CLOUDINARY_KEY,
-    uploadPreset: process.env.CLOUDINARY_PRESET,
+    cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+    apiKey: process.env.NEXT_PUBLIC_CLOUDINARY_KEY,
+    uploadPreset: process.env.NEXT_PUBLIC_CLOUDINARY_PRESET,
     // sources: ['local'],
     multiple: false,
     showPoweredBy: false,

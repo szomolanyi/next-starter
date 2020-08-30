@@ -11,7 +11,7 @@ passport.deserializeUser(User.deserializeUser());
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_APP_CLIENT_ID,
   clientSecret: process.env.GOOGLE_APP_SECRET,
-  callbackURL: `${process.env.SERVER_URL}/auth/google/callback`,
+  callbackURL: `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/google/callback`,
   passReqToCallback: true,
 },
 async (request, accessToken, refreshToken, profile, done) => {

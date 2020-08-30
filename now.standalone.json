@@ -2,15 +2,5 @@
   "version": 2,
   "alias": [
     "ns-fomo.now.sh"
-  ],
-  "build": {
-    "env": {
-      "SERVER_URL": "http://localhost:3000/api",
-      "APP_URL": "http://localhost:3000",
-      "STANDALONE_GRAPHQL": "YES",
-      "CLOUDINARY_KEY": "145936715346926",
-      "CLOUDINARY_CLOUD_NAME": "duhahryey",
-      "CLOUDINARY_PRESET": "geuikqmr"
-    }
-  }
+  ]
 }
