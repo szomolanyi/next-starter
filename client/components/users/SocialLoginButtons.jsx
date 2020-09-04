@@ -1,6 +1,6 @@
 const SocialLoginButtons = () => (
   <div className="buttons">
-    <a className="button is-fullwidth" href={`${process.env.SERVER_URL}/auth/google`}>
+    <a className="button is-fullwidth" href={`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/google`}>
       <span className="icon">
         <svg width="25" height="25">
           <g fill="none" fillRule="evenodd">
