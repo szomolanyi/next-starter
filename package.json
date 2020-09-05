@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev1": "now dev --local-config=now.standalone.json",
+    "dev": "next",
     "now": "now",
     "debug": "node --inspect node_modules/next/dist/bin/next dev",
     "mongo-up": "docker-compose up -d",

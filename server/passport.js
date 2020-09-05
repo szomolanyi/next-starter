@@ -45,49 +45,4 @@ async (request, accessToken, refreshToken, profile, done) => {
   }
 }));
 
-/*
-Use if standard LocalStrategy is used:
-
-passport.serializeUser((user, done) => {
-  done(null, user._id);
-});
-
-passport.deserializeUser((_id, done) => {
-  User.findById(_id).then((user) => {
-    done(null, user);
-  });
-});
-passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
-  User.findOne({ email }, (err, user) => {
-    if (err) return done(err);
-    if (!user) {
-      return done(null, false, { message: 'Invalid email or password' });
-    }
-    return user.comparePassword(password, (err2, isMatch) => {
-      if (err2) return done(err2);
-      if (isMatch) {
-        return done(null, user);
-      }
-      return done(null, false, { message: 'Invalid email or password' });
-    });
-  });
-}));
-const postLogin = (req, res, next) => {
-  passport.authenticate('local', (err, user, info) => {
-    if (err) { return next(err); }
-    if (!user) {
-      // req.flash('errors', info);
-      return res.redirect('/login');
-    }
-    req.login(user, (err) => {
-      console.log({ m: 'afterlogin', user, err });
-      if (err) { return next(err); }
-      // req.flash('success', { msg: 'Success! You are logged in.' });
-      res.redirect(req.session.returnTo || '/');
-    });
-  })(req, res, next);
-};
-*/
-
 export default passport;
-//module.exports = passport;

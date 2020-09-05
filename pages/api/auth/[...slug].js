@@ -9,42 +9,35 @@ const asyncLogin = (req, user) => new Promise((resolve, reject) => req.login(use
   resolve();
 }));
 
-const runAuthAsync = (req, res) => new Promise((resolve, reject) => {
-  passport.authenticate('google', (err, user) => {
-    if (err) {
-      res.end(`Error ${err}`);
-      reject(err);
-    }
-    resolve(user);
-  })(req, res);
-});
-
-const runAuthAsync1 = (req, res) => new Promise((resolve, reject) => {
-  passport.authenticate('google', {
-    scope: [
-      'https://www.googleapis.com/auth/userinfo.profile',
-      'https://www.googleapis.com/auth/userinfo.email',
-    ],
-  },
-  (err, user) => {
-    if (err) {
-      reject(err);
-    } else {
-      resolve(user);
-    }
-  })(req, res);
+const asyncGoogleAuth = (req, res, options) => new Promise((resolve, reject) => {
+  passport.authenticate(
+    'google',
+    options,
+    (err, user) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(user);
+      }
+    },
+  )(req, res);
 });
 
 const google = async (req, res, phase) => {
   let user;
   switch (phase) {
     case 'callback':
-      user = await runAuthAsync(req, res);
+      user = await asyncGoogleAuth(req, res, {});
       await asyncLogin(req, user);
       res.redirect(`${process.env.APP_URL}/twitter`);
       break;
     default:
-      await runAuthAsync1(req, res);
+      await asyncGoogleAuth(req, res, {
+        scope: [
+          'https://www.googleapis.com/auth/userinfo.profile',
+          'https://www.googleapis.com/auth/userinfo.email',
+        ],
+      });
       break;
   }
 };
