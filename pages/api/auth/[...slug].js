@@ -49,6 +49,7 @@ export default nc()
       query: { slug },
     } = req;
     const [type, phase] = slug;
+    console.log(`auth type=${type} phase=${phase}`);
     try {
       switch (type) {
         case 'google':
@@ -59,5 +60,6 @@ export default nc()
       }
     } catch (error) {
       console.log(error);
+      res.redirect(`${process.env.APP_URL}/twitter/loginfailed`);
     }
   });
