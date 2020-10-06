@@ -6,9 +6,11 @@ import UserProfile from '../client/components/users/UserProfile';
 const UserProfilePage = () => (
   <Layout>
     <section className="section">
-      <h1 className="title">User profile</h1>
-      <hr />
-      <UserProfile />
+      <div className="container">
+        <h1 className="title">User profile</h1>
+        <hr />
+        <UserProfile />
+      </div>
     </section>
   </Layout>
 );

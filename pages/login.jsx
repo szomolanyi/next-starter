@@ -6,20 +6,20 @@ import SocialLoginButtons from '../client/components/users/SocialLoginButtons';
 
 const LoginPage = ({ messages }) => (
   <Layout>
-    <div className="columns">
-      <div className="column">
-        <section className="section">
-          <h1 className="title">Email and password</h1>
-          <LoginForm messages={messages} />
-        </section>
+    <section className="section">
+      <div className="container">
+        <div className="columns">
+          <div className="column">
+            <h1 className="title">Email and password</h1>
+            <LoginForm messages={messages} />
+          </div>
+          <div className="column">
+            <h1 className="title">Social login</h1>
+            <SocialLoginButtons />
+          </div>
+        </div>
       </div>
-      <div className="column">
-        <section className="section">
-          <h1 className="title">Social login</h1>
-          <SocialLoginButtons />
-        </section>
-      </div>
-    </div>
+    </section>
   </Layout>
 );
 

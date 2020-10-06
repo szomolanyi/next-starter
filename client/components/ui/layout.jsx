@@ -12,11 +12,8 @@ const Layout = ({ children }) => (
     </Head>
     <Header />
     <AppMessageModal />
-    <div className="container">
-      {children}
-    </div>
+    {children}
   </>
 );
-
 
 export default Layout;
