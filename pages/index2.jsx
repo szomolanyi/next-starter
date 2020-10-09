@@ -1,7 +1,6 @@
 // eslint-disable-next-line
 import { withApollo } from '../client/apollo';
 import Layout from '../client/components/ui/layout';
-import { useUser } from '../client/hooks';
 
 const LoginPage = () => (
   <Layout>
