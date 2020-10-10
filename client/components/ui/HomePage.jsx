@@ -59,10 +59,26 @@ const Layout = () => (
                     <a className="has-text-danger" href="https://cloudinary.com/">Cloudinary</a>
                     { ' image handling' }
                   </li>
-                  <li><a className="has-text-danger" href="https://bulma.io/">Bulma</a> CSS framework</li>
-                  <li><a className="has-text-danger" href="https://sendgrid.com/">Sendgrid</a> email processing</li>
-                  <li><a className="has-text-danger" href="https://vercel.com/">Vercer</a> deployment</li>
-                  <li><Link href="/twitter"><a className="has-text-danger">Twitter demo</a></Link> application</li>
+                  <li>
+                    <a className="has-text-danger" href="https://bulma.io/">Bulma</a>
+                    {' '}
+                    CSS framework
+                  </li>
+                  <li>
+                    <a className="has-text-danger" href="https://sendgrid.com/">Sendgrid</a>
+                    {' '}
+                    email processing
+                  </li>
+                  <li>
+                    <a className="has-text-danger" href="https://vercel.com/">Vercer</a>
+                    {' '}
+                    deployment
+                  </li>
+                  <li>
+                    <Link href="/twitter"><a className="has-text-danger">Twitter demo</a></Link>
+                    {' '}
+                    application
+                  </li>
                 </ul>
               </div>
             </div>
