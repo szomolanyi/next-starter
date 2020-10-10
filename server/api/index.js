@@ -14,14 +14,12 @@ const RootSchema = `
   }
 `;
 
-const CommentsSchema = require('./comments/Comments');
-const CommentsResolvers = require('./comments/resolvers');
 const TweetsSchema = require('./tweets/Tweets');
 const TweetsResolvers = require('./tweets/resolvers');
 const UsersSchema = require('./users/Users');
 const UserResolvers = require('./users/resolvers');
 
 module.exports = makeExecutableSchema({
-  typeDefs: [RootSchema, UsersSchema, CommentsSchema, TweetsSchema],
-  resolvers: merge(CommentsResolvers, UserResolvers, TweetsResolvers),
+  typeDefs: [RootSchema, UsersSchema, TweetsSchema],
+  resolvers: merge(UserResolvers, TweetsResolvers),
 });
