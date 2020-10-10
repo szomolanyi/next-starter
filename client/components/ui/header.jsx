@@ -5,7 +5,6 @@ import VerifyEmailLink from '../users/VerifyEmailLink';
 import Avatar from '../users/Avatar';
 import { useUser } from '../../hooks';
 
-
 const NotLogged = () => (
   <div className="navbar-item">
     <div className="buttons">

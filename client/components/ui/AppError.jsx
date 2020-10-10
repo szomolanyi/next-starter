@@ -16,5 +16,4 @@ const AppError = ({ error }) => (
   </div>
 );
 
-
 export default AppError;

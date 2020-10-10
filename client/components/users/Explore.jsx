@@ -42,7 +42,6 @@ const UserBox = ({ user }) => (
   </div>
 );
 
-
 const SearchUsers = ({ pattern }) => {
   const { loading, error, data } = useQuery(USERS, {
     variables: { pattern },
