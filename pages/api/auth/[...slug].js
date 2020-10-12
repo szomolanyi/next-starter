@@ -29,7 +29,7 @@ const google = async (req, res, phase) => {
     case 'callback':
       user = await asyncGoogleAuth(req, res, {});
       await asyncLogin(req, user);
-      res.redirect(`${process.env.APP_URL}/twitter`);
+      res.redirect(process.env.APP_URL ? `${process.env.APP_URL}` : '/');
       break;
     default:
       await asyncGoogleAuth(req, res, {
@@ -60,6 +60,6 @@ export default nc()
       }
     } catch (error) {
       console.log(error);
-      res.redirect(`${process.env.APP_URL}/twitter/loginfailed`);
+      res.redirect(process.env.APP_URL ? `${process.env.APP_URL}/loginfailed` : '/');
     }
   });
