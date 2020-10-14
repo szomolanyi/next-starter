@@ -23,7 +23,7 @@ export const getMenuData = (currentUser, logout, verifyEmail) => {
     if (!currentUser.isVerified) {
       data.push({
         className: 'menu-list',
-        itemProps: { faIconName: 'fas fa-search', title: 'Verify' },
+        itemProps: { faIconName: 'fas fa-user-lock has-text-danger', title: 'Verify' },
         href: '',
         aProps: { onClick: verifyEmail },
       });
@@ -37,7 +37,7 @@ export const getMenuData = (currentUser, logout, verifyEmail) => {
       },
       {
         className: 'menu-list',
-        itemProps: { faIconName: 'fas fa-search', title: 'Logout' },
+        itemProps: { faIconName: 'fas fa-sign-out-alt', title: 'Logout' },
         href: '',
         aProps: { onClick: logout },
       },
