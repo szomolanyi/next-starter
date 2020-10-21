@@ -16,7 +16,21 @@ const connectDbMiddleware = async (req, res, next) => {
   return next();
 };
 
+const envCheckMiddleware = () => {
+  let envCheckDone = false;
+  return (req, res, next) => {
+    if (envCheckDone === false) {
+      envCheckDone = true;
+      if (!process.env.SENDGRID_API_KEY) {
+        console.warn('SENDGRID_API_KEY environment variable is not defined ... application will not be able to send emails.');
+      }
+    }
+    next();
+  };
+};
+
 export default nc()
+  .use(envCheckMiddleware())
   .use(connectDbMiddleware)
   /*
   .use(session({

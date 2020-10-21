@@ -14,6 +14,10 @@ const genVerificationEmailHtml = (verifyLink) => `
 `;
 
 const sendVerificationEmail = async (_userId, email) => {
+  if (!process.env.SENDGRID_API_KEY) {
+    console.error('Cannot send verification email, environment variable SENDGRID_API_KEY is not defined');
+    throw new UserInputError('We were not able to send you verification email. We are working on to solve the problem. You can login and verify your account later.');
+  }
   const token = new Token({ _userId, token: crypto.randomBytes(16).toString('hex') });
   await token.save();
   const transport = nodemailer.createTransport(
