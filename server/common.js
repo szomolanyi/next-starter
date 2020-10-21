@@ -24,6 +24,9 @@ const envCheckMiddleware = () => {
       if (!process.env.SENDGRID_API_KEY) {
         console.warn('SENDGRID_API_KEY environment variable is not defined ... application will not be able to send emails.');
       }
+      if (!process.env.GOOGLE_APP_CLIENT_ID || !process.env.GOOGLE_APP_SECRET || process.env.GOOGLE_APP_CLIENT_ID === 'none') {
+        console.warn('GOOGLE_APP_CLIENT_ID or GOOGLE_APP_SECRET are not defined ... google sosial auth will not work.');
+      }
     }
     next();
   };
