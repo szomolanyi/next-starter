@@ -25,7 +25,13 @@ const envCheckMiddleware = () => {
         console.warn('SENDGRID_API_KEY environment variable is not defined ... application will not be able to send emails.');
       }
       if (!process.env.GOOGLE_APP_CLIENT_ID || !process.env.GOOGLE_APP_SECRET || process.env.GOOGLE_APP_CLIENT_ID === 'none') {
-        console.warn('GOOGLE_APP_CLIENT_ID or GOOGLE_APP_SECRET are not defined ... google sosial auth will not work.');
+        console.warn('GOOGLE_APP_CLIENT_ID or GOOGLE_APP_SECRET environment variables are not defined ... google sosial auth will not work.');
+      }
+      if (!process.env.NEXT_PUBLIC_CLOUDINARY_KEY
+        || !process.env.NEXT_PUBLIC_CLOUDINARY_PRESET
+        || !process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+        || !process.env.CLOUDINARY_SECRET) {
+        console.warn('NEXT_PUBLIC_CLOUDINARY_KEY or NEXT_PUBLIC_CLOUDINARY_PRESET or NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME or CLOUDINARY_SECRET environment variables are not defined, cloudinary upload will not work.');
       }
     }
     next();
