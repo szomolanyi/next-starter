@@ -4,8 +4,7 @@ import { Formik, Field, Form } from 'formik';
 import TextInput from '../ui/TextInput';
 import { graphQlErrorFilter } from '../../utils';
 
-
-const CommentSchema = Yup.object().shape({
+const FormSchema = Yup.object().shape({
   email: Yup.string()
     .required('Required')
     .email(),
@@ -16,7 +15,6 @@ const CommentSchema = Yup.object().shape({
     .oneOf([Yup.ref('password'), null], 'Passwords must match')
     .required('Required'),
 });
-
 
 const SignUpForm = ({
   signUp, postSubmit,
@@ -48,11 +46,11 @@ const SignUpForm = ({
             });
         }
       }
-    validationSchema={CommentSchema}
+    validationSchema={FormSchema}
   >
     {
         ({ isSubmitting, status }) => (
-          <React.Fragment>
+          <>
             <Form>
               <Field className="input" name="email" type="text" placeholder="Email" label="Email" component={TextInput} />
               <Field className="input" name="password" type="password" placeholder="Password" label="Password" component={TextInput} />
@@ -63,7 +61,7 @@ const SignUpForm = ({
               // eslint-disable-next-line react/no-array-index-key
               status.errors.map((error, i) => <div key={i} className="has-text-danger has-text-centered">{error.message}</div>)
             }
-          </React.Fragment>
+          </>
         )
       }
   </Formik>
