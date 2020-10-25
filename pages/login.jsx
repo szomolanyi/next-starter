@@ -4,14 +4,14 @@ import Layout from '../client/components/ui/layout';
 import LoginForm from '../client/components/users/LoginForm';
 import SocialLoginButtons from '../client/components/users/SocialLoginButtons';
 
-const LoginPage = ({ messages }) => (
+const LoginPage = () => (
   <Layout>
     <section className="section">
       <div className="container">
         <div className="columns">
           <div className="column">
             <h1 className="title">Email and password</h1>
-            <LoginForm messages={messages} />
+            <LoginForm redirectTo="/" />
           </div>
           <div className="column">
             <h1 className="title">Social login</h1>
