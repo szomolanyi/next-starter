@@ -63,24 +63,6 @@ const Header = () => {
         </div>
 
         <div id="navbarBasicExample" className={`navbar-menu ${active}`}>
-          <div className="navbar-start">
-            <Link href="/"><a className="navbar-item">Home</a></Link>
-            <Link href="/twitter"><a className="navbar-item">Tweets</a></Link>
-
-            <Link href="/twitter/explore"><a className="navbar-item">Explore</a></Link>
-
-            <div className="navbar-item has-dropdown is-hoverable">
-              <a className="navbar-link">More</a>
-
-              <div className="navbar-dropdown">
-                <Link href="/"><a className="navbar-item">About</a></Link>
-                <Link href="/"><a className="navbar-item">Contact</a></Link>
-                <hr className="navbar-divider" />
-                <Link href="/"><a className="navbar-item">Report an issue</a></Link>
-              </div>
-            </div>
-          </div>
-
           {
             typeof window !== 'undefined'
             && !loading && (
