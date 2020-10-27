@@ -36,7 +36,7 @@ const Layout = ({ title, children }) => {
             <AppMessageModal />
             <div className="notification is-warning is-size-7">
               <strong>
-                This is Twitter demo app created to demonstrate abilities od Next Starter project.
+                This is Twitter demo app created to demonstrate features od Next Starter project.
                 Feel free to look around, create account and some tweets.
               </strong>
             </div>
