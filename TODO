@@ -1,3 +1,6 @@
+* lepsie ohandluj chybu :TypeError: OAuth2Strategy requires a clientID option
+* lepsie ohandluj ked chyba NEXT_PUBLIC_SERVER_URL
+
 * ked nefunguje konekt do Mongo, tak sa zacykli useUser hook, zacyklenie nastava pri lubovolnom pouziti useErrorHandler hooku (napr. ked GET_TWEETS raisne)
   * chybajuci connect na Mongo, resp. na API treba urcite vyriesit
 

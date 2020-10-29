@@ -8,11 +8,16 @@ const MongoStore = ConnectMongo(session);
 
 const connectDbMiddleware = async (req, res, next) => {
   if (mongoose.connections[0].readyState) return next();
-  await mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useFindAndModify: false,
-    useCreateIndex: true,
-  });
+  try {
+    await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useFindAndModify: false,
+      useCreateIndex: true,
+    });
+  } catch (err) {
+    console.log(`Error connecting to Mongo: ${err}`);
+    return res.status(500).json({ error: 'Unable to connect to MongoDB' });
+  }
   return next();
 };
 
