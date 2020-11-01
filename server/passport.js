@@ -12,7 +12,7 @@ if (process.env.FACEBOOK_APP_CLIENT_ID
   passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_APP_CLIENT_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: 'http://localhost:3000/api/auth/facebook/callback',
+    callbackURL: `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/facebook/callback`,
     profileFields: ['id', 'displayName', 'photos', 'email', 'name'],
   },
   async (accessToken, refreshToken, profile, done) => {
