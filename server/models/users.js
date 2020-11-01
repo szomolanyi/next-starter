@@ -34,6 +34,13 @@ const userSchema = new mongoose.Schema({
     email: String,
     picture: String,
   },
+  facebook: {
+    id: String,
+    name: {
+      givenName: String,
+      familyName: String,
+    },
+  },
 }, {
   timestamps: true,
 });

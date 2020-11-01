@@ -30,7 +30,10 @@ const envCheckMiddleware = () => {
         console.warn('SENDGRID_API_KEY environment variable is not defined ... application will not be able to send emails.');
       }
       if (!process.env.GOOGLE_APP_CLIENT_ID || !process.env.GOOGLE_APP_SECRET || process.env.GOOGLE_APP_CLIENT_ID === 'none') {
-        console.warn('GOOGLE_APP_CLIENT_ID or GOOGLE_APP_SECRET environment variables are not defined ... google sosial auth will not work.');
+        console.warn('GOOGLE_APP_CLIENT_ID or GOOGLE_APP_SECRET environment variables are not defined ... google social auth will not work.');
+      }
+      if (!process.env.FACEBOOK_APP_CLIENT_ID || !process.env.FACEBOOK_APP_SECRET || process.env.FACEBOOK_APP_CLIENT_ID === 'none') {
+        console.warn('FACEBOOK_APP_CLIENT_ID or FACEBOOK_APP_SECRET environment variables are not defined ... google social auth will not work.');
       }
       if (!process.env.NEXT_PUBLIC_CLOUDINARY_KEY
         || !process.env.NEXT_PUBLIC_CLOUDINARY_PRESET

@@ -9,9 +9,9 @@ const asyncLogin = (req, user) => new Promise((resolve, reject) => req.login(use
   resolve();
 }));
 
-const asyncGoogleAuth = (req, res, options) => new Promise((resolve, reject) => {
+const asyncAuth = (req, res, type, options) => new Promise((resolve, reject) => {
   passport.authenticate(
-    'google',
+    type,
     options,
     (err, user) => {
       if (err) {
@@ -23,23 +23,12 @@ const asyncGoogleAuth = (req, res, options) => new Promise((resolve, reject) => 
   )(req, res);
 });
 
-const google = async (req, res, phase) => {
-  let user;
-  switch (phase) {
-    case 'callback':
-      user = await asyncGoogleAuth(req, res, {});
-      await asyncLogin(req, user);
-      res.redirect(process.env.APP_URL ? `${process.env.APP_URL}` : '/');
-      break;
-    default:
-      await asyncGoogleAuth(req, res, {
-        scope: [
-          'https://www.googleapis.com/auth/userinfo.profile',
-          'https://www.googleapis.com/auth/userinfo.email',
-        ],
-      });
-      break;
-  }
+const scopes = {
+  google: [
+    'https://www.googleapis.com/auth/userinfo.profile',
+    'https://www.googleapis.com/auth/userinfo.email',
+  ],
+  facebook: ['email'],
 };
 
 export default nc()
@@ -49,14 +38,13 @@ export default nc()
       query: { slug },
     } = req;
     const [type, phase] = slug;
-    console.log(`auth type=${type} phase=${phase}`);
     try {
-      switch (type) {
-        case 'google':
-          await google(req, res, phase);
-          break;
-        default:
-          break;
+      if (phase === 'callback') {
+        const user = await asyncAuth(req, res, type, { scope: scopes[type] });
+        await asyncLogin(req, user);
+        res.redirect(process.env.APP_URL ? `${process.env.APP_URL}` : '/');
+      } else {
+        await asyncAuth(req, res, type, { scope: scopes[type] });
       }
     } catch (error) {
       console.log(error);

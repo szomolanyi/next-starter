@@ -1,12 +1,50 @@
 import passport from 'passport';
-import { Strategy } from 'passport-google-oauth2';
+import { Strategy as GoogleStrategy} from 'passport-google-oauth2';
+import { Strategy as FacebookStrategy } from 'passport-facebook';
 import User from './models/users';
-
-const GoogleStrategy = Strategy;
 
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+if (process.env.FACEBOOK_APP_CLIENT_ID
+  && process.env.FACEBOOK_APP_SECRET) {
+  passport.use(new FacebookStrategy({
+    clientID: process.env.FACEBOOK_APP_CLIENT_ID,
+    clientSecret: process.env.FACEBOOK_APP_SECRET,
+    callbackURL: 'http://localhost:3000/api/auth/facebook/callback',
+    profileFields: ['id', 'displayName', 'photos', 'email', 'name'],
+  },
+  async (accessToken, refreshToken, profile, done) => {
+    try {
+      const user = await User.findOne({ email: profile.emails[0].value });
+      if (user && !user.isVerified) {
+        return done(new Error('Local email found, but it is not verified'), false);
+      }
+      if (!user) {
+        const newUser = new User({
+          firstName: profile.name.givenName,
+          lastName: profile.name.familyName,
+          facebook: profile,
+          email: profile.emails[0].value,
+          isVerified: true,
+          hasLocalPassword: false,
+        });
+        await newUser.save();
+        return done(null, newUser);
+      }
+      user.firstName = profile.name.givenName;
+      user.lastName = profile.name.familyName;
+      user.facebook = profile;
+      await user.save();
+      return done(null, user);
+    } catch (error) {
+      return done(error, false);
+    }
+  }));
+} else {
+  console.warn('FACEBOOK_APP_CLIENT_ID or FACEBOOK_APP_SECRET environment variables are not defined ... google social auth will not work.');
+}
 
 if (process.env.GOOGLE_APP_CLIENT_ID
     && process.env.GOOGLE_APP_SECRET) {
@@ -47,7 +85,7 @@ if (process.env.GOOGLE_APP_CLIENT_ID
     }
   }));
 } else {
-  console.warn('GOOGLE_APP_CLIENT_ID or GOOGLE_APP_SECRET environment variables are not defined ... google sosial auth will not work.');
+  console.warn('GOOGLE_APP_CLIENT_ID or GOOGLE_APP_SECRET environment variables are not defined ... google social auth will not work.');
 }
 
 export default passport;
