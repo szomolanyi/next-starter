@@ -43,7 +43,7 @@ if (process.env.FACEBOOK_APP_CLIENT_ID
     }
   }));
 } else {
-  console.warn('FACEBOOK_APP_CLIENT_ID or FACEBOOK_APP_SECRET environment variables are not defined ... google social auth will not work.');
+  console.warn('FACEBOOK_APP_CLIENT_ID or FACEBOOK_APP_SECRET environment variables are not defined ... facebook social auth will not work.');
 }
 
 if (process.env.GOOGLE_APP_CLIENT_ID

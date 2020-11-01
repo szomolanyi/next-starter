@@ -1,3 +1,5 @@
+* Over, ako zafunguje facebook social auth ak nie je definovana facebook app
+
 * ked nefunguje konekt do Mongo, tak sa zacykli useUser hook, zacyklenie nastava pri lubovolnom pouziti useErrorHandler hooku (napr. ked GET_TWEETS raisne)
   * chybajuci connect na Mongo, resp. na API treba urcite vyriesit
 
